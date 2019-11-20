@@ -1,0 +1,16 @@
+baseURL = "https://www.cookiestatus.com/"
+languageCode = "en-us"
+title = "Current Status Of Browser Tracking Prevention | cookiestatus.com"
+theme = "hugo-theme-learn"
+
+[outputs]
+home = [ "HTML", "RSS", "JSON" ]
+
+[params]
+  author = "Simo Ahava"
+  description = "Latest information and news about browser storage across the modern web browser landscape. Designed to provide information on ITP, ETP, and similar initiatives."
+  showVisitedLinks = false
+  disableSearch = false
+  disableInlineCopyToClipBoard = false
+  themeVariant = "blue"
+
