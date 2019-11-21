@@ -13,4 +13,3 @@ home = [ "HTML", "RSS", "JSON" ]
   disableSearch = false
   disableInlineCopyToClipBoard = false
   themeVariant = "blue"
-
