@@ -1,3 +1,3 @@
-# cookie-status
+# cookie-status-dev
 
-Web service that displays the current status of tracking prevention mechanisms across the major browsers.
+Static site generator files for the www.cookiestatus.com front-end (https://github.com/cookie-status/cookie-status-front/).
