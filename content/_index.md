@@ -18,6 +18,7 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 
 **Last updated**: 20 November 2019
 
+{{< table >}}
 |   | Chrome | Edge | Firefox | Safari |
 |---:|---|---|---|---|
 | **Mechanism** | n/a | [Tracking prevention](https://blogs.windows.com/msedgedev/2019/06/27/tracking-prevention-microsoft-edge-preview/) | [Enhanced Tracking Protection](https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop) (ETP) | [Intelligent Tracking Prevention 2.3](https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/) (ITP) |
@@ -29,3 +30,5 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 | **Cookies in 1st party context** | No restrictions. | No restrictions. | No restrictions. | For cookies set with `document.cookie`, expiration set to 7 days by default, and 24 hours on pages with URL decoration (query parameters or fragments) when referring domain is a known tracker. |
 | **Other browser storage (e.g. localStorage, IndexedDB)** | No restrictions. | Access restricted in third-party context for known trackers. | localStorage and IndexedDB restricted in third-party context for known trackers, sessionStorage is not restricted. No restrictions in first-party context. | Access restricted in third-party context for known trackers. First-party storage restricted to 7 days on pages with URL decoration (query parameters or fragments) when referring domain is a known tracker. |
 | **Referrer** | Default browser policy (`no-referrer-when-downgrade`)        | Default browser policy (`no-referrer-when-downgrade`)        | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`). For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), referrer is downgraded to eTLD+1 (e.g. https://app.site.com/?id=123 becomes https://site.com). |
+
+{{< /table >}}
