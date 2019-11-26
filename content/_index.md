@@ -16,10 +16,10 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 
 ## Current status
 
-**Last updated**: 20 November 2019
+**Last updated**: 26 November 2019
 
 {{< table >}}
-|   | [Chrome](/chrome/current-status/) | [Edge](/edge/current-status/) | [Firefox](/firefox/current-status/) | [Safari](/safari/current-status/) |
+|   | [Chrome](/chrome/current-status/) | [Edge (Beta)](/edge/current-status/) | [Firefox](/firefox/current-status/) | [Safari](/safari/current-status/) |
 |---:|---|---|---|---|
 | **Mechanism** | n/a | [Tracking prevention](https://blogs.windows.com/msedgedev/2019/06/27/tracking-prevention-microsoft-edge-preview/) | [Enhanced Tracking Protection](https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop) (ETP) | [Intelligent Tracking Prevention 2.3](https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/) (ITP) |
 | **Deployed in** | n/a | [78.0.276.8](https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8) | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/) | [Safari 13 on macOS](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) |
