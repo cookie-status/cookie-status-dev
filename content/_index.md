@@ -3,12 +3,13 @@ title = "Cookie Status"
 date = 2019-11-19T13:57:26+02:00
 type = "currentstatus"
 weight = 5
-
 +++
 
 # Cookie Status
 
 The [cookiestatus.com](https://www.cookiestatus.com) website is a **learning resource** for the various **tracking protection mechanisms** implemented by the major browsers and browser engines.
+
+For more information about the service, please consult the [FAQ](#faq).
 
 {{% notice info %}}
 Please submit suggestions and corrections as **issues** in the GitHub project. Click [here](https://github.com/sahava/cookie-status/issues) to find your way.
@@ -32,3 +33,32 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 | **Other browser storage in 1st party context** | No restrictions. | No restrictions. | No restrictions. | Restricted to 7 days maximum storage on pages with URL decoration (query parameters or fragments) when referring domain is a known tracker. |
 | **Referrer** | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`). For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), referrer is downgraded to eTLD+1 (e.g. https://app.site.com/?id=123 becomes https://site.com). |
 {{< /table >}}
+
+## FAQ
+
+### 1. Why does this resource exist?
+
+Web browsers are going through fairly momentous shifts in order to better respond to the increasing number of data breaches and cases of data misuse by third parties.
+
+Unfortunately, each browser (and the underlying browser engine) seems to have their own interpretation of how to best tackle the problem, which leads to a diverse set of features across the browser landscape. 
+
+What's worse, the information about how these tracking protection mechanisms are deployed is all over the place: in release notes, in developer documentation, in Twitter threads, in working groups, in feature drafts, in bug patches, etc. 
+
+The purpose of the **Cookie Status** resource is to (attempt to) collect this information in one place for easy access and perusal.
+
+There is no commercial agenda behind this project. In fact, there is no agenda other than knowledge transfer.
+
+### 2. Why only the four browsers?
+
+Just to kick things off. Hopefully the open-source nature of this project will invite others to contribute details about browsers that are doing significant work with regard to user privacy (e.g. [Brave](https://www.brave.com/)).
+
+### 3. What cookies / browser storage does Cookie Status set and why?
+
+Cookie Status doesn't use browser cookies, `localStorage`, or `IndexedDB`.
+
+`sessionStorage` is used to add some functionality to navigation (marking visited pages, highlighting search terms). 
+
+Nothing in browser storage is sent to any third parties at any time.
+
+If you see anything contrary to the above, please raise [an issue](https://github.com/cookie-status/cookie-status-dev/issues) about this.
+

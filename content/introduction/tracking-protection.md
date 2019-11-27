@@ -7,8 +7,6 @@ weight: 10
 
 Tracking protection, and similar measures, seek to protect the **user** against harmful data collection and exploitation by third-party platforms, scripts, and applications.
 
-As a concept, it's convoluted and multi-faceted. The terminology used is often very vague. Information about the different mechanisms employed by web browsers is distributed across release notes, discussion forums, Twitter threads, and developer guides, some of which are outdated soon after release.
-
 In this introductory chapter, we'll take a look at what tracking protection means *in general*, before directing you to the other parts of this site for more indepth information on how different browsers implement countermeasures. 
 
 In short, tracking protection, tracking prevention, anti-tracking, cookie blocking, content blocking, etc. are designed to:
