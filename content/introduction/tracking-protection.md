@@ -13,7 +13,12 @@ In short, tracking protection, tracking prevention, anti-tracking, cookie blocki
 * If a script or resource is loaded in a **third-party context** from such a domain, restrict access to browser storage so that the trackers could not exploit data stored within.
 * In some cases, restrict storage access in a first-party context where it's likely that it could be exploited for **cross-site tracking** purposes.
 
-Here is a **glossary** of sorts on the terminology and jargon central to tracking protection.
+In this introductory chapter, we'll quickly go through some of the key terminology around tracking protection. You are then advised to visit the other pages of Cookie Status for more details.
+
+1. [Cookies](#cookies)
+2. [First-party and third-party context](#first-party-and-third-party-context)
+3. [Cross-site tracking](#cross-site-tracking)
+4. [Restrict storage access](#restrict-storage-access)
 
 ## Cookies
 
