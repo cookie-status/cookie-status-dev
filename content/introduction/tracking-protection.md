@@ -10,10 +10,10 @@ Tracking protection, and similar measures, seek to protect the **user** against 
 In short, tracking protection, tracking prevention, anti-tracking, cookie blocking, content blocking, etc. are designed to:
 
 * **Identify and classify** domains that have been recognized as employing tracking mechanisms harmful to (browsers' intepretation of) user privacy.
-* If a script or resource is loaded in a **third-party context** from such a domain, restrict access to browser storage so that the trackers could not exploit data stored within.
+* If a script or resource is loaded in a **third-party context** from such a domain, restrict access to browser storage so that the trackers can not exploit data stored within.
 * In some cases, restrict storage access in a first-party context where it's likely that it could be exploited for **cross-site tracking** purposes.
 
-In this introductory chapter, we'll quickly go through some of the key terminology around tracking protection. You are then advised to visit the other pages of Cookie Status for more details.
+In this introductory chapter, we'll gloss over some of the key terminology regarding tracking protection. You are then advised to visit the other pages of Cookie Status for more details.
 
 1. [Cookies](#cookies)
 2. [First-party and third-party context](#first-party-and-third-party-context)
@@ -22,7 +22,7 @@ In this introductory chapter, we'll quickly go through some of the key terminolo
 
 ## Cookies
 
-**Browser cookies** are key-value pairs (e.g. `id=abcd1234`) of information stored on the user's computer. Websites set them in order to persist information from one page to the next. This is because the web is effectively stateless - only a very limited set of information is shared from one page the next. By writing information into browser storage, that information persists even if the pages the user navigates on are unloaded and their storage is purged.
+**Browser cookies** are key-value pairs (e.g. `id=abcd1234`) of information stored on the user's computer. Websites set them in order to persist information from one page to the next. This is because the web is effectively stateless - only a very limited set of information is shared from one page to the next. By writing information into browser storage, that information persists even if the pages the user navigates on are unloaded and their storage purged.
 
 When the user browses a website, that site has the capability to **set** or **write** cookies on the user's computer, and the site also has the ability to **get** or **read** the cookies stored on the user's computer. Due to browser security and same-origin restrictions - the website **can only get and set cookies for the domain the user is currently on**, i.e. in a *first-party context* (see the next chapter).
 
@@ -42,21 +42,23 @@ The following three domains are all considered to be in the same domain hierarch
 
 The following three domains are **not** part of the same hierarchy:
 
-* **store**.ecommerce.cookiestatus.com (not an ancestor of blog.ecommerce.cookiestatus.com)
+* **store**.ecommerce.cookiestatus.com (different subdomain)
 * blog.ecommerce.cookiestatus.**co.uk** (different eTLD)
 * blog.ecommerce.**storagestatus**.com (different eTLD+1)
 
-The user's browser can set cookies on any of the three domains in the first list. For instance, they can set an identifier cookie on the eTLD+1 with JavaScript like this:
+The user's browser can set cookies on any of the three domains in the first list. For instance, they can **set** an identifier cookie on the eTLD+1 with JavaScript like this:
 
 ```JavaScript
 document.cookie = 'userId=abcd1234;domain=cookiestatus.com';
 ```
 
-If the user's browser requests a resource from **cookiestatus.com**, such as an image or a JavaScript file, then the response from the web server can also use the `Set-Cookie` header to set a cookie on **cookiestatus.com**, and it will then be available for reading on **ecommerce.cookiestatus.com** and **blog.ecommerce.cookiestatus.com**.
+If the user's browser requests a resource from **cookiestatus.com**, such as an image or a JavaScript file, then the *response* from the web server can also use the `Set-Cookie` header to **set** a cookie on **cookiestatus.com**, and it will then be available for reading on **ecommerce.cookiestatus.com** and **blog.ecommerce.cookiestatus.com**.
 
-Similarly, any HTTP request for any resource on one of the three domains in the first list would include all cookies written on any one of the three domains as well. Thus the web server can read these stored bits of information and parse them however they like.
+Similarly, any HTTP request for any resource residing on a domain in the same hierarchy would include all the cookies written on that domain or any domain higher in the hierarchy in the `cookie` header. The web server can read these stored bits of information and parse them however they like.
 
-The browser can also read any cookies set on these three domains with JavaScript (except if they have been specifically flagged as `HttpOnly`, meaning they can only be read in HTTP headers).
+{{< figure src="/images/content/cookie-header.jpg" title="Sample cookie header with all cookies available on the target domain" class="left-align" >}}
+
+The browser can also read any cookies available to the current domain with JavaScript (except if they have been specifically flagged as `HttpOnly`, meaning they can only be read in HTTP headers).
 
 ```JavaScript
 console.log(document.cookie); // Outputs "userId=abcd1234"
@@ -76,17 +78,17 @@ The examples presented in the previous chapter describe cookie access in a **fir
 **This is important**. The endpoint of the request has access to *all* cookies written on the domain that is mapped to that endpoint. This means that if the endpoint is controlled by a third party, any requests for resources from that endpoint would include cookies you might not want to share with the third party.
 {{% /notice %}}
 
-However, if the user's browser requests a resource from a domain that is not part of the domain hierarchy the user is currently on, the request is a **cross-origin** request. 
+However, if the user's browser requests a resource from a domain that is *not* part of the domain hierarchy the user is currently on, cookies would not be shared between the source and the target of the request. 
 
-As mentioned above, the endpoint has access to all cookies written on the domain mapped to that endpoint. Thus if **blog.ecommerce.cookiestatus.com** makes a request from **image.imagestore.com**, the request would include all the cookies written on the user's computer for **image.imagestore.com** and **imagestore.com**.
+As mentioned above, the endpoint has access to all cookies written on the domain mapped to that endpoint. Thus if **blog.ecommerce.cookiestatus.com** makes a request to **image.imagestore.com**, the request would include all the cookies written on the user's computer for **image.imagestore.com** and **imagestore.com**.
 
-Similarly, if the endpoint responds with a `Set-Cookie` header, they can **write** cookies on **image.imagestore.com** with the HTTP response.
+Similarly, if the endpoint responds with a `Set-Cookie` header, they can **write** cookies on **image.imagestore.com** or **imagestore.com** with the HTTP response.
 
 {{% notice info %}}
-The endpoint at **image.imagestore.com** would **not** have access to cookies written on **blog.ecommerce.cookiestatus.com**, even if the request originated from there.
+The endpoint at **image.imagestore.com** would **not** have access to cookies written on **blog.ecommerce.cookiestatus.com**, even if the request originated from the latter.
 {{% /notice %}}
 
-This type of cookie access happens in a **third-party context**, because the cookies are read from and written on a domain that is not part of the domain hierarchy the user is currently on.
+This type of cookie access occurs in a **third-party context**, because the cookies are read from and written on a domain that is not part of the domain hierarchy the user is currently on.
 
 > You can get and set cookies in third-party context with JavaScript as well. If the website loads content from the external domain in an `<iframe>` element, for example, the user's browser can run `document.cookie` commands within that `<iframe>`, and the reading and writing would happen in the context of *that* domain and not the one the user is currently on. 
 
