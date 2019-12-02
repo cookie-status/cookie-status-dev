@@ -13,6 +13,7 @@ home = [ "HTML", "RSS", "JSON" ]
   disableSearch = false
   disableInlineCopyToClipBoard = false
   themeVariant = "blue"
+  editUrl = "https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20"
 
 [[menu.shortcuts]]
 name = "<i class='fa fa-book'></i> Glossary"

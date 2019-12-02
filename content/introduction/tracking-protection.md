@@ -9,7 +9,7 @@ Tracking protection, and similar measures, seek to protect the **user** against 
 
 In short, tracking protection, tracking prevention, anti-tracking, cookie blocking, content blocking, etc. are designed to:
 
-* **Identify and classify** domains that have been recognized as employing tracking mechanisms harmful to (browsers' intepretation of) user privacy.
+* **Identify and classify** domains that have been recognized as employing tracking mechanisms harmful to (browsers' interpretation of) user privacy.
 * If a script or resource is loaded in a **third-party context** from such a domain, restrict access to browser storage so that the trackers can not exploit data stored within.
 * In some cases, restrict storage access in a first-party context where it's likely that it could be exploited for **cross-site tracking** purposes.
 

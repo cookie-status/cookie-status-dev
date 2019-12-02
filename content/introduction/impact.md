@@ -64,7 +64,7 @@ Safari is taking an even stricter stance, stripping [all cross-origin referrers]
 Because of the unreliability of the referrer, websites should avoid placing too much importance on interpreting what is stored in the referrer string, especially when using JavaScript's `document.referrer`.
 {{% /notice %}}
 
-## Advertising and marketing techonologies
+## Advertising and marketing technologies
 
 ## Digital analytics
 
