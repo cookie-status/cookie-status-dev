@@ -34,6 +34,13 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 | **Referrer** | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`) | Default browser policy (`no-referrer-when-downgrade`). For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), referrer is downgraded to eTLD+1 (e.g. https://app.site.com/?id=123 becomes https://site.com). |
 {{< /table >}}
 
+### Bubbling under
+
+* Safari: `isLoggedIn` ([original explainer](https://lists.w3.org/Archives/Public/public-webappsec/2019Sep/0004.html) and [WebKit changeset for experimental feature](https://trac.webkit.org/changeset/250944/webkit))
+
+* Safari: [Downgrade of all third-party referrers](https://trac.webkit.org/changeset/250413/webkit)
+* Firefox, Edge, Safari, Chrome: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712)
+
 ## FAQ
 
 ### 1. Why does this resource exist?
