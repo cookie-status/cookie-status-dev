@@ -13,3 +13,7 @@ home = [ "HTML", "RSS", "JSON" ]
   disableSearch = false
   disableInlineCopyToClipBoard = false
   themeVariant = "blue"
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-book'></i> Glossary"
+url = "/glossary/"

@@ -48,7 +48,7 @@ This means that websites **should avoid setting cookies with JavaScript where po
 Cookies should never be used to store or send confidential information. They are inherently insecure, regardless of what flags are set when they are created.
 {{% /notice %}}
 
-Websites should set business-critical cookies with the `Set-Cookie` header, setting the [`SameSite`](https://www.owasp.org/index.php/SameSite) and [`Secure`](https://www.owasp.org/index.php/SecureFlag) flags. If the cookie does not need to be accessed by JavaScript, then the [`HttpOnly`](https://www.owasp.org/index.php/HttpOnly) should be set as well.
+Websites should set business-critical cookies with the `Set-Cookie` header using the [`SameSite`](https://www.owasp.org/index.php/SameSite) and [`Secure`](https://www.owasp.org/index.php/SecureFlag) flags. If the cookie does not need to be accessed by JavaScript, then the [`HttpOnly`](https://www.owasp.org/index.php/HttpOnly) flag should be set as well.
 
 By setting the cookie in an HTTP response, it is unimpacted by Intelligent Tracking Prevention's restrictions on first-party storage.
 
