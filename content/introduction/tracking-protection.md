@@ -7,13 +7,13 @@ weight: 10
 
 {{< toc >}}
 
-Tracking protection, and similar measures, seek to protect the **user** against harmful data collection and exploitation by third-party platforms, scripts, and applications.
+Tracking protection, and similar measures, seek to protect the **user** from covert data collection and exploitation by scripts and applications created for such purposes.
 
 In short, tracking protection, tracking prevention, anti-tracking, cookie blocking, content blocking, etc. are designed to:
 
-* **Identify and classify** domains that have been recognized as employing tracking mechanisms harmful to (browsers' interpretation of) user privacy.
-* If a script or resource is loaded in a **third-party context** from such a domain, restrict access to browser storage so that the trackers can not exploit data stored within.
-* In some cases, restrict storage access in a first-party context where it's likely that it could be exploited for **cross-site tracking** purposes.
+* **Identify and classify** domains that utilize and distribute tracking mechanisms obstructive to (browsers' interpretation of) web user privacy.
+* Restrict **storage access** in **third-party context** for such scripts so that the trackers cannot build cross-site profiles of web users.
+* In some cases, restrict storage access in **first-party context** where it's likely that it could be exploited for **cross-site tracking** purposes.
 
 In this introductory chapter, we'll gloss over some of the key terminology regarding tracking protection. You are then advised to visit the other pages of Cookie Status for more details.
 
@@ -24,7 +24,7 @@ In this introductory chapter, we'll gloss over some of the key terminology regar
 
 ## Cookies
 
-**Browser cookies** are key-value pairs (e.g. `id=abcd1234`) of information stored on the user's computer. Websites set them in order to persist information from one page to the next. This is because the web is effectively stateless - only a very limited set of information is shared from one page to the next. By writing information into browser storage, that information persists even if the pages the user navigates on are unloaded and their storage purged.
+**Browser cookies** are key-value pairs (e.g. `id=abcd1234`) of information stored on the user's computer. Websites set them in order to persist information from one page to the next. This is because the web is effectively *stateless* - only a very limited set of information is shared from one page to the next. By writing information into browser storage, that information persists even if the pages the user navigates from are unloaded and their storage purged.
 
 When the user browses a website, that site has the capability to **set** or **write** cookies on the user's computer, and the site also has the ability to **get** or **read** the cookies stored on the user's computer. Due to browser security and same-origin restrictions - the website **can only get and set cookies for the domain the user is currently on**, i.e. in a *first-party context* (see the next chapter).
 
@@ -40,7 +40,7 @@ The following three domains are all considered to be in the same domain hierarch
 
 * **blog.ecommerce.cookiestatus.com** (current domain)
 * **ecommerce.cookiestatus.com** (one level up in the hierarchy)
-* **cookiestatus.com** (effective top-level-domain (`.com`) plus one part (`cookiestatus`))
+* **cookiestatus.com** (eTLD (`.com`) plus one part (`cookiestatus`))
 
 The following three domains are **not** part of the same hierarchy:
 
@@ -60,7 +60,7 @@ Similarly, any HTTP request for any resource residing on a domain in the same hi
 
 {{< figure src="/images/content/cookie-header.jpg" title="Sample cookie header with all cookies available on the target domain" class="left-align" >}}
 
-The browser can also read any cookies available to the current domain with JavaScript (except if they have been specifically flagged as `HttpOnly`, meaning they can only be read in HTTP headers).
+The browser can also read any cookies available to the current domain with JavaScript (except if they have been specifically flagged as `HttpOnly`, meaning they are only passed in HTTP headers).
 
 ```JavaScript
 console.log(document.cookie); // Outputs "userId=abcd1234"
@@ -73,6 +73,10 @@ These examples show how cookies are accessed in a **first-party context**.
 It's common in the parlance of the web to talk about **first-party cookies** and **third-party cookies**. This is a bit of a misnomer. Cookies are pieces of information that are stored on the user's computer. There is no distinction between *first-party* and *third-party* in how these cookies are classified and stored on the computer.
 
 What matters is the **context** of the access.
+
+{{% notice info %}}
+Nevertheless, to align with other discussions around the same topic, Cookie Status will use *first-party cookie*  and *third-party cookie* for clarity's sake.
+{{% /notice %}}
 
 The examples presented in the previous chapter describe cookie access in a **first-party context**. When the user's browser requests a resource from the same domain hierarchy (up to eTLD+1) as the website the user is currently on, that request will include all the cookies that have been set for that domain.
 

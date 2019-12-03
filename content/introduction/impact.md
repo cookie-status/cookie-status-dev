@@ -133,13 +133,15 @@ Here, *user experience optimization* covers the broad topics of **conversion (ra
 
 For experimentation and data collection, it's important that the user's experience on the site be **consistent**. Being exposed to a different variant of the site with every page load can lead to confusion and introduce friction, especially in ecommerce contexts.
 
-To ensure consistency, optimization platforms set an identifier in the user's browser storage that tells these platforms which experimentation variant or personalization group they belong to. This storage would *typically* be accessed in a first-party context, but if the optimization derives targeting parameters from a global profile, the storage access might be required in a third-party context, too.
+{{< figure src="/images/content/optimizely-storage.jpg" title="Storage specification on the Optimizely platform https://bit.ly/2YdKmVG" class="left-align" >}}
+
+To ensure consistency, optimization platforms set **identifiers** in the user's browser storage that tells these platforms which experimentation variant or personalization group they belong to. This storage would *typically* be accessed in a first-party context, but if the optimization derives targeting parameters from a global profile, the storage access might be required in a third-party context, too.
 
 Because the vendors often provide their solutions using global content delivery networks (CDN), these domains tend to get blacklisted in browsers' tracking protection lists and algorithms. Thus their capability to deliver experiences based on data harvested from third-party storage is compromised.
 
-Similar to digital analytics, first-party storage is also restricted on Safari. Due to the short expiration time of script-writable storage, experimentation and personalization platforms can't deliver consistent experiences. In addition to this, the inability to control the sample sizes and deduplicate conversions often leads to too much noise in the calculation of statistical significance for the experimentation variations.
+Similar to digital analytics, first-party storage for content optimization is also restricted on **Safari**. Due to the short expiration time of script-writable storage, experimentation and personalization platforms **can't deliver consistent experiences**. In addition to this, the inability to control the sample sizes and deduplicate conversions often leads to too much noise in the calculation of *statistical significance* for the experimentation variations.
 
-Optimization platforms and websites running them should look into utilizing HTTP headers for getting and setting these cookies and for determining which content to show to the user, rather than the JavaScript APIs that have been compromised by Safari's ITP.
+Optimization platforms and websites running them should look into utilizing **HTTP headers** for getting and setting these cookies and for determining which content to show to the user, rather than the JavaScript APIs that have been compromised by Safari's ITP.
 
 
 
