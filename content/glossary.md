@@ -4,9 +4,9 @@ date: 2019-12-02T11:57:51+02:00
 draft: false
 ---
 
-This is a **glossary of terms** used in the website.
+{{< toc >}}
 
-## Terms
+This is a **glossary of terms** used in the website.
 
 #### AdTech
 
@@ -32,7 +32,19 @@ Lorem ipsum
 
 ---
 
+#### Conversion
+
+Lorem ipsum
+
+---
+
 #### Cookie
+
+Lorem ipsum
+
+---
+
+#### Cookie matching / syncing
 
 Lorem ipsum
 
@@ -81,6 +93,12 @@ Lorem ipsum
 ---
 
 #### Referrer
+
+Lorem ipsum
+
+---
+
+#### Referrer downgrade
 
 Lorem ipsum
 

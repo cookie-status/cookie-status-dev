@@ -17,7 +17,9 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 
 ## Current status
 
-**Last updated**: 26 November 2019
+**Last updated**: 3 December 2019
+
+<a title="Suggest an edit" href="https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20Current%20Status" target="_blank"><i class="fa fa-edit"></i> Suggest an edit</a>
 
 {{< table >}}
 |   | [Chrome](/chrome/current-status/) | [Edge (Beta)](/edge/current-status/) | [Firefox](/firefox/current-status/) | [Safari](/safari/current-status/) |
@@ -39,6 +41,7 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 * Safari: `isLoggedIn` ([original explainer](https://lists.w3.org/Archives/Public/public-webappsec/2019Sep/0004.html) and [WebKit changeset for experimental feature](https://trac.webkit.org/changeset/250944/webkit))
 
 * Safari: [Downgrade of all third-party referrers](https://trac.webkit.org/changeset/250413/webkit)
+* Safari: [Block all third-party cookies, regardless of prior access](https://trac.webkit.org/changeset/251467/webkit)
 * Firefox, Edge, Safari, Chrome: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712)
 
 ## FAQ

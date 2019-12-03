@@ -5,6 +5,8 @@ draft: false
 weight: 10
 ---
 
+{{< toc >}}
+
 Tracking protection, and similar measures, seek to protect the **user** against harmful data collection and exploitation by third-party platforms, scripts, and applications.
 
 In short, tracking protection, tracking prevention, anti-tracking, cookie blocking, content blocking, etc. are designed to:

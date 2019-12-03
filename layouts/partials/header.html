@@ -49,9 +49,9 @@
                   {{ $Site := .Site }}
                   {{with $File.Path }}
                   <div id="top-github-link">
-                    <a class="github-link" title='Improve content' href="{{ $Site.Params.editURL }}%2F{{ replace $File.Dir "\\" "%2F" }}{{ $File.LogicalName }}" target="blank">
+                    <a class="github-link" title='Edit' href="{{ $Site.Params.editURL }}%2F{{ replace $File.Dir "\\" "%2F" }}{{ $File.LogicalName }}" target="blank">
                       <i class="fa fa-edit"></i>
-                      <span id="top-github-link-text">Improve content</span>
+                      <span id="top-github-link-text">Edit</span>
                     </a>
                   </div>
                   {{ end }}
@@ -64,7 +64,7 @@
                         </a>
                     </span>
                   {{ if $toc }}
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  <a href="#toc"><i class="fas fa-list-alt"></i></a>
                   {{ end }}
                   <span class="links">
                  {{$showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb))}}

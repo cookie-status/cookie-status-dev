@@ -9,7 +9,34 @@
   figure.left-align h4 {
       margin-top: 0 !important;
   }
+  figure img {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+      max-width: 1024px;
+  }
   blockquote p {
       color: #666 !important;
+  }
+  #toc {
+      max-width: 500px;
+      float:right;
+      background: #e6f1ff;
+      border: 1px dotted #ccc;
+      padding: 10px;
+      margin: 10px;
+      
+  }
+  #toc strong {
+      padding-left: 15px;
+  }
+  #TableOfContents ul {
+      margin: 0 !important;
+      padding: 0;
+      list-style-type: none;
+  }
+  #TableOfContents > ul > li > ul > li > ul {
+      padding-left: 10px;
+  }
+  a[href="#toc"] {
+      color: #000;
   }
 </style>
