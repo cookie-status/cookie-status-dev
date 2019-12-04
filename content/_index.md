@@ -7,7 +7,7 @@ weight = 5
 
 # Cookie Status
 
-The [cookiestatus.com](https://www.cookiestatus.com) website is a **learning resource** for the various **tracking protection mechanisms** implemented by the major browsers and browser engines.
+The [cookiestatus.com](https://www.cookiestatus.com) website is a **knowledge sharing resource** for the various **tracking protection mechanisms** implemented by the major browsers and browser engines.
 
 For more information about the service, please consult the [FAQ](#faq).
 

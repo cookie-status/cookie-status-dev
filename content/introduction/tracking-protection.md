@@ -20,21 +20,25 @@ In this introductory chapter, we'll gloss over some of the key terminology regar
 1. [Cookies](#cookies)
 2. [First-party and third-party context](#first-party-and-third-party-context)
 3. [Cross-site tracking](#cross-site-tracking)
-4. [Restrict storage access](#restrict-storage-access)
+4. [Storage access restriction](#storage-access-restriction)
 
 ## Cookies
 
 **Browser cookies** are key-value pairs (e.g. `id=abcd1234`) of information stored on the user's computer. Websites set them in order to persist information from one page to the next. This is because the web is effectively *stateless* - only a very limited set of information is shared from one page to the next. By writing information into browser storage, that information persists even if the pages the user navigates from are unloaded and their storage purged.
 
-When the user browses a website, that site has the capability to **set** or **write** cookies on the user's computer, and the site also has the ability to **get** or **read** the cookies stored on the user's computer. Due to browser security and same-origin restrictions - the website **can only get and set cookies for the domain the user is currently on**, i.e. in a *first-party context* (see the next chapter).
+{{% notice info %}}
+Typical use cases for cookies include persisting a **shopping cart** from one page to the next on an ecommerce site, storing details about user's **login status**, and for setting an **identifier** for the user, so that their visits can be recognized in an analytics tool as originating from the same browser.
+{{% /notice %}}
+
+When the user browses a website, that site has the capability to **write** cookies on the user's computer, and the site also has the ability to **read** the cookies stored on the user's computer. Due to browser security and same-origin restrictions - the website **can only read and write cookies for the website the user is currently on**, i.e. in a *first-party context* (see the next chapter).
 
 {{% notice info %}}
 More specifically, the website has access to any cookies written on **the current domain** the user is browsing on, and on any domains *higher* up in the domain (or DNS) hierarchy, all the way to the effective top-level domain (**eTLD**) plus one part.
 {{% /notice %}}
 
-{{< figure src="/images/content/cookie-example.jpg" title="Cookies set on current domain and on the eTLD+1" class="left-align" >}}
+{{< figure src="/images/content/cookie-example.jpg" title="First-party cookies set on the current domain and on the eTLD+1" class="left-align" >}}
 
-As an example, let's say the user is browsing **blog.ecommerce.cookiestatus.com**. This is the **domain** the user is currently on.
+As an example, let's say the user is browsing the **blog.ecommerce.cookiestatus.com** website. This is the **domain** the user is currently on.
 
 The following three domains are all considered to be in the same domain hierarchy: 
 
@@ -48,25 +52,46 @@ The following three domains are **not** part of the same hierarchy:
 * blog.ecommerce.cookiestatus.**co.uk** (different eTLD)
 * blog.ecommerce.**storagestatus**.com (different eTLD+1)
 
-The user's browser can set cookies on any of the three domains in the first list. For instance, they can **set** an identifier cookie on the eTLD+1 with JavaScript like this:
+### Reading and writing cookies
+
+Cookies can be **read** and **written** in two ways: with **HTTP headers** and with **JavaScript**. 
+
+The first method relates to the browser **requesting** resources from a target web address. This is done via an **HTTP request**. When the browser requests a resource from a web address, that **request** will include a `cookie` header, which includes **all the cookies** written on the *target* domain.
+
+{{< figure src="/images/content/cookie-header.jpg" title="Sample cookie header with all cookies available on the target domain" class="left-align" >}}
+
+The web server that receives the request from the website thus has access to the cookies in the `cookie` header. If the target domain is within the hierarchy of the website the request originated from, the cookie access is said to happen in **first-party context**, and browsers do not restrict the `cookie` header in this scenario.
+
+If the target domain is **not** part of the same domain hierarchy as the website the request originated from, the `cookie` header will be populated only if the browser **does not block** third-party cookies.
+
+{{% notice info %}}
+Instead of blocking **all** third-party cookies, some browsers block storage access from domains that are **known trackers**. Thus it's possible that the `cookie` header is populated for some third-party requests but missing from others.
+{{% /notice %}}
+
+Similar to reading cookies, the HTTP protocol can be used to **write** cookies as well. The web server can return with an **HTTP response** including the `Set-Cookie` header. This header is an instruction to the browser to **write** the included cookie(s) on the domain the response was sent from (i.e. the target of the original request).
+
+{{< figure src="/images/content/set-cookie.jpg" title="Sample Set-Cookie header with instructions on which domain to write the cookie" class="left-align" >}}
+
+{{% notice info %}}
+As with reading cookies, **writing** cookies is subject to context of the operation as well. If the domain the request originated from is in the same hierarchy as the domain that responds to the request, the `Set-Cookie` header operates in a first-party context and browsers do not limit this. If the domains differ, the cookie write will only work if the browser allows third-party cookies to be written,
+{{% /notice %}}
+
+The browser can read and write cookies with **JavaScript** as well. 
+
+While the user is browsing a website, that website can use JavaScript to read the cookies written on the domain hierarchy of the current page.
+
+```JavaScript
+const cookies = document.cookie;
+console.log(cookies); // userId=abcd1234; logged-in=true
+```
+
+If `document.cookie` is invoked in a third-party context, such as an `<iframe>` element embedding content from a third-party source, the string will be populated only if the web browser allows third-party cookies.
+
+The same `document.cookie` API can be used to **write** cookies, too. The cookie can be written on the current domain name or any name higher in the domain hierarchy (up to eTLD+1).
 
 ```JavaScript
 document.cookie = 'userId=abcd1234;domain=cookiestatus.com';
 ```
-
-If the user's browser requests a resource from **cookiestatus.com**, such as an image or a JavaScript file, then the *response* from the web server can also use the `Set-Cookie` header to **set** a cookie on **cookiestatus.com**, and it will then be available for reading on **ecommerce.cookiestatus.com** and **blog.ecommerce.cookiestatus.com**.
-
-Similarly, any HTTP request for any resource residing on a domain in the same hierarchy would include all the cookies written on that domain or any domain higher in the hierarchy in the `cookie` header. The web server can read these stored bits of information and parse them however they like.
-
-{{< figure src="/images/content/cookie-header.jpg" title="Sample cookie header with all cookies available on the target domain" class="left-align" >}}
-
-The browser can also read any cookies available to the current domain with JavaScript (except if they have been specifically flagged as `HttpOnly`, meaning they are only passed in HTTP headers).
-
-```JavaScript
-console.log(document.cookie); // Outputs "userId=abcd1234"
-```
-
-These examples show how cookies are accessed in a **first-party context**. 
 
 ## First-party and third-party context
 
@@ -120,7 +145,7 @@ If the user then visits another page on the internet that also communicates with
 
 This is the essence of cross-site tracking - using a consolidated and centralized store (e.g. a cookie) to collect information from different domains.
 
-## Restrict storage access
+## Storage access restriction
 
 Browsers' main weapon against cross-site tracking is restricting **storage access**. Because there are valid reasons for cross-site tracking (persisting user authentication, shopping baskets, consent status), tracking protection methods restrict storage access for third parties that have been **identified** and **classified** as compromising user privacy. 
 
