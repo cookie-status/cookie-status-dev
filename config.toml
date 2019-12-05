@@ -11,7 +11,7 @@ home = [ "HTML", "RSS", "JSON" ]
   description = "Latest information and news about browser storage across the modern web browser landscape. Designed to provide information on ITP, ETP, and similar initiatives."
   showVisitedLinks = false
   disableSearch = false
-  disableInlineCopyToClipBoard = false
+  disableInlineCopyToClipBoard = true
   themeVariant = "blue"
   editUrl = "https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20"
 
