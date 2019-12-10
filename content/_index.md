@@ -21,7 +21,7 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 
 <a title="Suggest an edit" href="https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20Current%20Status" target="_blank"><i class="fa fa-edit"></i> Suggest an edit</a>
 
-{{< table >}}
+{{< table "cs" >}}
 |   | [Brave](/brave/current-status/) | [Chrome](/chrome/current-status/)                            | [Edge (Beta)](/edge/current-status/)                         | [Firefox](/firefox/current-status/)                          | [Safari](/safari/current-status/) |
 |---:|---|---|---|---|----|
 | **Mechanism** | Shields | n/a                                                          | [Tracking prevention](https://blogs.windows.com/msedgedev/2019/06/27/tracking-prevention-microsoft-edge-preview/) | [Enhanced Tracking Protection](https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop) (ETP) | [Intelligent Tracking Prevention 2.3](https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/) (ITP) |
