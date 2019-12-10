@@ -60,9 +60,9 @@ The purpose of the **Cookie Status** resource is to (attempt to) collect this in
 
 There is no commercial agenda behind this project. In fact, there is no agenda other than knowledge transfer.
 
-### 2. Why only the four browsers?
+### 2. Why only these browsers?
 
-Just to kick things off. Hopefully the open-source nature of this project will invite others to contribute details about browsers that are doing significant work with regard to user privacy (e.g. [Brave](https://www.brave.com/)).
+Just to kick things off. Hopefully the open-source nature of this project will invite others to contribute details about browsers that are doing significant work with regard to user privacy.
 
 ### 3. What cookies / browser storage does Cookie Status set and why?
 
