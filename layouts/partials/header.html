@@ -91,7 +91,11 @@
           {{if and (not .IsHome) (not .Params.chapter) }}
           {{ if .Params.logo }}
 	  <h3 style="text-align: center;">
+	    {{ if eq .Params.logo "brave" }}
+	    <i class="fa" style="background-image: url('/images/browser-icons/brave-h3.png');width:32px;height:38px"></i>
+	    {{ else }}
 	    <i class="fab fa-{{ .Params.logo }}"></i>
+            {{ end }}
 	  </h3>
 	  {{ end }}
             <h1>
