@@ -40,7 +40,7 @@ Each organization can have their own interpretation of what a *conversion* is, b
 
 #### Cookie
 
-A key-value pair (e.g. `userStatus=logged-in`) stored in the user's computer. Cookies are keyed to the domain on which they were set. Each domain has **first-party** access to the cookies written on the domain (and on other domains higher in the **domain hierarchy**). 
+A key-value pair (e.g. `userStatus=logged-in`) stored in the user's computer. Cookies are keyed to the domain on which they were set. Accessing cookies in same-site requests occurs in **first-party context**, and such cookies are termed **first-party cookies**. Cross-origin access happens in **third-party context** and these cookies are called **third-party cookies**. 
 
 ---
 
@@ -54,7 +54,7 @@ This way a DMP can build a comprehensive graph of a user's cross-site navigation
 
 #### Cross-site tracking
 
-When user data is collected from unrelated websites across the web, using a single identifier in **third-party storage** that recognizes the user's browser as the same on all the different websites.
+Cross-site tracking refers to a tracking domain harvesting data from user's navigation and actions on other, unrelated domains. This is typically done by storing an identifier in a cookie on the tracking domain, and communicating with the tracking domain in a **third-party context**.
 
 Cross-site tracking happens covertly, and the user typically has no knowledge of all the data that has been collected from them while browsing the web.
 
@@ -62,7 +62,7 @@ Cross-site tracking happens covertly, and the user typically has no knowledge of
 
 #### Domain hierarchy
 
-Domain (or DNS) hierarchy refers to the domain names in a given domain name string (fully qualified domain name). For the purposes of reading and writing **browser cookies**, first-party cookies can be read from the current domain and all the domains *higher* in the hierarchy, all the way to eTLD+1.
+Domain (or DNS) hierarchy refers to the domain names in a given domain name string (fully qualified domain name). With the `document.cookie` JavaScript API, the browser can read and write **cookies** on the current domain and all the domains *higher* in the hierarchy, all the way to eTLD+1.
 
 Thus a user browsing a site on `sub.blog.domain.com` can read and write cookies on `sub.blog.domain.com`, `blog.domain.com` and `domain.com`.
 
@@ -78,11 +78,11 @@ ETP uses the [Disconnect.me](https://disconnect.me/) lists to determine whether 
 
 #### eTLD+1
 
-**Effective top-level domain** plus **one part**. eTLD would comprise the top-level domain (e.g. `.com` and `.uk`) and sometimes a second-level of hierarchy (e.g. `.co` in `.co.uk` or `.com` in `.com.au`).
+**Effective top-level domain** plus **one part**. eTLD would comprise the top-level domain (e.g. `.com` and `.uk`) and sometimes a second-level of hierarchy (e.g. `.co` in `.co.uk` or `.com` in `.com.au`). Thus eTLD is the same thing as the [Public Suffix](https://publicsuffix.org/).
 
 The "one part" is then the next level in the domain hierarchy, i.e. the domain name the site would have acquired to map to their servers. 
 
-The eTLD+1 term is used in particular by Safari's Intelligent Tracking Prevention documentation to refer to the highest domain name the user has read/write storage access to.
+The eTLD+1 term is used in particular by Safari's Intelligent Tracking Prevention documentation to refer to the highest domain name the browser has read/write storage access to.
 
 ---
 
@@ -104,7 +104,7 @@ Due to its wide-spread use (especially on mobile devices), its algorithmic evalu
 
 #### Link decoration
 
-The act of adding URL query string parameters (e.g. `https://www.domain.com?id=12345` or hash fragments (e.g. `https://www.domain.com/#id=12345`) on outbound links from a website with the purpose of passing some key-value pairs from first-party storage to another site without having to worry about third-party storage access restrictions.
+The act of adding URL query string parameters (e.g. `https://www.domain.com?id=12345` or hash fragments (e.g. `https://www.domain.com/#id=12345`) to outbound links from a website with the purpose of passing some key-value pairs from first-party storage to another site without having to worry about third-party storage access restrictions.
 
 Since the values are passed in the URL, the target site can access them by simply taking them from the URL string.
 
@@ -122,7 +122,7 @@ When the web browser issues a request to a web server, that request often includ
 
 If the target resource is a web page, i.e. the request originated from a link click, when the web page is rendered the referrer string is written into the `document.referrer` property.
 
-Due to its capability to carry information that could be utilized in cross-site tracking contexts, browsers are actively working towards making the referrer string less informative by a process called *referrer downgrade*.
+Due to its capability to carry information that could be utilized in cross-site tracking contexts, browsers are actively working towards making the referrer string less informative by a process called *referrer downgrade* or by completely stripping and/or spoofing it.
 
 ---
 
@@ -131,6 +131,8 @@ Due to its capability to carry information that could be utilized in cross-site 
 Downgrading the referrer means stripping out parts of it that could be utilized for cross-site tracking or carrying sensitive information.
 
 Browsers [are working on](https://www.chromestatus.com/feature/6251880185331712) defaulting to `strict-origin-when-cross-origin`, which would mean that for request outside the current domain namespace the referrer would be stripped of its path, query, and fragment parts. Thus `https://www.sourcedomain.com/some-page-with-link/?id=12345` would become `https://www.sourcedomain.com` in the `referer` header.
+
+The **Brave** browser strips the referrer in all navigational cross-origin requests (e.g. clicking on a link to move to another page). For other cross-origin requests, the referrer header is spoofed to contain the origin being requested rather than the origin being referred from.
 
 ---
 
