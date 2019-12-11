@@ -53,17 +53,18 @@ a[href="#toc"] {
 .active .temp-brave {
     filter: invert(1);
 }
-#cs th:first-child {
-    width: 10%;
-}
-#cs th:not(:first-child) {
-    width: 18%;
-}
+
 .full-screen #sidebar {
   left: -300px;
 }
 .full-screen #body {
   margin-left: 0;
+}
+.new {
+  background: yellow;
+}
+#cs a.fa-info-circle:not(:first-child) {
+  margin-top:8px;
 }
 @media only all and (max-width: 59.938em) {
   .full-screen #sidebar {
