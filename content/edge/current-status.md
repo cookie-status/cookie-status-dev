@@ -5,6 +5,15 @@ draft: false
 weight: 10
 logo: "edge"
 ---
+## Quick facts
+
+| Fact                          | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| **Mechanism**                 | Tracking prevention                                          |
+| **Originally deployed in**    | [78.0.276.8](https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8)                                                     |
+| **Latest update deployed in** | -                         |
+| **User controls**             | - |
+
 ## Classification of "known trackers"
 
 ## Third-party cookies

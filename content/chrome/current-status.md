@@ -5,6 +5,10 @@ draft: false
 weight: 10
 logo: "chrome"
 ---
+## Quick facts
+
+The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection.
+
 ## Classification of "known trackers"
 
 ## Third-party cookies

@@ -110,6 +110,14 @@ Since the values are passed in the URL, the target site can access them by simpl
 
 ---
 
+#### PageGraph
+
+[PageGraph](https://github.com/brave/brave-browser/wiki/PageGraph) is a tool built for the Brave browser, which analyzes the way in which a web document operates (and is operated on) within the browser. 
+
+PageGraph builds a representation of things like node changes, network requests, and script execution, so that this research could be used to, for example, optimize the privacy-preserving feature restrictions of the browser that produced the graph.
+
+---
+
 #### Quantum
 
 The browser engine used by the latest versions of the Firefox browser. It's an improved / redesigned iteration of Firefox's original **Gecko** engine.
