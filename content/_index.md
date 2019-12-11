@@ -21,6 +21,8 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 
 <a title="Suggest an edit" href="https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20Current%20Status" target="_blank"><i class="fa fa-edit"></i> Suggest an edit</a>
 
+<a href="#" id="fullscreen">Toggle full screen</a>
+
 {{< table "cs" >}}
 |   | [Brave](/brave/current-status/) | [Chrome](/chrome/current-status/)                            | [Edge (Beta)](/edge/current-status/)                         | [Firefox](/firefox/current-status/)                          | [Safari](/safari/current-status/) |
 |---:|---|---|---|---|----|

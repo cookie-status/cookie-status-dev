@@ -1,0 +1,78 @@
+figure.left-align {
+    display: inline-block;
+    margin: 1rem;
+    max-width: 1024px;
+}
+figure.left-align img {
+    margin: 1rem auto !important;
+}
+figure.left-align h4 {
+    margin-top: 0 !important;
+}
+figure img {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    max-width: 100%;
+}
+blockquote p {
+    color: #666 !important;
+}
+#toc {
+    max-width: 500px;
+    float:right;
+    background: #e6f1ff;
+    border: 1px dotted #ccc;
+    padding: 10px;
+    margin: 10px;
+
+}
+#toc strong {
+    padding-left: 15px;
+}
+#TableOfContents ul {
+    margin: 0 !important;
+    padding: 0;
+    list-style-type: none;
+}
+#TableOfContents > ul > li > ul > li > ul {
+    padding-left: 10px;
+}
+a[href="#toc"] {
+    color: #000;
+}
+@media screen and (max-width: 500px) {
+    #toc {
+    float: none;
+    margin: 10px 0;
+    }
+}
+.temp-brave {
+    background: url('/images/browser-icons/brave.png');
+    padding-left: 22.8px;
+    background-repeat: no-repeat;
+}
+.active .temp-brave {
+    filter: invert(1);
+}
+#cs th:first-child {
+    width: 10%;
+}
+#cs th:not(:first-child) {
+    width: 18%;
+}
+.full-screen #sidebar {
+  left: -300px;
+}
+.full-screen #body {
+  margin-left: 0;
+}
+@media only all and (max-width: 59.938em) {
+  .full-screen #sidebar {
+    left: -230px;
+  }
+}
+
+@media only all and (max-width: 47.938em) {
+  #fullscreen {
+    display: none !important;
+  }
+}
