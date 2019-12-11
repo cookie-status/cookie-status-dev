@@ -152,11 +152,11 @@ This approach of comparing the third-party domains against a curated list is uti
 
 > We’ve added a new component to Microsoft Edge, Trust Protection Lists**,** that contains the latest information on which organizations may be trying to track users on the web. This component allows us to be flexible with where we source details on what a tracker is and when we deliver updated lists to our users.
 
-The **Brave** browser, similarly, pulls in tracking domains from [multiple sources](https://github.com/brave/adblock-rust/blob/master/src/filter_lists/default.rs).
+The **Brave** browser, similarly, pulls in tracking domains from [multiple sources](https://github.com/brave/adblock-rust/blob/master/src/filter_lists/default.rs). Notably, Brave combines prescribed lists (from e.g. [EasyList](https://easylist.to/) and [uBlock Origin](https://github.com/gorhill/uBlock)) with a more dynamic list based on crawl data ([PageGraph](https://github.com/brave/brave-browser/wiki/PageGraph)). 
 
 With **list-based protection**, the browser maintains a list of domains against which each outgoing HTTP request from the site is pattern-matched. If there is a match between the request target and one of the domains in these lists, the request is **blocked**.
 
-This means that browsers block both **downloading script resources** and **HTTP requests to tracking endpoints** (e.g. image pixels).
+This means that browsers can block both **downloading script resources** and **HTTP requests to tracking endpoints** (e.g. image pixels).
 
 By blocking the script download, browsers don't need to worry about further storage access restrictions, because the JavaScript from the vendor was never loaded and thus can't abuse the browser storage on the user's company.
 
@@ -166,7 +166,8 @@ The biggest problems with list-based protection are:
 
 * The **performance overhead** of pattern-matching each HTTP request against an ever-growing list of domains (something that these browsers are [actively optimizing](https://brave.com/improved-ad-blocker-performance/)).
 * **Reaction lag** to new trackers and domains that need to be blacklisted.
-* Inability to handle **locally cached and/or proxied requests**.
+* Difficulty in handling **locally cached and/or proxied requests**.
+* Harm to **other functionality** (besides tracking) that these blocked libraries provide.
 
 ### Algorithmic protection
 
@@ -189,5 +190,5 @@ The main problems with this approach are:
 * **Lack of predictability**, which is not necessarily a problem or a bad thing, but a list-based approach allows for community oversight of the domains that have been blacklisted. Since the ITP algorithm is not prescriptive, only the algorithm itself can be scrutinized, not its end result.
 
 {{% notice info %}}
-Note that for **false positives** blocking access to cross-origin storage, ITP offers the **Storage Access API**. However, there is no provision in ITP to remove a domain from the list of classified domains, which means that **first-party restrictions** would still apply.
+Note that for **false positives** blocking access to cross-origin storage, ITP offers the **Storage Access API**. However, there is no provision in ITP to remove a domain from the list of classified domains, which means that **first-party protections** would still apply.
 {{% /notice %}}

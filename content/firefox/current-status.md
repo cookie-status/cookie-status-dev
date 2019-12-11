@@ -5,4 +5,14 @@ draft: false
 weight: 10
 logo: "firefox"
 ---
+## Classification of "known trackers"
 
+## Third-party cookies
+
+## First-party cookies
+
+## Other third-party storage
+
+## Other first-party storage
+
+## Referrer

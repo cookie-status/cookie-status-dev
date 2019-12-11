@@ -68,6 +68,10 @@ Safari is taking an even stricter stance, stripping [all cross-origin referrers]
 Because of the unreliability of the referrer, websites should avoid placing too much importance on interpreting what is stored in the referrer string, especially when using JavaScript's `document.referrer`.
 {{% /notice %}}
 
+The Brave browser has adopted an [*even* stricter stance](https://github.com/brave/brave-browser/wiki/Blocking-goals-and-policy#blocking-techniques-and-methods), where they opt to **spoof** the referrer on cross-origin requests: 
+
+> Second, Brave modifies the referrer header when making cross origin requests. Brave "lies" on these requests, and says the request was being issued from the same domain being requested, instead of the true, cross-domain origin.
+
 ## Advertising and marketing technologies
 
 For AdTech vendors relying on storage access in third-party context, there are some tough times ahead. With Safari, Edge, and Firefox blocking third-party cookies for known trackers, it doesn't take much for a vendor to be blacklisted or classified as a tracker, leading to severely handicapped tracking capabilities. 
