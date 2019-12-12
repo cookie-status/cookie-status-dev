@@ -41,8 +41,8 @@ a[href="#toc"] {
 }
 @media screen and (max-width: 500px) {
     #toc {
-    float: none;
-    margin: 10px 0;
+      float: none;
+      margin: 10px 0;
     }
 }
 .temp-brave {
@@ -65,6 +65,18 @@ a[href="#toc"] {
 }
 #cs a.fa-info-circle:not(:first-child) {
   margin-top:8px;
+}
+#cs code {
+    white-space: initial;
+}
+#cs th:first-child {
+    width: 10%;
+}
+#cs th:not(:first-child) {
+    width: 18%;
+}
+#cs tr, #cs th, #cs td {
+    vertical-align: top;
 }
 @media only all and (max-width: 59.938em) {
   .full-screen #sidebar {

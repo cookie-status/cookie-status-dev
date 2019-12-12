@@ -3,6 +3,9 @@ languageCode = "en-us"
 title = "Current Status Of Browser Tracking Prevention | cookiestatus.com"
 theme = "hugo-theme-learn"
 
+[markup.goldmark.renderer]
+unsafe = true
+
 [outputs]
 home = [ "HTML", "RSS", "JSON" ]
 
