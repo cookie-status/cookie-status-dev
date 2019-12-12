@@ -9,7 +9,7 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 +++
 ## Current status
 
-| Fact                          | Description                                                  |
+| Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Intelligent Tracking Prevention 2.3                          |
 | **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |

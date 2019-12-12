@@ -9,7 +9,7 @@ pre = "<b><i class=\"fab fa-firefox\"></i> </b>"
 +++
 ## Current status
 
-| Fact                          | Description                                                  |
+| Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Enhanced Tracking Protection                                          |
 | **Originally deployed in**    | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/)                                                     |

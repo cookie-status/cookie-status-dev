@@ -9,11 +9,12 @@ pre = "<b class=\"temp-brave\"></b>"
 +++
 ## Current status
 
-| Fact                          | Description                                                  |
+| Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Shields                                                      |
 | **Originally deployed in**    | 0.55.18                                                      |
 | **Latest update deployed in** | [v1.1.20](https://brave.com/latest/)                         |
+| **Latest update includes**    | [Removed known user tracking parameters from query strings](https://github.com/brave/brave-browser/issues/4239) |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Cross-site tracker blocking**</li><li>**Automatic connection upgrade to HTTPS**</li><li>**Script blocking**</li><li>**Cookie blocking**</li><li>**Device recognition blocking**</li> |
 
 The Brave browser takes a very strong stance against cross-site tracking and third-party advertising. The browser proactively *monitors*, *modifies*, and *blocks* scripts and network resources that are deemed to compromise user privacy.

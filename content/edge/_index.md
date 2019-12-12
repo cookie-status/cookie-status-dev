@@ -9,7 +9,7 @@ pre = "<b><i class=\"fab fa-edge\"></i> </b>"
 +++
 ## Current status
 
-| Fact                          | Description                                                  |
+| Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Tracking prevention                                          |
 | **Originally deployed in**    | [78.0.276.8](https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8)                                                     |
