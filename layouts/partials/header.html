@@ -6,7 +6,13 @@
     {{ hugo.Generator }}
     {{ partial "meta.html" . }}
     {{ partial "favicon.html" . }}
-    <title>{{ .Title }} :: {{ .Site.Title }}</title>
+    <title>
+      {{ if .Params.metatitle }}
+      {{ .Params.metatitle }} | cookiestatus.com
+      {{ else }}
+      {{ .Title }} :: {{ .Site.Title }}
+      {{ end }}
+    </title>
 
     {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
     <link href="{{"css/nucleus.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
