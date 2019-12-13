@@ -5,6 +5,9 @@ theme = "hugo-theme-learn"
 
 [markup.goldmark.renderer]
 unsafe = true
+[markup.tableOfContents]
+  endLevel = 6
+  startLevel = 2
 
 [outputs]
 home = [ "HTML", "RSS", "JSON" ]

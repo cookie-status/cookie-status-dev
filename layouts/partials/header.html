@@ -112,6 +112,12 @@
               {{ end }}
               {{.Title}}
             </h1>
+            {{ if .Params.toc }}
+            <div id="toc">
+              <strong>TABLE OF CONTENTS</strong>
+              {{.TableOfContents}}
+            </div>
+            {{ end }}
           {{end}}
 
         {{define "breadcrumb"}}

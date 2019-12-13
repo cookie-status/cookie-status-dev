@@ -3,10 +3,8 @@ title: "Impact"
 date: 2019-11-21T15:29:14+02:00
 weight: 11
 draft: false
+toc: true
 ---
-
-{{< toc >}}
-
 The tracking protection measures taken by browsers have a widespread impact on a variety of things, including **web development**, **advertising** and **marketing technologies**, **digital analytics**, and **user experience optimization**.
 
 Websites use cookies and other browser storage for a plethora of things, such as persisting login state, preserving items in a shopping cart, and for presenting tailored experiences in a first-party context, based on what the user has done while visiting the site.

@@ -33,9 +33,15 @@ blockquote p {
     padding: 0;
     list-style-type: none;
 }
-#TableOfContents > ul > li > ul > li > ul {
-    padding-left: 10px;
+#TableOfContents ul > li > a {
+    padding: 0;
+margin: 0;
 }
+#TableOfContents ul > li > ul > li > a {
+    padding-left: 18px;
+    font-weight: 100 !important;
+}
+
 a[href="#toc"] {
     color: #000;
 }
