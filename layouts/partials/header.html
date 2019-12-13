@@ -99,7 +99,9 @@
 	  <h3 style="text-align: center;">
 	    {{ if eq .Params.logo "brave" }}
 	    <i class="fa" style="background-image: url('/images/browser-icons/brave-h3.png');width:32px;height:38px"></i>
-	    {{ else }}
+            {{ else if eq .Params.logo "cliqz" }}
+	    <i class="fa" style="background-image: url('/images/browser-icons/cliqz-h3.png');width:32px;height:32px;"></i>
+{{ else }}
 	    <i class="fab fa-{{ .Params.logo }}"></i>
             {{ end }}
 	  </h3>

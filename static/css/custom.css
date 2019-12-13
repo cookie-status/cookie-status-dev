@@ -50,6 +50,14 @@ a[href="#toc"] {
     padding-left: 22.8px;
     background-repeat: no-repeat;
 }
+.temp-cliqz {
+    background: url('/images/browser-icons/cliqz.png');
+    padding-left: 22.8px;
+    background-repeat: no-repeat;
+}
+.active .temp-cliqz {
+    filter: invert(1);
+}
 .active .temp-brave {
     filter: invert(1);
 }
