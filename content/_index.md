@@ -18,10 +18,10 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 ## Current status
 
 {{% notice note %}}
-Changes added in the **latest release** are indicated with <span style="background: yellow;">yellow highlight</span>. You can **click** the <a class="fa fa-info-circle" rel="footnote"></a> icon to be redirected to the respective section in each browser's own "Current Status" page.
+Changes added in the **latest release** of each browser are indicated with <span style="background: yellow;">yellow highlight</span>. You can **click** the <a class="fa fa-info-circle" rel="footnote"></a> icon to be redirected to the respective section in each browser's own "Current Status" page.
 {{% /notice %}}
 
-**Last updated**: 11 December 2019
+**Last updated**: 16 December 2019
 
 <a title="Suggest an edit" href="https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20Current%20Status" target="_blank"><i class="fa fa-edit"></i> Suggest an edit</a>
 
@@ -47,6 +47,7 @@ Changes added in the **latest release** are indicated with <span style="backgrou
 
 * Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438))
 * Safari: `isLoggedIn` ([original explainer](https://lists.w3.org/Archives/Public/public-webappsec/2019Sep/0004.html) and [WebKit changeset for experimental feature](https://trac.webkit.org/changeset/250944/webkit))
+* Safari: Expire non-cookie website data in 7 days since last user interaction ([WebKit changeset](https://trac.webkit.org/changeset/253082/webkit))
 * Firefox, Edge, Chrome: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712)
 
 ## FAQ
