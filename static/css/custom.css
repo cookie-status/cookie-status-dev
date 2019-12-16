@@ -92,6 +92,12 @@ a[href="#toc"] {
 #cs tr, #cs th, #cs td {
     vertical-align: top;
 }
+#cs p {
+  margin: 0.5rem 0 0 0;
+}
+#cs p:first-child {
+  margin: 0;
+}
 @media only all and (max-width: 59.938em) {
   .full-screen #sidebar {
     left: -230px;
