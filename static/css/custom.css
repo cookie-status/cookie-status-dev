@@ -92,7 +92,7 @@ a[href="#toc"] {
     width: 10%;
 }
 #cs th:not(:first-child) {
-    width: 18%;
+    width: 15%;
 }
 #cs tr, #cs th, #cs td {
     vertical-align: top;
