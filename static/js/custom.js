@@ -20,7 +20,10 @@
       '&tid=' + trackingId +
       '&cid=' + clientId +
       '&dl=' + document.location.href +
-      '&dt=' + document.title;
+      '&dt=' + document.title +
+      '&dr=' + document.referrer +
+      '&aip=1' +
+      '&ua=Roku4640X/DVP-7.70 (297.70E04154A)';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url + qs);
   xhr.send();
