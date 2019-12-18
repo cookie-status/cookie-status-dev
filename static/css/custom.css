@@ -96,6 +96,7 @@ a[href="#toc"] {
 }
 #cs tr, #cs th, #cs td {
     vertical-align: top;
+    line-height: 1.4pc;
 }
 #cs p {
   margin: 0.5rem 0 0 0;
@@ -113,4 +114,14 @@ a[href="#toc"] {
   #fullscreen {
     display: none !important;
   }
+}
+#body a.highlight {
+  line-height: initial;
+  display: initial;
+}
+#body a.highlight:hover {
+  text-decoration: underline;
+}
+#body a.highlight:after {
+  all: initial;
 }
