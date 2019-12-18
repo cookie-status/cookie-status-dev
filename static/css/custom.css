@@ -104,6 +104,9 @@ a[href="#toc"] {
 #cs p:first-child {
   margin: 0;
 }
+code {
+  vertical-align: initial;
+}
 @media only all and (max-width: 59.938em) {
   .full-screen #sidebar {
     left: -230px;
