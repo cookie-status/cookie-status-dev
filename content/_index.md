@@ -46,6 +46,7 @@ Changes added in the **latest release** of each browser are indicated with <span
 ### Bubbling under
 
 * Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438))
+* Safari: [Block all third-party cookies](https://trac.webkit.org/changeset/251467/webkit)
 * Safari: `isLoggedIn` ([original explainer](https://lists.w3.org/Archives/Public/public-webappsec/2019Sep/0004.html) and [WebKit changeset for experimental feature](https://trac.webkit.org/changeset/250944/webkit))
 * Safari: Expire non-cookie website data in 7 days since last user interaction ([WebKit changeset](https://trac.webkit.org/changeset/253082/webkit))
 * Firefox, Edge, Chrome: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712)
