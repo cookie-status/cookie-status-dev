@@ -72,3 +72,7 @@ For top-level navigation, cross-origin referrers are **stripped** entirely.
 > For example, when clicking a link from *https://domain.com/page* to *https://anotherdomain.com/another-page/*, the `referer` header is removed from the request. Similarly, the `document.referrer` will return an empty string once the user lands on *anotherdomain.com*.
 
 For same-origin requests (both navigational and non-navigational), referrer has **normal** behavior.
+
+## Other
+
+Brave [removes known tracker identifier parameters](https://github.com/brave/brave-browser/issues/4239) from third-party request URL strings. 

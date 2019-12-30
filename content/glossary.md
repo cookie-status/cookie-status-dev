@@ -2,19 +2,17 @@
 title: "Glossary"
 date: 2019-12-02T11:57:51+02:00
 draft: false
+toc: true
 ---
-
-{{< toc >}}
-
 This is a **glossary of terms** used in the website.
 
-#### AdTech
+## AdTech
 
 Term used to describe **advertising technologies** and the companies and vendors working in AdTech. Many AdTech vendors utilize **cross-site tracking** to exploit user data in browser storage.
 
 ---
 
-#### Analytics
+## Analytics
 
 Industry, vendors, tools, platforms, and methodologies grouped together by the pursuit of **empirical data** for measuring things like *web performance*, *user behavior* and *advertising efforts*.
 
@@ -22,7 +20,7 @@ Often focuses on data collection in a **first-party context**, but especially in
 
 ---
 
-#### Chromium
+## Chromium
 
 An open-source web browser project, used as the foundation of a variety of browsers (e.g. [Brave](https://brave.com/) and [Edge (Beta)](https://www.microsoftedgeinsider.com/)).
 
@@ -30,7 +28,7 @@ Much of the technology in Chromium is also used in the Chrome browser, but the t
 
 ---
 
-#### Conversion
+## Conversion
 
 An event or metadata of a user, collected by **analytics** tools and **AdTech** platforms to calculate the efficiency of campaigns and of content optimization and personalization efforts. 
 
@@ -38,13 +36,13 @@ Each organization can have their own interpretation of what a *conversion* is, b
 
 ---
 
-#### Cookie
+## Cookie
 
 A key-value pair (e.g. `userStatus=logged-in`) stored in the user's computer. Cookies are keyed to the domain on which they were set. Accessing cookies in same-site requests occurs in **first-party context**, and such cookies are termed **first-party cookies**. Cross-origin access happens in **third-party context** and these cookies are called **third-party cookies**. 
 
 ---
 
-#### Cookie matching / syncing
+## Cookie matching / syncing
 
 Data management platforms (DMP) and demand-side platforms (DSP) can exchange user information in their own data stores, mapping each platform's own list of users to other lists by utilizing shared keys in **third-party storage**. 
 
@@ -52,7 +50,7 @@ This way a DMP can build a comprehensive graph of a user's cross-site navigation
 
 ---
 
-#### Cross-site tracking
+## Cross-site tracking
 
 Cross-site tracking refers to a tracking domain harvesting data from user's navigation and actions on other, unrelated domains. This is typically done by storing an identifier in a cookie on the tracking domain, and communicating with the tracking domain in a **third-party context**.
 
@@ -60,7 +58,7 @@ Cross-site tracking happens covertly, and the user typically has no knowledge of
 
 ---
 
-#### Domain hierarchy
+## Domain hierarchy
 
 Domain (or DNS) hierarchy refers to the domain names in a given domain name string (fully qualified domain name). With the `document.cookie` JavaScript API, the browser can read and write **cookies** on the current domain and all the domains *higher* in the hierarchy, all the way to eTLD+1.
 
@@ -68,7 +66,7 @@ Thus a user browsing a site on `sub.blog.domain.com` can read and write cookies 
 
 ---
 
-#### Enhanced Tracking Protection (ETP)
+## Enhanced Tracking Protection (ETP)
 
 The name of the tracking protection mechanism in the [Firefox](/firefox/) web browser.
 
@@ -76,7 +74,7 @@ ETP uses the [Disconnect.me](https://disconnect.me/) lists to determine whether 
 
 ---
 
-#### eTLD+1
+## eTLD+1
 
 **Effective top-level domain** plus **one part**. eTLD would comprise the top-level domain (e.g. `.com` and `.uk`) and sometimes a second-level of hierarchy (e.g. `.co` in `.co.uk` or `.com` in `.com.au`). Thus eTLD is the same thing as the [Public Suffix](https://publicsuffix.org/).
 
@@ -86,7 +84,7 @@ The eTLD+1 term is used in particular by Safari's Intelligent Tracking Preventio
 
 ---
 
-#### First-party
+## First-party
 
 In the context of **storage access**, first-party references the domain the user is currently on. Browser storage is typically completely restricted to the first-party.
 
@@ -94,7 +92,7 @@ Cookie access is a bit different, as the browser can access cookies in a first-p
 
 ---
 
-#### Intelligent Tracking Prevention (ITP)
+## Intelligent Tracking Prevention (ITP)
 
 The name of the Safari browser's tracking protection mechanism and related tools.
 
@@ -102,7 +100,7 @@ Due to its wide-spread use (especially on mobile devices), its algorithmic evalu
 
 ---
 
-#### Link decoration
+## Link decoration
 
 The act of adding URL query string parameters (e.g. `https://www.domain.com?id=12345` or hash fragments (e.g. `https://www.domain.com/#id=12345`) to outbound links from a website with the purpose of passing some key-value pairs from first-party storage to another site without having to worry about third-party storage access restrictions.
 
@@ -110,7 +108,7 @@ Since the values are passed in the URL, the target site can access them by simpl
 
 ---
 
-#### PageGraph
+## PageGraph
 
 [PageGraph](https://github.com/brave/brave-browser/wiki/PageGraph) is a tool built for the Brave browser, which analyzes the way in which a web document operates (and is operated on) within the browser. 
 
@@ -118,13 +116,13 @@ PageGraph builds a representation of things like node changes, network requests,
 
 ---
 
-#### Quantum
+## Quantum
 
 The browser engine used by the latest versions of the Firefox browser. It's an improved / redesigned iteration of Firefox's original **Gecko** engine.
 
 ---
 
-#### Referrer
+## Referrer
 
 When the web browser issues a request to a web server, that request often includes the `referer ` [sic] header to indicate the URL the request originated from.
 
@@ -134,7 +132,7 @@ Due to its capability to carry information that could be utilized in cross-site 
 
 ---
 
-#### Referrer downgrade
+## Referrer downgrade
 
 Downgrading the referrer means stripping out parts of it that could be utilized for cross-site tracking or carrying sensitive information.
 
@@ -144,13 +142,13 @@ The **Brave** browser strips the referrer in all navigational cross-origin reque
 
 ---
 
-#### Script-writable storage
+## Script-writable storage
 
 Refers to browser storage that can be accessed with JavaScript. Typically this would be **browser cookies**, `localStorage`, `sessionStorage`, and `IndexedDB`.
 
 ---
 
-#### Third-party
+## Third-party
 
 In the context of **storage access**, third-party means that the browser is trying to access storage that is not on the current domain. 
 
@@ -160,7 +158,7 @@ If the web browser loaded another domain's content in an `<iframe>` element, the
 
 ---
 
-#### WebKit
+## WebKit
 
 A browser engine developed by Apple and used as the engine for the Safari browser and **all** the iOS browsers.
 
