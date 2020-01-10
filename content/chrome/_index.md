@@ -13,12 +13,24 @@ The Chrome browser doesn't currently have mechanisms designed specifically for t
 
 ## Classification of "known trackers"
 
+Chrome does not classify classify trackers or domains for the purposes of tracking protection.
+
 ## Third-party cookies
+
+Chrome does not restrict the use of third-party cookies.
 
 ## First-party cookies
 
+Chrome does not restrict the use of first-party cookies.
+
 ## Other third-party storage
+
+Chrome does not restrict the use of other browser storage in third-party context.
 
 ## Other first-party storage
 
+Chrome does not restrict the use of other browser storage in first-party context.
+
 ## Referrer
+
+Chrome uses the default referrer policy of `no-referrer-when-downgrade`.
