@@ -50,9 +50,31 @@ This way a DMP can build a comprehensive graph of a user's cross-site navigation
 
 ---
 
+## Cross-origin
+
+"Origin" is the protocol (e.g. `https`), hostname (e.g. `www.domain.com`) and port (e.g. `4097`) of the URL. If the origin of the site where the request was sent from differs from the origin of the site the request is sent to, the request is considered to be *cross-origin*.
+
+For example:
+
+* A request from `https://www.domain.com/page.html` to `https://www.domain.com/images/image.jpg` is **same-origin**, as both the source and target share the origin.
+* A request from `https://www.domain.com/page.html` to `https://images.domain.com/images/image.jpg` is **cross-origin**, as the source and target do not share the origin.
+
+---
+
+## Cross-site
+
+Cross-site is a *type* of **cross-origin** communication, but it's more rigid as it requires that the source and target of the request do not share the [effective top-level domain plus one part](#etld1) (eTLD +1). 
+
+For example:
+
+* A request from `https://www.domain.com/page.html` to `https://images.domain.com/images/image.jpg` is **cross-origin** and **same-site**, as the eTLD+1 (`domain.com`) is shared by the source and target.
+* A request from `https://www.domain.com/page.html` to `https://imagesource.domaincdn.com/images/image.jpg` is **cross-origin** and **cross-site**, as the eTLD+1 (`domain.com` and `domaincdn.com`) is different between the source and target.
+
+---
+
 ## Cross-site tracking
 
-Cross-site tracking refers to a tracking domain harvesting data from user's navigation and actions on other, unrelated domains. This is typically done by storing an identifier in a cookie on the tracking domain, and communicating with the tracking domain in a **third-party context**.
+Cross-site tracking refers to a tracking domain harvesting data from user's navigation and actions on other, unrelated sites. This is typically done by storing an identifier in a cookie on the tracking domain, and communicating with the tracking domain in a **third-party context**.
 
 Cross-site tracking happens covertly, and the user typically has no knowledge of all the data that has been collected from them while browsing the web.
 
