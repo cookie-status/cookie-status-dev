@@ -28,7 +28,7 @@ Firefox utilizes the following Disconnect.me categories in ETP:
 * **Advertising** - third-party cookies blocked
 * **Analytics** - third-party cookies blocked
 * **Cryptomining** - all third-party requests blocked
-* **Fingerprinting** - third-party requests blocked when the domain is also in one of the tracking categories (Advertising, Analytics, or Social)
+* **Fingerprinting** - third-party requests blocked [conditionally](#other)
 * **Social** - third-party cookies blocked
 
 Tracking Content blocking (enabled in **Private windows** by default) will not just strip cookies but actually **block** all resource requests to domains listed in Disconnect.me.
@@ -60,3 +60,7 @@ No restrictions.
 ## Referrer
 
 Default browser policy (`no-referrer-when-downgrade`).
+
+## Other
+
+If the domain is in the Fingerprinting category of Disconnect.me **and** in one of the tracking categories (Advertising, Analytics, or Social), all third-party requests to the domain are blocked.
