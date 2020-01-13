@@ -9,7 +9,11 @@ pre = "<b><i class=\"fab fa-chrome\"></i> </b>"
 +++
 ## Current status
 
+{{% notice warning %}}
+
 The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection.
+
+{{% /notice %}}
 
 ## Classification of "known trackers"
 

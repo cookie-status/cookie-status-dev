@@ -44,7 +44,13 @@ To prevent storage access and resource blocking from breaking user experience, E
 
 ### Same-org mitigation
 
-If two domains, e.g. `www.company-domain.com` and `www.company-cdn.com`, are owned and operated by the same company, Edge introduces a mitigation where tracking prevention is relaxed when one such domain requests resources from the other. Thus, even if Edge's Trust Protection Lists have identified `www.company-cdn.com` as a tracking domain, access to it from `www.company-domain.com` would not be restricted.
+If two domain sare owned and operated by the same company, Edge introduces a mitigation where tracking prevention is relaxed when one such domain requests resources from the other.
+
+{{% notice info %}}
+
+**Example**: `www.company-domain.com` and `www.company-cdn.com` are different domains, but they are registered by the same company, and Edge recognizes them as belonging to the same organization. Thus, even if Edge's Trust Protection Lists have identified `www.company-cdn.com` as a tracking domain, access to it from `www.company-domain.com` would not be restricted.
+
+{{% /notice %}}
 
 ### Site engagement mitigation
 
@@ -62,7 +68,11 @@ Engagement scores are keyed **by origin** (so `www.domain.com` would have a diff
 
 Edge determines a score of **4.1** to represent sufficient engagement with a site to enable mitigation for tracking prevention. 
 
->  You can view the site engagement scores stored in your Edge instance by typing `edge://site-engagement` in the address bar of the browser.
+{{% notice tip %}}
+
+You can view the site engagement scores stored in your Edge instance by typing `edge://site-engagement` in the address bar of the browser.
+
+{{% /notice %}}
 
 If the browser requests a resource from a site with an engagement score of 4.1 or better, Edge does not restrict storage access or resource loads **unless the site is classified in the Fingerprinting or Cryptomining categories**. 
 
@@ -70,11 +80,11 @@ If the browser requests a resource from a site with an engagement score of 4.1 o
 
 Organization engagement mitigation means that if one site in an organization receives a site engagement score high enough to not be impacted by tracking prevention (i.e. a score of 4.1 or better), then the user is considered to have a relationship **with the organization**.
 
-Thus if the user has interacted with `www.company-domain.com` enough to accumulate a score of 4.1 or better, then `www.company-cdn.com` would enjoy the site engagement mitigation as well, because it is part of the same organization.
+{{% notice note %}}
 
-If a website then does a cross-site request to `www.company-cdn.com`, Edge would not block storage access even if the domain were in the Trust Protection Lists.
+**Example**: If the user has interacted with `www.company-domain.com` enough to accumulate a score of 4.1 or better, then `www.company-cdn.com`would enjoy the benefits of site engagement mitigation as well, because it is recognized as part of the same organization. Thus if a website does a cross-site request to `www.company-cdn.com`, Edge would not block storage access even if the domain were in the Trust Protection Lists. *Unless, of course, `www.company-cdn.com` would fall under the Fingerprinting or Cryptomining categories*. 
 
-> Unless, of course, `www.company-cdn.com` falls under the Fingerprinting or Cryptomining categories).
+{{% /notice %}}
 
 ## Third-party cookies
 
@@ -84,7 +94,11 @@ Third-party cookies are blocked from all domains listed in the Trust Protection 
 
 No restrictions.
 
-> Note that domains in Cryptomining and Fingerprinting categories of the Trust Protection Lists have all resource loads blocked, and thus resources that would have been downloaded from these sources cannot make use of first-party cookies.
+{{% notice info %}}
+
+Note that domains in Cryptomining and Fingerprinting categories of the Trust Protection Lists have all resource loads blocked, and thus resources that would have been downloaded from these sources cannot make use of first-party cookies.
+
+{{% /notice %}}
 
 ## Other third-party storage
 
@@ -94,7 +108,11 @@ All other third-party browser storage is blocked from domains listed in the Trus
 
 No restrictions.
 
-> Note that domains in Cryptomining and Fingerprinting categories of the Trust Protection Lists have all resource loads blocked, and thus resources that would have been downloaded from these sources cannot make use of other first-party storage.
+{{% notice info %}}
+
+Note that domains in Cryptomining and Fingerprinting categories of the Trust Protection Lists have all resource loads blocked, and thus resources that would have been downloaded from these sources cannot make use of other first-party storage.
+
+{{% /notice %}}
 
 ## Referrer
 

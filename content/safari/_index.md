@@ -29,6 +29,12 @@ The algorithm is superficially described in [this blog post](https://webkit.org/
 
 If a domain is classified by Safari as having cross-site tracking capabilities, it will have several restrictions placed upon it, listed below.
 
+{{% notice note %}}
+
+**Example**: A website loads an iframe from `www.iframe-domain.com`. This is the first time the user's browser has loaded content from this domain in a frame. ITP does not yet react to this, as it's a single occurrence. Later, the user visits multiple different websites, all loading data from the same domain into an iframe. At this point, ITP classifies the domain as having cross-site capabilities, and the restrictions listed on this page will be put into effect.
+
+{{% /notice %}}
+
 To monitor the list of domains classified by your Safari instance, or to test ITP in action, you can utilize the **ITP Debug Mode**, with instructions for use found behind [this link](https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/).
 
 ## Third-party cookies
@@ -36,6 +42,12 @@ To monitor the list of domains classified by your Safari instance, or to test IT
 Safari has a number of different approaches to blocking third-party cookie access.
 
 First, there's Safari's **default cookie policy**, which has been active since as early as 2003. The default policy prevents a third-party domain from setting cookies **if that domain hasn't already been "seeded" with a cookie in first-party context**.
+
+{{% notice note %}}
+
+**Example**: The user visits a website which sends a request to `www.third-party-domain.com`, which subsequently attempts to set a cookie in the HTTP response. Safari blocks this, as the user's browser has no cookies set on `www.third-party-domain.com` yet. If the user were to visit `www.third-party-comain.com` in first-party context (actually typing the URL in the browser omnibox), by setting a cookie in first-party context would relax this default cookie policy for this particular domain in future third-party requests.
+
+{{% /notice %}}
 
 Second, Safari blocks all third-party cookies if the user has not **interacted with the site in first-party context first**.
 
@@ -48,6 +60,12 @@ If the browser wants to access cookies on domains classified by ITP, it needs to
 For first-party cookies set with JavaScript's `document.cookie` API, maximum expiration is set to **7 days**.
 
 If the referring domain is a known tracker, and if the URL has query parameters (`?key=value`) or fragments (`#somevalue`), cookies set with JavaScript's `document.cookie` API have a maximum expiration of **24 hours**.
+
+{{% notice note %}}
+
+**Example**: The user follows a link from `www.facebook.com` (a known tracking domain), and lands on the website. Facebook appends an `?fbclid=123123123123` parameter to the URL. Because the referring URL is on a classified domain, and because the landing page has a query parameter, ITP sets a maximum expiration of **24 hours** to any cookies set with JavaScript while on that landing page.
+
+{{% /notice %}}
 
 First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration.
 
@@ -62,6 +80,12 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 ## Other first-party storage
 
 If the referring domain is a known tracker, and if the URL has query parameters (`?key=value`) or fragments (`#somevalue`), then **all** non-cookie website storage in first-party context is restricted to maximum **7 days** lifetime since the last user interaction (click, tap, or text input) with the site.
+
+{{% notice note %}}
+
+**Example**: The user clicks a link on `www.known-tracker.com` (a classified domain), and the landing page URL is appended with the fragment `#abcd1234`. ITP sets the maximum lifetime of all non-cookie website storage (e.g. `localStorage`) to **7 days**, and the timer starts from the first interaction with the site. If the user doesn't interact with the site again for 7 days, all non-cookie storage is deleted.
+
+{{% /notice %}}
 
 If there is **no user interaction** with the first-party site, this type of storage is expired within few seconds.
 
