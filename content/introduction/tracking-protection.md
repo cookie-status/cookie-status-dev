@@ -93,7 +93,7 @@ What matters is the **context** of the access.
 Nevertheless, to align with other discussions around the same topic, Cookie Status will use *first-party cookie*  and *third-party cookie* for clarity's sake.
 {{% /notice %}}
 
-**First-party context** means that the operation happens within or across domains that share the **eTLD+1**. **Third-party context** means that the operation happens within or across domains that do not share the **eTLD+1**.
+**First-party context** means that the operation happens between domains within **the same site**, í.e. domains that share the **eTLD+1**. **Third-party context** means that the operation happens **cross-site**, i.e. between domains that do not share the **eTLD+1**.
 
 Here are some examples. Consider the user to be on the domain **www.cookiestatus.com**. 
 
