@@ -15,6 +15,8 @@ The Chrome browser doesn't currently have mechanisms designed specifically for t
 
 {{% /notice %}}
 
+The [privacy-sandbox](https://www.chromium.org/Home/chromium-privacy/privacy-sandbox) Chromium project promises initiatives related to tracking prevention, and Chrome has publicly stated intention to [making third-party cookies obsolete by 2022](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html).
+
 ## Classification of "known trackers"
 
 Chrome does not classify classify trackers or domains for the purposes of tracking protection.
