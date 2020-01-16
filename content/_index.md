@@ -21,7 +21,8 @@ Please submit suggestions and corrections as **issues** in the GitHub project. C
 Changes added in the **latest release** of each browser are indicated with <span style="background: yellow;">yellow highlight</span>. You can **click** the <a class="fa fa-info-circle" rel="footnote"></a> icon to be redirected to the respective section in each browser's own "Current Status" page.
 {{% /notice %}}
 
-**Last updated**: 8 January 2020
+**Last updated**: 16 January 2020  
+Updated Edge status to signal the release of the Chromium-based browser.
 
 <a title="Suggest an edit" href="https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20Current%20Status" target="_blank"><i class="fa fa-edit"></i> Suggest an edit</a>
 
