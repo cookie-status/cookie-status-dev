@@ -44,7 +44,7 @@ To prevent storage access and resource blocking from breaking user experience, E
 
 ### Same-org mitigation
 
-If two domain sare owned and operated by the same company, Edge introduces a mitigation where tracking prevention is relaxed when one such domain requests resources from the other.
+If two domains are owned and operated by the same company, Edge introduces a mitigation where tracking prevention is relaxed when one such domain requests resources from the other.
 
 {{% notice info %}}
 

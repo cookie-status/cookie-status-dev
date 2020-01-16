@@ -28,7 +28,7 @@ Changes added in the **latest release** of each browser are indicated with <span
 <a href="#" id="fullscreen">Toggle full screen</a>
 
 {{< table "cs" >}}
-|   | [Brave](/brave/) | [Chrome](/chrome/)                            | [**Cliqz**](/cliqz/)        | [Edge (Beta)](/edge/)                         | [Firefox](/firefox/)                          | [Safari](/safari/) |
+|   | [Brave](/brave/) | [Chrome](/chrome/)                            | [Cliqz](/cliqz/)        | [Edge](/edge/)                         | [Firefox](/firefox/)                          | [Safari](/safari/) |
 |---:|---|---|---|---|----|----|
 | **Mechanism** | [Shields](https://support.brave.com/hc/en-us/articles/360022973471-What-is-Shields-) | n/a                                                          | Anti-Tracking                                             | [Tracking prevention](https://blogs.windows.com/msedgedev/2019/06/27/tracking-prevention-microsoft-edge-preview/) | [Enhanced Tracking Protection](https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop) (ETP) | [Intelligent Tracking Prevention 2.3](https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/) (ITP) |
 | **Deployed in** | 0.55.18                                                      | n/a                                                          | [1.30.0](https://cliqz.com/en/magazine/cliqz-browser-release-notes-1-30-0) | [78.0.276.8](https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8) | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/) | [Safari 13 on macOS](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) |
