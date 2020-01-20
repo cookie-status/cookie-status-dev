@@ -91,6 +91,8 @@ If there is **no user interaction** with the first-party site, this type of stor
 
 ## Referrer
 
-Safari downgrades referrers from **all** cross-site requests to their **origin**. Thus a request originating from `https://www.domain.com/page/page.html` would show up as `https://www.domain.com` in the `referer` header and in the `document.referrer` property of the landing page.
+Safari downgrades referrers for **all** non-navigational cross-site requests to their **origin**. Thus if a page on `https://www.domain.com/page/page.html` tried to load an image from `https://images.imagecdn.com`, the `referer` header would show `https://www.domain.com` rather than the full referrer.
 
-Furthermore, if the referring domain is a known tracker, and if the *referring page* has query parameters (`?key=value`) or fragments (`#somevalue`), the referrer is downgraded to **effective top-level domain plus one part** (eTLD+1). Thus a request originating from `https://sub.classified.domain.com/page?userId=abcd1234` would end up as `https://domain.com` in the `referer`header and in the `document.referrer` property of the landing page.
+Furthermore, if the referring domain is a known tracker, and if the *referring page* has query parameters (`?key=value`) or fragments (`#somevalue`), the `document.referrer` property is downgraded to **effective top-level domain plus one part** (eTLD+1). Thus a request originating from `https://sub.classified.domain.com/page?userId=abcd1234` would end up as `https://domain.com` in the `document.referrer` property of the landing page.
+
+For navigational requests, `no-referrer-when-downgrade` applies.
