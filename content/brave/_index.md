@@ -83,7 +83,7 @@ Note that since Brave *blocks* resources found in their [classification lists](#
 
 ## Referrer
 
-Cross-origin referrers are **spoofed** in non-navigational HTTP requests. 
+Cross-site referrers are **spoofed** in non-navigational HTTP requests. 
 
 {{% notice note %}}
 
@@ -91,7 +91,7 @@ Cross-origin referrers are **spoofed** in non-navigational HTTP requests.
 
 {{% /notice %}}
 
-For top-level navigation, cross-origin referrers are **stripped** entirely.
+For top-level navigation, cross-site referrers are **stripped** entirely.
 
 {{% notice note %}}
 
@@ -99,7 +99,7 @@ For top-level navigation, cross-origin referrers are **stripped** entirely.
 
 {{% /notice %}}
 
-For same-origin requests (both navigational and non-navigational), referrer has **normal** behavior.
+For same-site requests (both navigational and non-navigational), referrer has **normal** behavior.
 
 ## Other
 
