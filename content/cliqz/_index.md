@@ -13,8 +13,8 @@ pre = "<b class=\"temp-cliqz\"></b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Anti-Tracking                                                    |
 | **Originally deployed in**    | [1.30.0](https://cliqz.com/en/magazine/cliqz-browser-release-notes-1-30-0)                                                      |
-| **Latest update deployed in** | [1.30.0](https://cliqz.com/en/magazine/cliqz-browser-release-notes-1-30-0)                         |
-| **Latest update includes**    | Cliqz' own Anti-Tracking Mechanism deployed. |
+| **Latest update deployed in** | 1.32.1 |
+| **Latest update includes**    | All cross-origin referrers stripped to origin. |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Anti-tracking activation**</li><li>**Blocking ads**</li><li>**Cookie pop-up blocking** (consent requests)</li><li>**Anti-phishing**</li><li>**Automatic HTTPS connection upgrade**</li> |
 
 {{< figure src="/images/content/cliqz-settings.jpg" title="Cliqz Anti-Tracking default settings" class="left-align" >}}
@@ -65,7 +65,13 @@ No current restrictions.
 
 ## Referrer
 
-Default browser policy (`no-referrer-when-downgrade`).
+Cliqz strips all cross-origin referrers to origin only.
+
+{{% notice note %}}
+
+**Example**: The user clicks on a link from `https://www.company.com/page?userId=123` to `https://www.cookiestatus.com/`. The `referer` HTTP header and the `document.referrer` JavaScript object will show `https://www.company.com` as the referrer. All non-navigational HTTP requests will truncate the referrer in a similar fashion.
+
+{{% /notice %}}
 
 ## Other
 
