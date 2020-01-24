@@ -103,10 +103,10 @@ For same-site requests (both navigational and non-navigational), referrer has **
 
 ## Other
 
-Brave [removes known tracker identifier parameters](https://github.com/brave/brave-browser/issues/4239) from third-party request URL strings. 
+Brave [removes known tracker identifier parameters](https://github.com/brave/brave-browser/issues/4239) (`fbclid`, `gclid`, `msclkid`, `mc_eid`) from URL strings. On top-level navigation (e.g. landing on a page with such parameters in the URL), the parameters are stripped out in a 307 internal redirect. On non-navigational HTTP requests, the parameter is stripped from the request URL.
 
 {{% notice note %}}
 
-**Example**: If the browser sends a request to a third-party resource using something like `?fbclid=abcd-1234-efgh-5678` in the request URL, it's possible that this parameter will be stripped from the outgoing request so that the service receiving the request will not be able to access the data.
+**Example**: If the user types `https://www.domain.com/?fbclid=1.2.3.4` in the omnibox and presses enter, Brave strips the parameter in an internal redirect. Similarly, if the browser makes a request to `https://www.domain.com/tracking-pixel.gif?mc_eid=23456`, Brave strips the parameter out of the request before it hits the target server.
 
 {{% /notice %}}
