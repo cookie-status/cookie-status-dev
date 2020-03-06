@@ -46,8 +46,10 @@ Clarify Safari's cookie restrictions in third-party context.
 
 ### Bubbling under
 
-**Last updated**: 10 January 2020
+**Last updated**: 6 March 2020
 
+* Firefox: Remove browser storage on sites that set tracking cookies, if the site has not been interacted with in 30 days ([link to issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262))
+* Brave: Add noise to Canvas, WebGL and AudioContext APIs to make fingerprinting more difficult ([link to wiki page](https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections))
 * Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438))
 * Safari: Treat programmatically initiated client-side redirects that happen within 5 seconds after page load as redirects for ITP purposes ([WebKit changeset](https://trac.webkit.org/changeset/254296/webkit))
 * Safari: [Block all third-party cookies](https://trac.webkit.org/changeset/251467/webkit)
