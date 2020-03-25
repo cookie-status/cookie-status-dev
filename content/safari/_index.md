@@ -102,3 +102,7 @@ Furthermore, if the referring domain is a known tracker, and if the *referring p
 For navigational requests, `no-referrer-when-downgrade` applies.
 
 ## Other
+
+Safari also protects against **first-party bounce tracking**. Bounce tracking happens when instead of navigating the user directly to the target domain, the user is redirected through intermediate domains which can set cookies and build a profile of the user. Intelligent Tracking Prevention detects when domains are used solely for bounce tracking and clears all website data that might have been saved on them.
+
+Similarly, Safari protects against **tracker collusion**, where multiple tracking domains in a redirect chain can feed information to each other to build a comprehensive profile of the user. If one domain in this chain is classified as having cross-site tracking capabilities, then all domains in the redirect chain will be classified as well.
