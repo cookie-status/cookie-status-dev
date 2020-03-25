@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Intelligent Tracking Prevention 2.3                          |
 | **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |
-| **Latest update**             | [Documented 10 Dec 2019](https://webkit.org/blog/9661/preventing-tracking-prevention-tracking/) |
-| **Latest update includes** | <ul><li>***All* cross-site request referrer headers are downgraded to origin**</li><li>**Cookie access blocked from *all* third-party requests where the domain has not received user interaction in first-party context**</li></ul> |
+| **Latest update**             | [Documented 24 Mar 2020](https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/) |
+| **Latest update includes** | <ul><li>***All* third-party cookie access is blocked.</li><li>**All script-writable storage is expired in 7 days since last interaction with the site.**</li><li>**All cross-site request headers and `document.referrer` are downgraded to origin.**</li></ul> |
 | **User controls**             | ITP **doesn't let users control** how it works. Users can simply toggle ITP off by unchecking "Prevent cross-site tracking" in Safari's Security preferences. |
 
 {{< figure src="/images/content/safari-privacy-control.jpg" title="Privacy controls in Safari" class="left-align" >}}
@@ -39,35 +39,11 @@ To monitor the list of domains classified by your Safari instance, or to test IT
 
 ## Third-party cookies
 
-Safari has a number of different approaches to blocking third-party cookie access.
-
-First, there's Safari's **default cookie policy**, which has been active since as early as 2003. The default policy prevents domains of a third-party site from setting cookies **if the site hasn't already been "seeded" with a cookie in first-party context**. This policy is always in place, and can not be circumvented with e.g. the Storage Access API (see below).
-
-{{% notice note %}}
-
-**Example**: The user visits a website which sends a request to `www.third-party-domain.com`, which subsequently attempts to set a cookie in the HTTP response. Safari blocks this, as the user's browser has no cookies set on `www.third-party-domain.com` yet. If the user were to visit `www.third-party-comain.com` in first-party context (actually typing the URL in the browser omnibox), by setting a cookie in first-party context would relax this default cookie policy for this particular site in future third-party requests.
-
-{{% /notice %}}
-
-Second, Safari blocks all third-party requests on a site from accessing cookies if the site has not received **user interaction** in the **first-party context** (i.e. with the URL in the address bar) in the last 30 days *of Safari use*.
-
-{{% notice note %}}
-
-**Example**: The user visits `www.site-example.com`. Until the user *interacts* with the site (click, tap, text input), no third-party domain will have access to its cookies. If the user interacts with the site, then third-party requests will have storage access for the next 30 days of Safari use (unless other policies block such access).
-
-{{% /notice %}}
-
-Finally, if the domain is classified as having **cross-site tracking capabilities**, third-party cookie access is blocked.
-
-If the browser wants to access cookies on third-party domains classified by ITP, it needs to utilize the [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#Safari_implementation_differences) to prompt the user whether it is OK to share data with the third-party domain.
+Safari blocks **all** access to cookies in third-party context.
 
 ### Storage Access API
 
 Safari introduced the [Storage Access API](https://webkit.org/blog/8124/introducing-storage-access-api/) in February 2018. With the Storage Access API, a website can ask the user's permission to access storage in an embedded cross-site resource which would otherwise have its cookie access restricted. 
-
-{{% notice info %}} 
-This will **not** allow access to cookies blocked by Safari's **default cookie policy**.
-{{% /notice %}}
 
 To be able to use the Storage Access API, the embedded site must have been interacted with in first-party context (URL in address bar) in the last 30 days of Safari use. 
 
@@ -113,20 +89,16 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 
 ## Other first-party storage
 
-If the referring domain is a known tracker, and if the URL has query parameters (`?key=value`) or fragments (`#somevalue`), then **all** non-cookie website storage in first-party context is restricted to maximum **7 days** lifetime since the last user interaction (click, tap, or text input) with the site.
-
-{{% notice note %}}
-
-**Example**: The user clicks a link on `www.known-tracker.com` (a classified domain), and the landing page URL is appended with the fragment `#abcd1234`. ITP sets the maximum lifetime of all non-cookie website storage (e.g. `localStorage`) to **7 days**, and the timer starts from the first interaction with the site. If the user doesn't interact with the site again for 7 days, all non-cookie storage is deleted.
-
-{{% /notice %}}
-
-If there is **no user interaction** with the first-party site, this type of storage is expired within few seconds.
+All script-writable storage is expired in **7 days** since last interaction with the site (click, tap, or text input).
 
 ## Referrer
 
-Safari downgrades referrers for **all** non-navigational cross-site requests to their **origin**. Thus if a page on `https://www.domain.com/page/page.html` tried to load an image from `https://images.imagecdn.com`, the `referer` header would show `https://www.domain.com` rather than the full referrer.
+Safari downgrades `document.referrer` to **origin** in cross-site navigation.
+
+Safari downgrades the referrer in cross-site request headers to **origin**. Thus if a page on `https://www.domain.com/page/page.html` tried to load an image from `https://images.imagecdn.com`, the `referer` header would show `https://www.domain.com` rather than the full referrer.
 
 Furthermore, if the referring domain is a known tracker, and if the *referring page* has query parameters (`?key=value`) or fragments (`#somevalue`), the `document.referrer` property is downgraded to **effective top-level domain plus one part** (eTLD+1). Thus a request originating from `https://sub.classified.domain.com/page?userId=abcd1234` would end up as `https://domain.com` in the `document.referrer` property of the landing page.
 
 For navigational requests, `no-referrer-when-downgrade` applies.
+
+## Other
