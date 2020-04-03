@@ -46,14 +46,18 @@ Updated Safari with latest ITP changes.
 
 ### Bubbling under
 
-**Last updated**: 25 March 2020
+**Last updated**: 2 April 2020
 
+* Brave: Add noise to Canvas, WebGL and AudioContext APIs to make fingerprinting more difficult ([link to wiki page](https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections)).
+* Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438)).
+* Chrome: Deprecation of the User-Agent string ([link to discussion](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/-2JIRNMWJ7s/yHe4tQNLCgAJ)).
+* Chrome: Scheme-bound cookies ([link to proposal](https://github.com/mikewest/scheming-cookies)).
+* Firefox: Remove browser storage on sites that set tracking cookies, if the site has not been interacted with in 30 days ([link to issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262)).
+* Safari: Exempt web applications from having their local browser data erased ([link to changeset](https://trac.webkit.org/changeset/259440/webkit)).
+* Safari: Enforce cookies to SameSite=Strict if passed in bounce trackers ([link to changeset](https://trac.webkit.org/changeset/259275/webkit)).
 * Safari: Remove the [Temporary Compatibility Fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) which gives storage access to embedded popups in some contexts (e.g. login flows).
-* Firefox: Remove browser storage on sites that set tracking cookies, if the site has not been interacted with in 30 days ([link to issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262))
-* Brave: Add noise to Canvas, WebGL and AudioContext APIs to make fingerprinting more difficult ([link to wiki page](https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections))
-* Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438))
-* Safari: `isLoggedIn` ([original explainer](https://lists.w3.org/Archives/Public/public-webappsec/2019Sep/0004.html) and [WebKit changeset for experimental feature](https://trac.webkit.org/changeset/250944/webkit))
-* Firefox, Edge, Chrome: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712)
+* Safari: `isLoggedIn` ([original explainer](https://lists.w3.org/Archives/Public/public-webappsec/2019Sep/0004.html) and [WebKit changeset for experimental feature](https://trac.webkit.org/changeset/250944/webkit)).
+* Firefox, Edge, Chrome: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712).
 
 ## FAQ
 
