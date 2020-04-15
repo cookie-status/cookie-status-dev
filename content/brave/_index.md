@@ -14,8 +14,8 @@ pre = "<b class=\"temp-brave\"></b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Shields                                                      |
 | **Originally deployed in**    | 0.55.18                                                      |
-| **Latest update deployed in** | [v1.1.20](https://brave.com/latest/)                         |
-| **Latest update includes**    | [Removed known user tracking parameters from query strings](https://github.com/brave/brave-browser/issues/4239) |
+| **Latest update deployed in** | [v1.7.92](https://community.brave.com/t/release-channel-v1-7-92/118997)                         |
+| **Latest update includes**    | [Randomize HTML canvas fingerprint per first-party domain](https://github.com/brave/brave-browser/issues/5614) |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Cross-site tracker blocking**</li><li>**Automatic connection upgrade to HTTPS**</li><li>**Script blocking**</li><li>**Cookie blocking**</li><li>**Device recognition blocking**</li> |
 
 {{< figure src="/images/content/brave-blocking-general.jpg" title="Brave Shields default settings" class="left-align" >}}
@@ -110,3 +110,5 @@ Brave [removes known tracker identifier parameters](https://github.com/brave/bra
 **Example**: If the user types `https://www.domain.com/?fbclid=1.2.3.4` in the omnibox and presses enter, Brave strips the parameter in an internal redirect. Similarly, if the browser makes a request to `https://www.domain.com/tracking-pixel.gif?mc_eid=23456`, Brave strips the parameter out of the request before it hits the target server.
 
 {{% /notice %}}
+
+Brave has lots of initiatives for [neutralizing fingerprinting surfaces](https://brave.com/brave-fingerprinting-and-privacy-budgets/), with features such as [randomized HTML canvas fingerprints](https://github.com/brave/brave-browser/issues/5614) preferred over just removing or clearing the fingerprint surfaces.
