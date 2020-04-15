@@ -22,7 +22,7 @@ Changes added in the **latest release** of each browser are indicated with <span
 {{% /notice %}}
 
 **Last updated**: 15 April 2020  
-Updated Safari with latest ITP changes.
+Update Brave with latest change to fingerprinting.
 
 <a title="Suggest an edit" href="https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20Current%20Status" target="_blank"><i class="fa fa-edit"></i> Suggest an edit</a>
 
