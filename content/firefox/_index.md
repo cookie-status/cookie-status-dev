@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-firefox\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Enhanced Tracking Protection (ETP)                                    |
 | **Originally deployed in**    | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/)                                                     |
-| **Latest update deployed in** | [72.0](https://www.mozilla.org/en-US/firefox/72.0/releasenotes/) |
-| **Latest update includes** | Automatically block resource loads for scripts that are both in the Fingerprinting and one of the tracking categories. |
+| **Latest update deployed in** | [75.0](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262) |
+| **Latest update includes** | Delete all site data (incl. cookies, browser storage) if site is a known tracker and hasn't been interacted with in 30 days. |
 | **User controls**             | <ul><li>**Choose between Standard, Strict, and Custom levels**</li><li>**In Custom level, select which types of trackers and scripts to block**</li><li>**Add exceptions to the domains blocked by Enhanced Tracking Protection**</li><ul> |
 
 {{< figure src="/images/content/etp-modes.jpg" title="Enhanced Tracking Protection levels" class="left-align" >}}
@@ -38,6 +38,8 @@ Firefox utilizes the following Disconnect.me categories in ETP:
 {{% /notice %}}
 
 Tracking Content blocking (enabled in **Private windows** by default) will not just strip cookies but actually **block** all resource requests to domains listed in Disconnect.me.
+
+Firefox deletes all stored site data (incl. cookies, browser storage) if the site is a known tracker and hasn't been interacted with in the last 30 days.
 
 ## Third-party cookies
 

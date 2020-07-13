@@ -2,12 +2,18 @@
 title = "Cliqz"
 metatitle = "Cliqz :: Current status"
 date = 2019-11-21T15:32:10+02:00
-weight = 17
+weight = 40
 chapter = false
 logo = "cliqz"
 pre = "<b class=\"temp-cliqz\"></b>"
 +++
 ## Current status
+
+{{% notice warning %}}
+
+The Cliqz project has been [shut down](https://cliqz.com/announcement.html), unfortunately. However, their information will be kept live on this site as a homage to the pioneering work Cliqz did for browser tracking protections.
+
+{{% /notice %}}
 
 | Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |

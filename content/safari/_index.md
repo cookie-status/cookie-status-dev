@@ -19,6 +19,8 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 
 {{< figure src="/images/content/safari-privacy-control.jpg" title="Privacy controls in Safari" class="left-align" >}}
 
+For a comprehensive overview of all WebKit's tracking preventions, see [this document](https://webkit.org/tracking-prevention/).
+
 ## Classification of "known trackers"
 
 Safari classifies domains capable of cross-site tracking using an **algorithm** that runs on-device. Thus each Safari user has a potentially different list of domains that are blocked from having access to browser storage.
@@ -106,3 +108,5 @@ For navigational requests, `no-referrer-when-downgrade` applies.
 Safari also protects against **first-party bounce tracking**. Bounce tracking happens when instead of navigating the user directly to the target domain, the user is redirected through intermediate domains which can set cookies and build a profile of the user. Intelligent Tracking Prevention detects when domains are used solely for bounce tracking and clears all website data that might have been saved on them.
 
 Similarly, Safari protects against **tracker collusion**, where multiple tracking domains in a redirect chain can feed information to each other to build a comprehensive profile of the user. If one domain in this chain is classified as having cross-site tracking capabilities, then all domains in the redirect chain will be classified as well.
+
+With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-prevention/) are extended to **all** browsers running on the iOS platform. There is no way for the browser or any app using the browser to toggle these protections off. Only the user can opt-out of cross-site tracking protections.
