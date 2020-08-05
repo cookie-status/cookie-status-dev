@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-firefox\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Enhanced Tracking Protection (ETP)                                    |
 | **Originally deployed in**    | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/)                                                     |
-| **Latest update deployed in** | [75.0](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262) |
-| **Latest update includes** | Delete all site data (incl. cookies, browser storage) if site is a known tracker and hasn't been interacted with in 30 days. |
+| **Latest update deployed in** | [79.0](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262) |
+| **Latest update includes** | Clear all site data if origin is a known tracker and hasn't been interacted with in 45 days. |
 | **User controls**             | <ul><li>**Choose between Standard, Strict, and Custom levels**</li><li>**In Custom level, select which types of trackers and scripts to block**</li><li>**Add exceptions to the domains blocked by Enhanced Tracking Protection**</li><ul> |
 
 {{< figure src="/images/content/etp-modes.jpg" title="Enhanced Tracking Protection levels" class="left-align" >}}
@@ -47,7 +47,7 @@ Third-party cookies are blocked for classified domains.
 
 ## First-party cookies
 
-No restrictions.
+All storage is cleared (more or less) daily from origins that are known trackers and that haven't received a top-level user interaction (including scroll) within the last 45 days. More details can be found [here](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Privacy/Redirect_tracking_protection).
 
 {{% notice info %}}
 
@@ -71,7 +71,7 @@ No restrictions for other domains.
 
 ## Other first-party storage
 
-No restrictions.
+All storage is cleared (more or less) daily from origins that are known trackers and that haven't received a top-level user interaction (including scroll) within the last 45 days. More details can be found [here](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Privacy/Redirect_tracking_protection).
 
 {{% notice info %}}
 
