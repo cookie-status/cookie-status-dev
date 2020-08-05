@@ -1,6 +1,6 @@
 +++
 title = "Cookie Status"
-date = 2019-11-19T13:57:26+02:00
+date = 2020-08-05T07:00:26+02:00
 type = "currentstatus"
 weight = 5
 +++

@@ -11,7 +11,7 @@ pre = "<b><i class=\"fab fa-chrome\"></i> </b>"
 
 {{% notice warning %}}
 
-The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection.
+The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection. With **Chrome 85** the default referrer policy of `strict-origin-when-cross-origin` will be rolled out, which could be considered Chrome's best default tracking protection to date.
 
 {{% /notice %}}
 
