@@ -25,6 +25,10 @@ Chrome does not classify classify trackers or domains for the purposes of tracki
 
 Chrome does not restrict the use of third-party cookies.
 
+{{% notice warning %}}
+Chrome [plans to stop supporting third-party cookies by 2022](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html) and is already blocking them in Incognito mode [as of Chrome 83](https://venturebeat.com/2020/05/19/google-chrome-83/).
+{{% /notice %}}
+
 ## First-party cookies
 
 Chrome does not restrict the use of first-party cookies.
