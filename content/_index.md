@@ -48,7 +48,7 @@ Add details about bounce tracking protection in Firefox 79.
 
 **Last updated**: 6 August 2020
 
-* Safari: Detect CNAME redirects to third-party domains, and limit expiration of cookies set in HTTP response to 7 days ([link to WebKit bug](https://bugs.webkit.org/show_bug.cgi?id=215201)).
+* Safari: Detect same-site subresource requests that CNAME to cross-site origins, and limit expiration of cookies set in HTTP response to 7 days ([link to WebKit bug](https://bugs.webkit.org/show_bug.cgi?id=215201)).
 * Safari: `isLoggedIn` ([work item in the Privacy Community Group](https://github.com/privacycg/is-logged-in).
 * Chrome 85: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712).
 * Brave: Add noise to Canvas, WebGL and AudioContext APIs to make fingerprinting more difficult ([link to wiki page](https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections)).
