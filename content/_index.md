@@ -46,15 +46,16 @@ Add details about bounce tracking protection in Firefox 79.
 
 ### Bubbling under
 
-**Last updated**: 6 August 2020
+**Last updated**: 8 August 2020
 
 * Safari: Detect same-site subresource requests that CNAME to cross-site origins, and limit expiration of cookies set in HTTP response to 7 days ([link to WebKit bug](https://bugs.webkit.org/show_bug.cgi?id=215201)).
-* Safari: `isLoggedIn` ([work item in the Privacy Community Group](https://github.com/privacycg/is-logged-in).
+* Safari: `isLoggedIn` ([work item in the Privacy Community Group](https://github.com/privacycg/is-logged-in)).
 * Chrome 85: [`strict-origin-when-cross-origin` default referrer policy](https://www.chromestatus.com/feature/6251880185331712).
 * Brave: Add noise to Canvas, WebGL and AudioContext APIs to make fingerprinting more difficult ([link to wiki page](https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections)).
 * Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438)).
 * Chrome: Deprecation of the User-Agent string ([link to discussion](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/-2JIRNMWJ7s/yHe4tQNLCgAJ)).
 * Chrome: Scheme-bound cookies ([link to proposal](https://github.com/mikewest/scheming-cookies)).
+* Chrome: Deprecation of cookies in third-party contexts ([link to blog post](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html)).
 * Safari: Exempt web applications from having their local browser data erased ([link to changeset](https://trac.webkit.org/changeset/259440/webkit)).
 * Safari: Enforce cookies to SameSite=Strict if passed in bounce trackers ([link to changeset](https://trac.webkit.org/changeset/259275/webkit)).
 * Safari: Remove the [Temporary Compatibility Fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) which gives storage access to embedded popups in some contexts (e.g. login flows).
