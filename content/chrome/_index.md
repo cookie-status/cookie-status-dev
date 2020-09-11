@@ -11,8 +11,7 @@ pre = "<b><i class=\"fab fa-chrome\"></i> </b>"
 
 {{% notice warning %}}
 
-The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection. With **Chrome 85** the default referrer policy of `strict-origin-when-cross-origin` will be rolled out, which could be considered Chrome's best default tracking protection to date.
-
+The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection.
 {{% /notice %}}
 
 The [privacy-sandbox](https://www.chromium.org/Home/chromium-privacy/privacy-sandbox) Chromium project promises initiatives related to tracking prevention, and Chrome has publicly stated intention to [making third-party cookies obsolete by 2022](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html).
@@ -39,4 +38,4 @@ Chrome does not restrict the use of other browser storage in first-party context
 
 ## Referrer
 
-Chrome uses the default referrer policy of `no-referrer-when-downgrade`.
+Chrome 85 sets the default referrer policy to `strict-origin-when-cross-origin`. This means that for cross-origin requests (e.g. `sub.domain.com` to `othersub.domain.com`, or `sub.domain.com` to `sub.otherdomain.com`) the `referer` HTTP header and `document.referrer` JavaScript API are truncated to show just the **origin** of the website making the request. Thus a page such as `https://www.domain.com/some-page?param=value` would show up just as `https://www.domain.com` in the referrer records.
