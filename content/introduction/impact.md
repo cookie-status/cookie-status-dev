@@ -25,11 +25,7 @@ Because browsers like [Edge](/edge/) and [Firefox](/firefox/) use lists (Trust P
 
 On browsers like these, using their default tracking protection settings, websites could still continue to operate efficiently with third-party cookies.
 
-However, **Safari**, in introducing [Intelligent Tracking Prevention](/safari/intelligent-tracking-prevention/), can block cookies in a third-party context for domains that don't actually participate in cross-site tracking. Since Safari **algorithmically** classifies domains on a browser-by-browser basis, it's entirely possible that a regular domain owned by the organization would get classified and thus have its cookies blocked when accessed in a third-party context.
-
-{{% notice info %}}
-Safari describes the classifier [like this](https://webkit.org/blog/7675/intelligent-tracking-prevention/): **Out of the various statistics collected, three vectors turned out to have strong signal for classification based on current tracking practices: subresource under number of unique domains, sub frame under number of unique domains, and number of unique domains redirected to.**
-{{% /notice %}}
+Browsers like **Safari** and **Brave** block *all* third-party cookie access. This means that both benign (e.g. SSO flows) and cross-site tracking scenarios are neutered. Safari offers the [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API) as a way for sites to establish consent from the browser user for allowing access to third-party storage.
 
 Because of this, websites that require third-party cookies should utilize the Storage Access API to get user's consent to access first-party storage for a classified domain.
 
@@ -72,7 +68,7 @@ The Brave browser has adopted an [*even* stricter stance](https://github.com/bra
 
 ## Advertising and marketing technologies
 
-For AdTech vendors relying on storage access in third-party context, there are some tough times ahead. With Safari, Edge, and Firefox blocking third-party cookies for known trackers, it doesn't take much for a vendor to be blacklisted or classified as a tracker, leading to severely handicapped tracking capabilities. 
+For AdTech vendors relying on storage access in third-party context, there are some tough times ahead. With Safari, Edge, and Firefox blocking third-party cookies for known trackers, it doesn't take much for a vendor to be blocklisted or classified as a tracker, leading to severely handicapped tracking capabilities. 
 
 Vendors are becoming more **outspoken** in their attempts to work around browser restrictions. [Some companies are approaching site owners](https://medium.com/nextdns/cname-cloaking-the-dangerous-disguise-of-third-party-trackers-195205dc522a) with instructions on how to setup CNAME redirects and reverse proxies to avoid ad blockers from preventing data collection. The ethical nature of such approaches is questionable at best.
 
@@ -144,6 +140,3 @@ Because the vendors often provide their solutions using global content delivery 
 Similar to digital analytics, first-party storage for content optimization is also restricted on **Safari**. Due to the short expiration time of script-writable storage, experimentation and personalization platforms **can't deliver consistent experiences**. In addition to this, the inability to control the sample sizes and deduplicate conversions often leads to too much noise in the calculation of *statistical significance* for the experimentation variations.
 
 Optimization platforms and websites running them should look into utilizing **HTTP headers** for getting and setting these cookies and for determining which content to show to the user, rather than the JavaScript APIs that have been compromised by Safari's ITP.
-
-
-

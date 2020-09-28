@@ -173,6 +173,8 @@ The **Safari** browser has opted for a different tact. Instead of a binary appro
 
 > A machine learning model is used to classify which top privately-controlled domains have the ability to track the user cross-site, based on the collected statistics. Out of the various statistics collected, three vectors turned out to have strong signal for classification based on current tracking practices: subresource under number of unique domains, sub frame under number of unique domains, and number of unique domains redirected to. All data collection and classification happens on-device.
 
+Note that in early 2020, WebKit's tracking protections were extended to [block **all** third-party cookies without exception](/safari/#third-party-cookies). Thus the algorithmic classification no longer applies to how third-party storage is accessed, but it is still used for other tracking-related protections (such as [downgrading the referrer](https://www.cookiestatus.com/safari/#referrer)).
+
 However, Safari's approach *is* binary in a sense - you can either enable **all** cross-site tracking or **none**.
 
 {{< figure src="/images/content/safari-settings.jpg" title="Safari privacy settings" class="left-align" >}}

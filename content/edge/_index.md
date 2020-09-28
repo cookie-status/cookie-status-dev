@@ -116,4 +116,4 @@ Note that domains in Cryptomining and Fingerprinting categories of the Trust Pro
 
 ## Referrer
 
-Default browser policy (`no-referrer-when-downgrade`).
+Default browser policy (`strict-origin-when-cross-origin`).
