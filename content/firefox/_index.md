@@ -79,6 +79,10 @@ Note that domains in the Cryptomining category have all incoming requests blocke
 
 {{% /notice %}}
 
+## CNAME cloaking
+
+No protections against CNAME cloaking.
+
 ## Referrer
 
 HTTP requests to known tracking domains are sent with the referrer policy of `strict-origin-with-cross-origin`. Other requests use `no-referrer-when-downgrade`.

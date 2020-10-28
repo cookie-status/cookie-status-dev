@@ -114,6 +114,10 @@ Note that domains in Cryptomining and Fingerprinting categories of the Trust Pro
 
 {{% /notice %}}
 
+## CNAME cloaking
+
+No protections against CNAME cloaking.
+
 ## Referrer
 
 Default browser policy (`strict-origin-when-cross-origin`).

@@ -79,6 +79,10 @@ Cliqz strips all cross-origin referrers to origin only.
 
 {{% /notice %}}
 
+## CNAME cloaking
+
+No protections against CNAME cloaking.
+
 ## Other
 
 Cliqz automatically purges *potential user identifiers* from the URL, headers, and POST data of third-party requests.

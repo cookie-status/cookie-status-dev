@@ -93,6 +93,10 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 
 All script-writable storage is expired in **7 days** since last interaction with the site (click, tap, or text input).
 
+## CNAME cloaking
+
+No protections against CNAME cloaking.
+
 ## Referrer
 
 Safari downgrades `document.referrer` to **origin** in cross-site navigation.

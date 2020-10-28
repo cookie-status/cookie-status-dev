@@ -81,6 +81,10 @@ Note that since Brave *blocks* resources found in their [classification lists](#
 
 {{% /notice %}}
 
+## CNAME cloaking
+
+No protections against CNAME cloaking.
+
 ## Referrer
 
 Cross-site referrers are **spoofed** in non-navigational HTTP requests. 

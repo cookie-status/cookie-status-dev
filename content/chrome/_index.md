@@ -35,6 +35,10 @@ Chrome does not restrict the use of other browser storage in third-party context
 
 Chrome does not restrict the use of other browser storage in first-party context.
 
+## CNAME cloaking
+
+No protections against CNAME cloaking.
+
 ## Referrer
 
 Chrome 85 sets the default referrer policy to `strict-origin-when-cross-origin`. This means that for cross-origin requests (e.g. `sub.domain.com` to `othersub.domain.com`, or `sub.domain.com` to `sub.otherdomain.com`) the `referer` HTTP header and `document.referrer` JavaScript API are truncated to show just the **origin** of the website making the request. Thus a page such as `https://www.domain.com/some-page?param=value` would show up just as `https://www.domain.com` in the referrer records.
