@@ -107,7 +107,16 @@ For same-site requests (both navigational and non-navigational), referrer has **
 
 ## Other
 
-Brave [removes known tracker identifier parameters](https://github.com/brave/brave-browser/issues/4239) (`fbclid`, `gclid`, `msclkid`, `mc_eid`) from URL strings. On top-level navigation (e.g. landing on a page with such parameters in the URL), the parameters are stripped out in a 307 internal redirect. On non-navigational HTTP requests, the parameter is stripped from the request URL.
+Brave [removes known tracker identifier parameters](https://github.com/brave/brave-browser/issues/4239) from URL strings. On top-level navigation (e.g. landing on a page with such parameters in the URL), the parameters are stripped out in a 307 internal redirect. On non-navigational HTTP requests, the parameter is stripped from the request URL.
+
+Here is the list of parameters that are stripped:
+
+* `fbclid` (Facebook)
+* `gclid` (Google)
+* `msclkid` (Microsoft)
+* `mc_eid` (Mailchimp)
+* `yclid` (Yandex/Yahoo)
+* `_hsenc`, `__hssc`, `__hstc`, `__hsfp`, `hsCtaTracking` (HubSpot)
 
 {{% notice note %}}
 
