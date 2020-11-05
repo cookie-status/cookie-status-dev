@@ -95,7 +95,11 @@ All script-writable storage is expired in **7 days** since last interaction with
 
 ## CNAME cloaking
 
-No protections against CNAME cloaking.
+On iOS 14.2 browsers, if a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
+
+{{% notice note %}}
+**Example:** A site on `https://domain.example` uses the subdomain `https://tracker.domain.example` to set cookies in order to avoid WebKit's restrictions on [script-writable first-party storage](#first-party-cookies). However, `https://tracker.domain.example/` has a CNAME alias to `https://domain.cloud.endpoint`, where the web server handling this logic resides. With all iOS 14.2 browsers (and soon with desktop Safari as well), any cookies set with HTTP responses from `https://tracker.domain.example` will now be restricted to an expiration of maximum 7 days.
+{{% /notice %}}
 
 ## Referrer
 
