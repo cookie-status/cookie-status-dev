@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Intelligent Tracking Prevention 2.3                          |
 | **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |
-| **Latest update**             | [Documented 24 Mar 2020](https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/) |
-| **Latest update includes** | <ul><li>***All* third-party cookie access is blocked.</li><li>**All script-writable storage is expired in 7 days since last interaction with the site.**</li><li>**All cross-site request headers and `document.referrer` are downgraded to origin.**</li></ul> |
+| **Latest update**             | [Documented 12 Nov 2020](https://webkit.org/blog/11338/cname-cloaking-and-bounce-tracking-defense/) |
+| **Latest update includes** | **CNAME cloaking mitigation** is released. Cookies set with HTTP response headers in a subdomain that maps to a cross-site origin using a CNAME alias are restricted to 7 days expiration. |
 | **User controls**             | ITP **doesn't let users control** how it works. Users can simply toggle ITP off by unchecking "Prevent cross-site tracking" in Safari's Security preferences. |
 
 {{< figure src="/images/content/safari-privacy-control.jpg" title="Privacy controls in Safari" class="left-align" >}}
@@ -95,10 +95,12 @@ All script-writable storage is expired in **7 days** since last interaction with
 
 ## CNAME cloaking
 
-On iOS 14.2 browsers, if a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
+**This applies to Safari 14 released with Big Sur and to all major iOS and iPadOS 14.2+ browser apps.**
+
+If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
 
 {{% notice note %}}
-**Example:** A site on `https://domain.example` uses the subdomain `https://tracker.domain.example` to set cookies in order to avoid WebKit's restrictions on [script-writable first-party storage](#first-party-cookies). However, `https://tracker.domain.example/` has a CNAME alias to `https://domain.cloud.endpoint`, where the web server handling this logic resides. With all iOS 14.2 browsers (and soon with desktop Safari as well), any cookies set with HTTP responses from `https://tracker.domain.example` will now be restricted to an expiration of maximum 7 days.
+**Example:** A site on `https://domain.example` uses the subdomain `https://tracker.domain.example` to set cookies in order to avoid WebKit's restrictions on [script-writable first-party storage](#first-party-cookies). However, `https://tracker.domain.example/` has a CNAME alias to `https://domain.cloud.endpoint`, where the web server handling this logic resides. On desktop Safari (on Big Sur) and all major iOS and iPadOS browsers, any cookies set with HTTP responses from `https://tracker.domain.example` will now be restricted to an expiration of maximum 7 days.
 {{% /notice %}}
 
 ## Referrer
