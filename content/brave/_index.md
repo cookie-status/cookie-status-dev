@@ -14,8 +14,8 @@ pre = "<b class=\"temp-brave\"></b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Shields                                                      |
 | **Originally deployed in**    | 0.55.18                                                      |
-| **Latest update deployed in** | [v1.7.92](https://community.brave.com/t/release-channel-v1-7-92/118997)                         |
-| **Latest update includes**    | [Randomize HTML canvas fingerprint per first-party domain](https://github.com/brave/brave-browser/issues/5614) |
+| **Latest update deployed in** | [v1.17.73](https://community.brave.com/t/release-channel-1-17-73/181476)                         |
+| **Latest update includes**    | [Block network requests to tracking domains even if redirected via CNAME record](https://github.com/brave/brave-browser/issues/11712) |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Cross-site tracker blocking**</li><li>**Automatic connection upgrade to HTTPS**</li><li>**Script blocking**</li><li>**Cookie blocking**</li><li>**Device recognition blocking**</li> |
 
 {{< figure src="/images/content/brave-blocking-general.jpg" title="Brave Shields default settings" class="left-align" >}}
@@ -83,7 +83,13 @@ Note that since Brave *blocks* resources found in their [classification lists](#
 
 ## CNAME cloaking
 
-No protections against CNAME cloaking.
+Brave Shields blocks network requests to domains in Brave's blocklists. With version 1.17.73, Brave now also resolves the DNS of any given domain and identifies if there are [**CNAME records**](https://medium.com/nextdns/cname-cloaking-the-dangerous-disguise-of-third-party-trackers-195205dc522a) pointing to domains that are in the [blocklists](/brave/#classification-of-known-trackers), and blocks these as a result, too.
+
+{{% notice note %}}
+
+**Example**: The web page sends a pixel request to `https://measure.example`. This domain is **not** in Brave's blocklist, so Brave would normally allow the network request to complete. However, `measure.example` is a CNAME record which actually points to `track.everything`, which **is** in Brave's blocklist. As the domain the CNAME points to is in Brave's blocklist, Brave blocks the initial request to `https://measure.example` as a consequence.
+
+{{% /notice %}}
 
 ## Referrer
 
