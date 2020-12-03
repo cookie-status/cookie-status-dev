@@ -37,7 +37,7 @@ If a domain is classified by Safari as having cross-site tracking capabilities, 
 
 {{% /notice %}}
 
-To monitor the list of domains classified by your Safari instance, or to test ITP in action, you can utilize the **ITP Debug Mode**, with instructions for use found behind [this link](https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/).
+To monitor the list of domains classified by your Safari instance, or to test ITP in action, you can utilize the **ITP Debug Mode**, with instructions for use found behind [this link](https://www.simoahava.com/privacy/itp-debug-mode-in-safari/).
 
 ## Third-party cookies
 
@@ -120,3 +120,5 @@ Safari also protects against **first-party bounce tracking**. Bounce tracking ha
 Similarly, Safari protects against **tracker collusion**, where multiple tracking domains in a redirect chain can feed information to each other to build a comprehensive profile of the user. If one domain in this chain is classified as having cross-site tracking capabilities, then all domains in the redirect chain will be classified as well.
 
 With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-prevention/) are extended to **all** browsers running on the iOS platform. There is no way for the browser or any app using the browser to toggle these protections off. Only the user can opt-out of cross-site tracking protections.
+
+WebKit browsers also delete **all site data** (script-writable storage, all cookies) if the site domain has been classified by ITP and if there has been no meaningful interaction with the site in first-party context in the last 30 days. Granted access through Storage Access API resets the timer as well.
