@@ -14,8 +14,8 @@ pre = "<b class=\"temp-brave\"></b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Shields                                                      |
 | **Originally deployed in**    | 0.55.18                                                      |
-| **Latest update deployed in** | [v1.17.73](https://community.brave.com/t/release-channel-1-17-73/181476)                         |
-| **Latest update includes**    | [Block network requests to tracking domains even if redirected via CNAME record](https://github.com/brave/brave-browser/issues/11712) |
+| **Latest update deployed in** | [v1.19.86](https://community.brave.com/t/release-channel-1-19-86/197535)                         |
+| **Latest update includes**    | [Strip referrer to `strict-origin-when-cross-origin` or stricter](https://github.com/brave/brave-browser/issues/13464) |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Cross-site tracker blocking**</li><li>**Automatic connection upgrade to HTTPS**</li><li>**Script blocking**</li><li>**Cookie blocking**</li><li>**Device recognition blocking**</li> |
 
 {{< figure src="/images/content/brave-blocking-general.jpg" title="Brave Shields default settings" class="left-align" >}}
@@ -101,11 +101,11 @@ Cross-site referrers are **spoofed** in non-navigational HTTP requests.
 
 {{% /notice %}}
 
-For top-level navigation, cross-site referrers are **stripped** entirely.
+For top-level navigation, cross-site referrers default to `strict-origin-when-cross-origin` unless the site requires an even stricter policy..
 
 {{% notice note %}}
 
-**Example**: When clicking a link from `https://domain.com/page` to `https://anotherdomain.com/another-page/`, the `referer` header is removed from the request. Similarly, the `document.referrer` will return an empty string once the user lands on `anotherdomain.com`.
+**Example**: When clicking a link from `https://domain.com/page` to `https://anotherdomain.com/another-page/`, the `referer` header is set to `https://domain.com`. Similarly, the `document.referrer` will be set to `https://domain.com` once the user lands on `anotherdomain.com`.
 
 {{% /notice %}}
 
