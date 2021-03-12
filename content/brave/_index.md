@@ -45,9 +45,15 @@ By blocking requests upstream, it means that if the request initiated a resource
 
 ## Third-party cookies
 
-**All** third-party cookies are blocked by default.
+**All** third-party cookies are blocked by default in subresource requests (e.g. CDN loads, pixel pings).
 
 {{< figure src="/images/content/brave-cookie-block.jpg" title="Brave uses \"cross-site\" interchangeably with \"third-party\" in this case" class="left-align" >}}
+
+In frames (e.g. `<iframe>`), access is **partitioned** and set to **site-length** expiration.
+
+**Partitioned access** means that the `document.cookie` API will work in a cross-site `<iframe>`, but the storage will be unique between the site embedding the frame and the frame itself. Another site embedding the same frame would have a different storage profile.
+
+**Site-length** expiration means that as soon as the last page of the site embedding the cross-site frame is closed, the partitioned storage is cleared. This is different to how e.g. Safari works, where the storage is cleared only upon the browser being closed (this clears the storage also in Brave).
 
 ## First-party cookies
 
@@ -63,11 +69,11 @@ For cookies set with the `Set-Cookie` HTTP response header, expiration is set to
 
 ## Other third-party storage
 
-No restrictions.
+**Partitioned** and **site-length** expiration for `localStorage` and `sessionStorage` APIs (see [Third-party cookies](#third-party-cookies) for more information).
 
 {{% notice info %}}
 
-Note that since Brave *blocks* resources found in their [classification lists](#classification-of-known-trackers), it has the downstream effect of blocking storage access from these vendors who now can't execute their JavaScript in the user's browser, or respond to the blocked HTTP requests.
+Note that since Brave *blocks* resources found in their [classification lists](#classification-of-known-trackers), it has the downstream effect of blocking storage access from these vendors who now can't execute their JavaScript in the user's browser or respond to the blocked HTTP requests.
 
 {{% /notice %}}
 
