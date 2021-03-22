@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-firefox\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Enhanced Tracking Protection (ETP)                                    |
 | **Originally deployed in**    | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/)                                                     |
-| **Latest update deployed in** | [79.0](https://bugzilla.mozilla.org/show_bug.cgi?id=1599262) |
-| **Latest update includes** | Clear all site data if origin is a known tracker and hasn't been interacted with in 45 days. |
+| **Latest update deployed in** | [87.0](https://wiki.mozilla.org/Releases/Firefox_87) |
+| **Latest update includes** | Default referrer policy set to `strict-origin-when-cross-origin`. |
 | **User controls**             | <ul><li>**Choose between Standard, Strict, and Custom levels**</li><li>**In Custom level, select which types of trackers and scripts to block**</li><li>**Add exceptions to the domains blocked by Enhanced Tracking Protection**</li><ul> |
 
 {{< figure src="/images/content/etp-modes.jpg" title="Enhanced Tracking Protection levels" class="left-align" >}}
@@ -85,7 +85,7 @@ No protections against CNAME cloaking.
 
 ## Referrer
 
-HTTP requests to known tracking domains are sent with the referrer policy of `strict-origin-with-cross-origin`. Other requests use `no-referrer-when-downgrade`.
+The default referrer policy is `strict-origin-when-cross-origin`.
 
 ## Other
 
