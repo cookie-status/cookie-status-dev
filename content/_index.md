@@ -47,14 +47,13 @@ Updated Firefox with new default referrer policy.
 
 ### Bubbling under
 
-**Last updated**: 2 December 2020
+**Last updated**: 22 March 2021
 
 * Brave: Add noise to Canvas, WebGL and AudioContext APIs to make fingerprinting more difficult ([link to wiki page](https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections)).
 * Brave: Cap all script-writable storage to a maximum lifetime ([link to issue](https://github.com/brave/brave-browser/issues/4438)).
 * Chrome: Deprecation of the User-Agent string ([link to discussion](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/-2JIRNMWJ7s/yHe4tQNLCgAJ)).
 * Chrome: Scheme-bound cookies ([link to proposal](https://github.com/mikewest/scheming-cookies)).
 * Chrome: Deprecation of cookies in third-party contexts ([link to blog post](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html)).
-* Firefox, Edge: `strict-origin-when-cross-origin` default referrer policy.
 * Safari: `isLoggedIn` ([work item in the Privacy Community Group](https://github.com/privacycg/is-logged-in)).
 * Safari: Exempt web applications from having their local browser data erased ([link to changeset](https://trac.webkit.org/changeset/259440/webkit)).
 * Safari: Remove the [Temporary Compatibility Fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) which gives storage access to embedded popups in some contexts (e.g. login flows).
