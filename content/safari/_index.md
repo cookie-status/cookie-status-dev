@@ -122,3 +122,10 @@ Similarly, Safari protects against **tracker collusion**, where multiple trackin
 With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-prevention/) are extended to **all** browsers running on the iOS platform. There is no way for the browser or any app using the browser to toggle these protections off. Only the user can opt-out of cross-site tracking protections.
 
 WebKit browsers also delete **all site data** (script-writable storage, all cookies) if the site domain has been classified by ITP and if there has been no meaningful interaction with the site in first-party context in the last 30 days. Granted access through Storage Access API resets the timer as well.
+
+On macOS Safari, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
+
+{{% notice info %}}
+Sample User Agent string when running Safari 14.1 on macOS 11.3.1:<br/>
+`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15"`
+{{% /notice %}}´

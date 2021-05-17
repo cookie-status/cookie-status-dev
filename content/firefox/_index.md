@@ -90,3 +90,10 @@ The default referrer policy is `strict-origin-when-cross-origin`.
 ## Other
 
 If the domain is in the Fingerprinting category of Disconnect.me **and** in one of the tracking categories (Advertising, Analytics, or Social), all third-party **requests** to the domain are blocked.
+
+On macOS Firefox, the version number in the User Agent string is frozen to `10.15` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
+
+{{% notice info %}}
+Sample User Agent string when running Firefox 88.0.1 on macOS 11.3.1:<br/>
+`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:88.0) Gecko/20100101 Firefox/88.0"`
+{{% /notice %}}´

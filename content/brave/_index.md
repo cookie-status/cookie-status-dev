@@ -137,3 +137,10 @@ Here is the list of parameters that are stripped:
 {{% /notice %}}
 
 Brave has lots of initiatives for [neutralizing fingerprinting surfaces](https://brave.com/brave-fingerprinting-and-privacy-budgets/), with features such as [randomized HTML canvas fingerprints](https://github.com/brave/brave-browser/issues/5614) preferred over just removing or clearing the fingerprint surfaces.
+
+On macOS Brave, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
+
+{{% notice info %}}
+Sample User Agent string when running Brave 1.24.85 on macOS 11.3.1:<br/>
+`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"`
+{{% /notice %}}´

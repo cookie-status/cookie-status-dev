@@ -121,3 +121,12 @@ No protections against CNAME cloaking.
 ## Referrer
 
 Default browser policy (`strict-origin-when-cross-origin`).
+
+## Other
+
+On macOS Edge, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
+
+{{% notice info %}}
+Sample User Agent string when running Edge 90.0.818.62 on macOS 11.3.1:<br/>
+`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.62"`
+{{% /notice %}}
