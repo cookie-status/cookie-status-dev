@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Intelligent Tracking Prevention 2.3                          |
 | **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |
-| **Latest update**             | [Documented 12 Nov 2020](https://webkit.org/blog/11338/cname-cloaking-and-bounce-tracking-defense/) |
-| **Latest update includes** | **CNAME cloaking mitigation** is released. Cookies set with HTTP response headers in a subdomain that maps to a cross-site origin using a CNAME alias are restricted to 7 days expiration. |
+| **Latest update**             | [Safari 15](https://developer.apple.com/documentation/safari-release-notes/safari-15-release-notes) |
+| **Latest update includes** | Safari hides the user's IP address in requests to known trackers. |
 | **User controls**             | ITP **doesn't let users control** how it works. Users can simply toggle ITP off by unchecking "Prevent cross-site tracking" in Safari's Security preferences. |
 
 {{< figure src="/images/content/safari-privacy-control.jpg" title="Privacy controls in Safari" class="left-align" >}}
@@ -23,7 +23,9 @@ For a comprehensive overview of all WebKit's tracking preventions, see [this doc
 
 ## Classification of "known trackers"
 
-Safari classifies domains capable of cross-site tracking using an **algorithm** that runs on-device. Thus each Safari user has a potentially different list of domains that are blocked from having access to browser storage.
+Since introducing the **Privacy Report** in **Safari 14**, Safari has been using the [Tracker Radar](https://github.com/duckduckgo/tracker-radar) to classify origins as "known trackers". This is mainly used to provide content for the Privacy Report, and has no real functional value. However, Safari's [IP obfuscation](#other), released in Safari 15, utilizes these "known trackers" to determine in which requests the user's IP address should be obfuscated.
+
+Other than the above, Safari classifies domains capable of cross-site tracking using an **algorithm** that runs on-device. Thus each Safari user has a potentially different list of domains that are blocked from having access to browser storage.
 
 The algorithm is superficially described in [this blog post](https://webkit.org/blog/7675/intelligent-tracking-prevention/): 
 
@@ -122,6 +124,8 @@ Similarly, Safari protects against **tracker collusion**, where multiple trackin
 With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-prevention/) are extended to **all** browsers running on the iOS platform. There is no way for the browser or any app using the browser to toggle these protections off. Only the user can opt-out of cross-site tracking protections.
 
 WebKit browsers also delete **all site data** (script-writable storage, all cookies) if the site domain has been classified by ITP and if there has been no meaningful interaction with the site in first-party context in the last 30 days. Granted access through Storage Access API resets the timer as well.
+
+Wigh **Safari 15**, the browser hides the user's actual IP address in requests sent to origins that are listed in DuckDuckGo's [Tracker Radar](https://github.com/duckduckgo/tracker-radar) list. 
 
 On macOS Safari, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
 

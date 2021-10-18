@@ -87,6 +87,12 @@ No protections against CNAME cloaking.
 
 The default referrer policy is `strict-origin-when-cross-origin`.
 
+If the referring URL has a tracking parameter (e.g. `fbclid`), the `document.referrer` string is truncated to eTLD+1.
+
+{{% notice note %}}
+**Example**: If the user browses from `https://www.my.domain/purchase-page?fbclid=12345` to `https://www.my.domain/home-page/`, the `document.referrer` string will show just `https://my.domain/`.
+{{% /notice %}}
+
 ## Other
 
 If the domain is in the Fingerprinting category of Disconnect.me **and** in one of the tracking categories (Advertising, Analytics, or Social), all third-party **requests** to the domain are blocked.

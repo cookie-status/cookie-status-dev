@@ -14,8 +14,8 @@ pre = "<b class=\"temp-brave\"></b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Shields                                                      |
 | **Originally deployed in**    | 0.55.18                                                      |
-| **Latest update deployed in** | [v1.19.86](https://community.brave.com/t/release-channel-1-19-86/197535)                         |
-| **Latest update includes**    | [Strip referrer to `strict-origin-when-cross-origin` or stricter](https://github.com/brave/brave-browser/issues/13464) |
+| **Latest update deployed in** | [v1.30.86](https://github.com/brave/brave-browser/releases/tag/v1.30.86)                         |
+| **Latest update includes**    | No longer block requests to filtered origins if the requests are same-site with the site the user is browsing. |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Cross-site tracker blocking**</li><li>**Automatic connection upgrade to HTTPS**</li><li>**Script blocking**</li><li>**Cookie blocking**</li><li>**Device recognition blocking**</li> |
 
 {{< figure src="/images/content/brave-blocking-general.jpg" title="Brave Shields default settings" class="left-align" >}}
@@ -34,6 +34,8 @@ Brave classifies tracking domains using input from multiple **lists**:
 * [Brave's fork of Disconnect.me](https://raw.githubusercontent.com/brave/adblock-lists/master/brave-disconnect.txt)
 
 Brave matches each outgoing request from the web browser against these lists (using various methods for achieving [optimized performance](https://brave.com/improved-ad-blocker-performance/)), and if a match is made, the request is **blocked**.
+
+**Note!** If the resource that should be blocked is **same-site** to the site the user is browsing, the request will **not** be blocked. Thus if the user is browsing `www.domain.com` and the browser sends a request to `blocked-tracker.domain.com` (which **is** in Brave's filter lists), the request will not be blocked.
 
 {{% notice note %}}
 
