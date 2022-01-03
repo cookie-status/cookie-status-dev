@@ -113,7 +113,9 @@ Safari downgrades the referrer in cross-site request headers to **origin**. Thus
 
 Furthermore, if the referring domain is a known tracker, and if the *referring page* has query parameters (`?key=value`) or fragments (`#somevalue`), the `document.referrer` property is downgraded to **effective top-level domain plus one part** (eTLD+1). Thus a request originating from `https://sub.classified.domain.com/page?userId=abcd1234` would end up as `https://domain.com` in the `document.referrer` property of the landing page.
 
-Safari has the default Referrer Policy of `strict-origin-when-cross-origin`..
+> Note that the above restrictions only apply if the site tries to set a Referrer Policy of `unsafe-url` or `no-referrer-when-downgrade`. In other words, Safari effectively prevents the referrer policy from being relaxed so that anything beyond the origin is sent in cross-site requests.
+
+Safari has the default Referrer Policy of `strict-origin-when-cross-origin`.
 
 ## Other
 
