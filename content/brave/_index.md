@@ -101,15 +101,7 @@ Brave Shields blocks network requests to domains in Brave's blocklists. With ver
 
 ## Referrer
 
-Cross-site referrers are **spoofed** in non-navigational HTTP requests. 
-
-{{% notice note %}}
-
-**Example**: If the page on `https://domain.com/page` requests a resource from `https://anotherdomain.com/image.jpg`, the `referer` header in the HTTP requests will be set to the **referred-to** origin (`https://anotherdomain.com/`) rather than the **referred-from** origin (`https://domain.com/`) as is the typical behavior.
-
-{{% /notice %}}
-
-For top-level navigation, cross-site referrers default to `strict-origin-when-cross-origin` unless the site requires an even stricter policy..
+For cross-origin subresource and navigational HTTP requests, Brave defaults to the `strict-origin-when-cross-origin` Referrer Policy. Brave prevents the policy from ever being more relaxed than this, so even if a policy of e.g. `unsafe-url` is used, cross-origin requests would still have the referrer set to just the origin of the referring page.
 
 {{% notice note %}}
 
