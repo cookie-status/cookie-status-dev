@@ -113,16 +113,36 @@ For same-site requests (both navigational and non-navigational), referrer has **
 
 ## Other
 
-Brave [removes known tracker identifier parameters](https://github.com/brave/brave-browser/issues/4239) from URL strings. On top-level navigation (e.g. landing on a page with such parameters in the URL), the parameters are stripped out in a 307 internal redirect. On non-navigational HTTP requests, the parameter is stripped from the request URL.
+Brave [removes known tracker identifier parameters](https://github.com/brave/brave-core/blob/master/browser/net/brave_site_hacks_network_delegate_helper.cc#L29) from URL strings. On top-level navigation (e.g. landing on a page with such parameters in the URL), the parameters are stripped out in a 307 internal redirect. On non-navigational HTTP requests, the parameter is stripped from the request URL.
 
 Here is the list of parameters that are stripped:
 
+* `__hssc` (HubSpot)
+* `__hstc` (HubSpot)
+* `__hsfp` (HubSpot)
+* `__s` (Drip)
+* `_hsenc` (HubSpot)
+* `_openstat` (OpenStat)
+* `dclid` (Google)
 * `fbclid` (Facebook)
+* `gbraid` (Google)
 * `gclid` (Google)
-* `msclkid` (Microsoft)
+* `hsCtaTracking` (HubSpot)
+* `igshid` (Instagram)
 * `mc_eid` (Mailchimp)
+* `ml_subscriber` (MailerLite)
+* `ml_subscriber_hash` (MailerLite)
+* `msclkid` (Microsoft)
+* `oly_anon_id` (Olytics)
+* `oly_enc_id` (Olytics)
+* `rb_clickid`
+* `s_cid` (Adobe)
+* `twclid` (Twitter)
+* `vero_conv` (Vero)
+* `vero_id` (Vero)
+* `wickedid` (Wicked)
+* `wbraid` (Google)
 * `yclid` (Yandex/Yahoo)
-* `_hsenc`, `__hssc`, `__hstc`, `__hsfp`, `hsCtaTracking` (HubSpot)
 
 {{% notice note %}}
 
