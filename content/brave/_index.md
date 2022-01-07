@@ -140,8 +140,8 @@ Here is the list of parameters that are stripped:
 * `twclid` (Twitter)
 * `vero_conv` (Vero)
 * `vero_id` (Vero)
-* `wickedid` (Wicked)
 * `wbraid` (Google)
+* `wickedid` (Wicked)
 * `yclid` (Yandex/Yahoo)
 
 {{% notice note %}}
