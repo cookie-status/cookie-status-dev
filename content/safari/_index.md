@@ -134,4 +134,4 @@ On macOS Safari, the version number in the User Agent string is frozen to `10_15
 {{% notice info %}}
 Sample User Agent string when running Safari 14.1 on macOS 11.3.1:<br/>
 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15"`
-{{% /notice %}}´
+{{% /notice %}}
