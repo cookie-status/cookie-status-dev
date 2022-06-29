@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-firefox\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Enhanced Tracking Protection (ETP)                                    |
 | **Originally deployed in**    | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/)                                                     |
-| **Latest update deployed in** | [87.0](https://wiki.mozilla.org/Releases/Firefox_87) |
-| **Latest update includes** | Default referrer policy set to `strict-origin-when-cross-origin`. |
+| **Latest update deployed in** | [June 14, 2022](https://blog.mozilla.org/en/products/firefox/firefox-rolls-out-total-cookie-protection-by-default-to-all-users-worldwide/) |
+| **Latest update includes** | Total Cookie Protection rolled out to all users. |
 | **User controls**             | <ul><li>**Choose between Standard, Strict, and Custom levels**</li><li>**In Custom level, select which types of trackers and scripts to block**</li><li>**Add exceptions to the domains blocked by Enhanced Tracking Protection**</li><ul> |
 
 {{< figure src="/images/content/etp-modes.jpg" title="Enhanced Tracking Protection levels" class="left-align" >}}
@@ -45,6 +45,12 @@ Firefox deletes all stored site data (incl. cookies, browser storage) if the sit
 
 Third-party cookies are blocked for classified domains.
 
+With [Total Cookie Protection](https://blog.mozilla.org/en/products/firefox/firefox-rolls-out-total-cookie-protection-by-default-to-all-users-worldwide/), Firefox **partitions** storage between the site and the third-party embedded on the site.
+
+{{% notice note %}}
+**Example**: If `siteA.com` tries to load a resource from `siteB.com`, the latter will have access (assuming it is not on the list of known trackers) to its cookies. However, these cookies are stored in a special **partition** keyed between `siteA.com` and `siteB.com`. If a second site, such as `siteC.com` loads a resource from `siteB.com`, the cookies the latter will have access to will not be the same as those available when embedded via `siteA.com`.
+{{% /notice %}}
+
 ## First-party cookies
 
 All storage is cleared (more or less) daily from origins that are known trackers and that haven't received a top-level user interaction (including scroll) within the last 45 days. More details can be found [here](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Privacy/Redirect_tracking_protection).
@@ -67,7 +73,7 @@ For classified domains, `localStorage` and `IndexedDB` are restricted.
 
 `sessionStorage` is not restricted.
 
-No restrictions for other domains.
+With Total Cookie Protection, all browser storage is **partitioned** in third-party context. See the example [above](#third-party-cookies) for more information.
 
 ## Other first-party storage
 
