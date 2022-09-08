@@ -21,11 +21,11 @@ Chrome does not classify classify trackers or domains for the purposes of tracki
 
 ## Third-party cookies
 
-Chrome does not restrict the use of third-party cookies.
+Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, Chrome does not restrict the use of third-party cookies.
 
 ## First-party cookies
 
-Chrome does not restrict the use of first-party cookies.
+Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, Chrome does not restrict the use of first-party cookies.
 
 ## Other third-party storage
 

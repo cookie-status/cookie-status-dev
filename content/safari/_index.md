@@ -127,7 +127,7 @@ With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-
 
 WebKit browsers also delete **all site data** (script-writable storage, all cookies) if the site domain has been classified by ITP and if there has been no meaningful interaction with the site in first-party context in the last 30 days. Granted access through Storage Access API resets the timer as well.
 
-Wigh **Safari 15**, the browser hides the user's actual IP address in requests sent to origins that are listed in DuckDuckGo's [Tracker Radar](https://github.com/duckduckgo/tracker-radar) list. 
+With **Safari 15**, the browser hides the user's actual IP address in requests sent to origins that are listed in DuckDuckGo's [Tracker Radar](https://github.com/duckduckgo/tracker-radar) list. 
 
 On macOS Safari, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
 

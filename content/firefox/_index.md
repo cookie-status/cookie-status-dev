@@ -91,7 +91,7 @@ No protections against CNAME cloaking.
 
 ## Referrer
 
-The default referrer policy is `strict-origin-when-cross-origin`.
+The default referrer policy is `strict-origin-when-cross-origin`. More relaxed policies are not permitted.
 
 If the referring URL has a tracking parameter (e.g. `fbclid`), the `document.referrer` string is truncated to eTLD+1.
 
