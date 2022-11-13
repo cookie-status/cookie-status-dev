@@ -13,8 +13,6 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Intelligent Tracking Prevention 2.3                          |
 | **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |
-| **Latest update**             | [Safari 15](https://developer.apple.com/documentation/safari-release-notes/safari-15-release-notes) |
-| **Latest update includes** | Safari hides the user's IP address in requests to known trackers. |
 | **User controls**             | ITP **doesn't let users control** how it works. Users can simply toggle ITP off by unchecking "Prevent cross-site tracking" in Safari's Security preferences. |
 
 {{< figure src="/images/content/safari-privacy-control.jpg" title="Privacy controls in Safari" class="left-align" >}}
@@ -71,7 +69,13 @@ Note that **successful use of the Storage Access API** (either clicking "Allow" 
 
 ## First-party cookies
 
-For first-party cookies set with JavaScript's `document.cookie` API, maximum expiration is set to **7 days**.
+Safari deletes **all script-writable storage** on websites if the site has not been **interacted with** (click, tap, keyboard input) in first-party context in the last **7 days of browser use**. This includes cookies set with `document.cookie`.
+
+{{% notice note %}}
+
+**Example**: The user visits `www.domain.com`, where JavaScript is used to set a cookie that expires in 365 days. Over the next 100 days, the user uses the browser 6 times in total, but does not visit `www.domain.com` or interact with the site. If the user uses the browser one more time without interacting with `www.domain.com`, the cookie will be deleted even if its expiration date is not met.
+
+{{% /notice %}}
 
 If the referring domain is a known tracker, and if the URL has query parameters (`?key=value`) or fragments (`#somevalue`), cookies set with JavaScript's `document.cookie` API have a maximum expiration of **24 hours**.
 
@@ -81,7 +85,7 @@ If the referring domain is a known tracker, and if the URL has query parameters 
 
 {{% /notice %}}
 
-First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration.
+First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking]..
 
 ## Other third-party storage
 
@@ -93,11 +97,16 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 
 ## Other first-party storage
 
-All script-writable storage is expired in **7 days** since last interaction with the site (click, tap, or text input).
+All script-writable storage is deleted in **7 days of browser use** since last interaction with the site (click, tap, or text input). This includes these mechanisms:
+
+* Cookies set with `document.cookie` (see [above](#first-party-cookies)).
+* IndexedDB
+* LocalStorage
+* Media Keys
+* SessionStorage
+* Service Worker registrations and cache
 
 ## CNAME cloaking
-
-**This applies to Safari 14 released with Big Sur and to all major iOS and iPadOS 14.2+ browser apps.**
 
 If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
 
