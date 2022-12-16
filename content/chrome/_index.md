@@ -13,7 +13,7 @@ pre = "<b><i class=\"fab fa-chrome\"></i> </b>"
 The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection.
 {{% /notice %}}
 
-The [privacy-sandbox](https://www.chromium.org/Home/chromium-privacy/privacy-sandbox) Chromium project promises initiatives related to tracking prevention, and Chrome has publicly stated intention to [making third-party cookies obsolete by 2022](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html).
+The [privacy-sandbox](https://www.chromium.org/Home/chromium-privacy/privacy-sandbox) Chromium project promises initiatives related to tracking prevention, and Chrome has publicly stated intention to [making third-party cookies obsolete by 2024](https://blog.google/products/chrome/update-testing-privacy-sandbox-web/).
 
 ## Classification of "known trackers"
 
