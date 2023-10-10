@@ -91,9 +91,9 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 
 `localStorage` is partitioned, so that access is keyed to the combination of the source and target domains. Thus `www.domain.com` has a different `localStorage` store in third-party context when accessed from `www.domain1.com` and from `www.domain2.com`. This partitioned store is also cleared between application launches.
 
-`IndexedDB` is restricted.
+`sessionStorage` is partitioned in a similar way ([source](https://github.com/firebase/firebase-js-sdk/issues/6716#issuecomment-1416793915)).
 
-`sessionStorage` has no restrictions.
+`IndexedDB` is restricted.
 
 ## Other first-party storage
 
