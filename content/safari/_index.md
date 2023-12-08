@@ -85,7 +85,7 @@ If the referring domain is a known tracker, and if the URL has query parameters 
 
 {{% /notice %}}
 
-First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking]..
+First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking)..
 
 ## Other third-party storage
 
