@@ -11,20 +11,4 @@
     });
   }
 
-  // Send cookieless request to Google Analytics
-  var clientId = Math.round(Math.random()*10000000) + '.' + Math.round(new Date().getTime() / 1000);
-  var trackingId = 'UA-154752585-1';
-  var url = 'https://www.google-analytics.com/collect';
-  var qs = '?v=1' +
-      '&t=pageview' +
-      '&tid=' + trackingId +
-      '&cid=' + clientId +
-      '&dl=' + document.location.href +
-      '&dt=' + document.title +
-      '&dr=' + document.referrer +
-      '&aip=1' +
-      '&ua=Roku4640X/DVP-7.70 (297.70E04154A)';
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', url + qs);
-  xhr.send();
 })();

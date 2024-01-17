@@ -85,9 +85,3 @@ Cookie Status doesn't use browser cookies, `localStorage`, or `IndexedDB`.
 Nothing in browser storage is sent to any third parties at any time.
 
 If you see anything contrary to the above, please raise [an issue](https://github.com/cookie-status/cookie-status-dev/issues) about this.
-
-### 4. Why are you collecting data to Google Analytics?
-
-Cookie Status collects a simple pageview hit from the page loads that happen on https://www.cookiestatus.com/. This is simply to gauge the relative "usage" of different parts of the site.
-
-The payload uses an obfuscated User-Agent string, the IP address is anonymized (by removing the last octet before it hits the GA reports), and no persistent identifiers are used or stored.
