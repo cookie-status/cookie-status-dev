@@ -88,6 +88,10 @@ a[href="#toc"] {
 #cs code {
     white-space: initial;
 }
+#cs th {
+  position: sticky;
+  top: 0;
+}
 #cs th:first-child {
     width: 10%;
 }
@@ -127,4 +131,7 @@ code {
 }
 #body a.highlight:after {
   all: initial;
+}
+#body > div.highlightable {
+  overflow: initial;
 }
