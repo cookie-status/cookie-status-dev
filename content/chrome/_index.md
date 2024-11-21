@@ -19,12 +19,6 @@ Chrome does not classify classify trackers or domains for the purposes of tracki
 
 Chrome restricts the maximum lifetime of cookies to 400 days. 
 
-Chrome **partitions** storage between the site and a cross-site origin receiving requests from the site.
-
-{{% notice note %}}
-**Example**: If `siteA.com` tries to load a resource from `siteB.com`, the latter will have access to its cookies. However, these cookies are stored in a special **partition** keyed between `siteA.com` and `siteB.com`. If a second site, such as `siteC.com` loads a resource from `siteB.com`, the cookies the latter will have access to will not be the same as those available when embedded via `siteA.com`.
-{{% /notice %}}
-
 ## First-party cookies
 
 Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, Chrome does not restrict the use of first-party cookies.
@@ -32,6 +26,11 @@ Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, C
 ## Other third-party storage
 
 Chrome **partitions** storage in embedded frames that load content from a cross-site origin.
+
+{{% notice note %}}
+**Example**: If `siteA.com` tries to load an iframe from `siteB.com`, the latter will have access to its storage (`localStorage`, for example). However, these storage mechanisms are **partitioned** between `siteA.com` and `siteB.com`. If a second site, such as `siteC.com` loads a frame from `siteB.com`, the storage the latter will have access to will not be the same as that available when embedded via `siteA.com`.
+{{% /notice %}}
+
 
 ## Other first-party storage
 
