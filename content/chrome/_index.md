@@ -9,11 +9,7 @@ pre = "<b><i class=\"fab fa-chrome\"></i> </b>"
 +++
 ## Current status
 
-{{% notice warning %}}
-The Chrome browser doesn't currently have mechanisms designed specifically for tracking protection.
-{{% /notice %}}
-
-The [privacy-sandbox](https://www.chromium.org/Home/chromium-privacy/privacy-sandbox) Chromium project promises initiatives related to tracking prevention, and Chrome has publicly stated intention to [making third-party cookies obsolete by 2024](https://blog.google/products/chrome/update-testing-privacy-sandbox-web/).
+Chrome's initiative for browser tracking protections (among other things) is called [Privacy Sandbox](https://www.privacysandbox.com/). While Chrome's pledge to remove third-party cookies has been [put on hold](https://privacysandbox.com/news/privacy-sandbox-update/), the project includes many other interesting features, such as **storage partitioning** (see below).
 
 ## Classification of "known trackers"
 
@@ -21,7 +17,13 @@ Chrome does not classify classify trackers or domains for the purposes of tracki
 
 ## Third-party cookies
 
-Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, Chrome does not restrict the use of third-party cookies.
+Chrome restricts the maximum lifetime of cookies to 400 days. 
+
+Chrome **partitions** storage between the site and a cross-site origin receiving requests from the site.
+
+{{% notice note %}}
+**Example**: If `siteA.com` tries to load a resource from `siteB.com`, the latter will have access to its cookies. However, these cookies are stored in a special **partition** keyed between `siteA.com` and `siteB.com`. If a second site, such as `siteC.com` loads a resource from `siteB.com`, the cookies the latter will have access to will not be the same as those available when embedded via `siteA.com`.
+{{% /notice %}}
 
 ## First-party cookies
 
@@ -29,7 +31,7 @@ Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, C
 
 ## Other third-party storage
 
-Chrome does not restrict the use of other browser storage in third-party context.
+Chrome **partitions** storage in embedded frames that load content from a cross-site origin.
 
 ## Other first-party storage
 
