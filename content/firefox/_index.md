@@ -51,6 +51,8 @@ With [Total Cookie Protection](https://blog.mozilla.org/en/products/firefox/fire
 **Example**: If `siteA.com` tries to load a resource from `siteB.com`, the latter will have access (assuming it is not on the list of known trackers) to its cookies. However, these cookies are stored in a special **partition** keyed between `siteA.com` and `siteB.com`. If a second site, such as `siteC.com` loads a resource from `siteB.com`, the cookies the latter will have access to will not be the same as those available when embedded via `siteA.com`.
 {{% /notice %}}
 
+There are some edge cases where a partitioned third-party is granted unpartitioned access to its embedder. These involve pop-up windows and redirects, and you can read more about them [here](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning#storage_access_heuristics).
+
 ## First-party cookies
 
 All storage is cleared (more or less) daily from origins that are known trackers and that haven't received a top-level user interaction (including scroll) within the last 45 days. More details can be found [here](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Privacy/Redirect_tracking_protection).

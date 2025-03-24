@@ -43,6 +43,10 @@ To monitor the list of domains classified by your Safari instance, or to test IT
 
 Safari blocks **all** access to cookies in third-party context.
 
+To support legacy federated login scenarios, an exception to the rule above is a [temporary compatibility fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) that was introduced in ITP 2.0. This fix applies to scenarios where a site opens a pop-up to a federated login service and then relies on third-party cookies to persist the login on the site itself. ITP detects this type of pop-up behavior and forwards third-party storage access to the site after the login service sets the cookie (in third-party context).
+
+Note that this is listed as a **temporary** fix and could be invalidated at any time. Because the pop-up already requires user interaction (the login action itself), WebKit recommends to use the Storage Access API for proper handling of third-party storage access (see below).
+
 ### Storage Access API
 
 Safari introduced the [Storage Access API](https://webkit.org/blog/8124/introducing-storage-access-api/) in February 2018. With the Storage Access API, a website can ask the user's permission to access storage in an embedded cross-site resource which would otherwise have its cookie access restricted. 
