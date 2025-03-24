@@ -50,7 +50,7 @@ Safari introduced the [Storage Access API](https://webkit.org/blog/8124/introduc
 To be able to use the Storage Access API, the embedded site must have been interacted with in first-party context (URL in address bar) in the last 30 days of Safari use. 
 
 {{% notice note %}}
-**Example**: The user is on `www.blog-site.com`, which loads a comment service in an `<iframe>` from `www.comment-service.com`. Since this is a cross-site resource load, ITP will not allow access to the site due to the site not having prior cookies set (Safari's default cookie policy), and because the user hasn't interacted with the site in first-party context in the last 30 days of Safari use.
+**Example**: The user is on `www.blog-site.com`, which loads a comment service in an `<iframe>` from `www.comment-service.com`. Since this is a cross-site resource load, ITP will not allow storage access due to the site not having prior cookies set (Safari's default cookie policy), and because the user hasn't interacted with the site in first-party context in the last 30 days of Safari use.
 {{% /notice %}}
 
 {{< figure src="/images/content/storage-access-api.jpg" title="Requesting storage access via the API" class="left-align" >}}
