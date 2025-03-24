@@ -138,7 +138,9 @@ This is the essence of cross-site tracking - using a consolidated and centralize
 
 Browsers' main weapon against cross-site tracking is restricting **storage access**. Because there are valid reasons for cross-site tracking (persisting user authentication, shopping baskets, consent status), tracking protection methods restrict storage access for third parties that have been **identified** and **classified** as compromising user privacy. 
 
-The **Chrome** browser is, for now, devoid of any significant tracking protection measures with regard to storage access. However, they have contributed to the discussion with their [privacy sandbox](https://www.blog.google/products/chrome/building-a-more-private-web/) initiative, as well as with upcoming features involving [cookie restrictions](https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html) and [referrer policies](https://www.chromestatus.com/feature/6251880185331712).
+All major browsers now **partition** storage in some way. Partitioning means that storage access isn't necessarily blocked, but it is **keyed** between two cross-site origins. 
+
+For example, site `b.example`, when embedded on `a.example`, would have access to its cookies and other storage mechanisms, but these mechanisms would be unique to the combination of `b.example`–`a.example`. If another site, such as `c.example`, were to embed content from `b.example`, they would have a new, unique partition for storage which would be different from what was available when accessed via `a.example`.
 
 ### List-based protection
 
