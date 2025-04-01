@@ -41,11 +41,15 @@ To monitor the list of domains classified by your Safari instance, or to test IT
 
 ## Third-party cookies
 
-Safari blocks **all** access to cookies in third-party context.
+| Detail                          | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| **Mechanism**                 | Cookies Having Independent Partitioned State (CHIPS)                       |
+| **Originally deployed in**    | [Safari 18.4](https://developer.apple.com/documentation/safari-release-notes/safari-18_4-release-notes) in **iOS 18.4**, **macOS Sequoia, Sonoma, and Ventura** |
 
-To support legacy federated login scenarios, an exception to the rule above is a [temporary compatibility fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) that was introduced in ITP 2.0. This fix applies to scenarios where a site opens a pop-up to a federated login service and then relies on third-party cookies to persist the login on the site itself. ITP detects this type of pop-up behavior and forwards third-party storage access to the site after the login service sets the cookie (in third-party context).
-
-Note that this is listed as a **temporary** fix and could be invalidated at any time. Because the pop-up already requires user interaction (the login action itself), WebKit recommends to use the Storage Access API for proper handling of third-party storage access (see below).
+Updates in Safari 18.4
+  * Added support for Cookies Having Independent Partitioned State (CHIPS). (116143212)
+  * Added support for cookies’ Partitioned attribute for opt-in partitioned cookies. (142317056)
+  * Blocked partitioned cookies for known tracking domains. (144184516)
 
 ### Storage Access API
 
