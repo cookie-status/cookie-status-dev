@@ -17,7 +17,9 @@ Chrome does not classify classify trackers or domains for the purposes of tracki
 
 ## Third-party cookies
 
-Chrome restricts the maximum lifetime of cookies to 400 days. 
+Chrome restricts the maximum lifetime of cookies to 400 days.
+
+Chrome supports an **opt-in** flag in cookies, `Partitioned;`. This is part of the **C**ookies **H**aving **I**ndependent **P**artitioned **S**tate proposal (CHIPS). Cookies with this flag can be accessed in third-party context, but they are partitioned between the site sending requests to the third-party and the third-party itself. Cookies in a partition cannot be accessed by other sites that also communicate with the same third-party. 
 
 ## First-party cookies
 

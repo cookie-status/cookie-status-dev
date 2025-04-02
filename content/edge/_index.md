@@ -13,8 +13,8 @@ pre = "<b><i class=\"fab fa-edge\"></i> </b>"
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Tracking prevention                                          |
 | **Originally deployed in**    | [78.0.276.8](https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8)                                                     |
-| **Latest update deployed in** | [79](https://blogs.windows.com/msedgedev/2019/12/03/improving-tracking-prevention-microsoft-edge-79/) |
-| **Latest update includes** | Site and organization mitigation to choosing which trackers to block. |
+| **Latest update deployed in** | 114 |
+| **Latest update includes** | Cookies Having Independent Partitioned State (CHIPS) allows opt-in to partitioned third-party cookies. |
 | **User controls** | Customizable settings to: <ul><li>**Choose between Basic, Balanced or Strict mode**</li><li>**View trackers that have been blocked**</li><li>**Add sites to list of exceptions for which trackers should always be allowed to run**</li><li>**Check your site engagement scores**</li></ul> |
 
 {{< figure src="/images/content/edge-tracking-settings.jpg" title="Edge Tracking prevention settings" class="left-align" >}}
@@ -89,6 +89,8 @@ Organization engagement mitigation means that if one site in an organization rec
 ## Third-party cookies
 
 Third-party cookies are blocked from all domains listed in the Trust Protection Lists (considering the **mitigations** listed above).
+
+Edge supports an **opt-in** flag for cookies, `Partitioned;`. This is part of the **C**ookies **H**aving **I**ndependent **P**artitioned **S**tate proposal (CHIPS). Cookies with this flag can be accessed in third-party context, but they are partitioned between the site sending requests to the third-party and the third-party itself. Cookies in a partition cannot be accessed by other sites that also communicate with the same third-party. 
 
 ## First-party cookies
 

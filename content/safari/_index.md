@@ -11,7 +11,7 @@ pre = "<b><i class=\"fab fa-safari\"></i> </b>"
 
 | Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
-| **Mechanism**                 | Intelligent Tracking Prevention 2.3                          |
+| **Mechanism**                 | Intelligent Tracking Prevention
 | **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |
 | **User controls**             | ITP **doesn't let users control** how it works. Users can simply toggle ITP off by unchecking "Prevent cross-site tracking" in Safari's Security preferences. |
 
@@ -46,6 +46,12 @@ Safari blocks **all** access to cookies in third-party context.
 To support legacy federated login scenarios, an exception to the rule above is a [temporary compatibility fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) that was introduced in ITP 2.0. This fix applies to scenarios where a site opens a pop-up to a federated login service and then relies on third-party cookies to persist the login on the site itself. ITP detects this type of pop-up behavior and forwards third-party storage access to the site after the login service sets the cookie (in third-party context).
 
 Note that this is listed as a **temporary** fix and could be invalidated at any time. Because the pop-up already requires user interaction (the login action itself), WebKit recommends to use the Storage Access API for proper handling of third-party storage access (see below).
+
+Safari introduced an **opt-in** flag for cookies in version 18.4: `Partitioned;`. This is part of the **C**ookies **H**aving **I**ndependent **P**artitioned **S**tate proposal (CHIPS). Cookies with this flag can be accessed in third-party context, but they are partitioned between the site sending requests to the third-party and the third-party itself. Cookies in a partition cannot be accessed by other sites that also communicate with the same third-party. Domains flagged by ITP cannot access cookies in 3P context, even with the `Partitioned;` flag.
+
+{{% notice note %}}
+**Example**: The user is on `www.blog-site.com`, which sends a request to `www.comment-service.com`. The latter sets a cookie with the `Partitioned;` flag in the HTTP response. This cookie is included in requests from `www.blog-site.com` to `www.comment-service.com`, because even though Safari blocks third-party cookies, those with the `Partitioned;` flag are exempt from this blocking. However, if the user visits `www.other-site.com` that also sends requests to `www.comment-service.com`, cookies partitioned between `www.blog-site.com` and `www.comment-service.com` are not included in the requests.
+{{% /notice %}}
 
 ### Storage Access API
 
