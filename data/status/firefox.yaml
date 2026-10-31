@@ -1,14 +1,34 @@
 # See brave.yaml for the format.
 classification-of-known-trackers:
+  checked: 2026-10-31
+  sources:
+    - title: Trackers and scripts Firefox blocks in Enhanced Tracking Protection (updated 2026-03-18)
+      url: https://support.mozilla.org/en-US/kb/trackers-and-scripts-firefox-blocks-enhanced-track
   claims:
     - text: "Disconnect.me"
 
+tracker-blocking:
+  status: limited
+  checked: 2026-10-31
+  sources:
+    - title: Trackers and scripts Firefox blocks in Enhanced Tracking Protection (updated 2026-03-18)
+      url: https://support.mozilla.org/en-US/kb/trackers-and-scripts-firefox-blocks-enhanced-track
+  claims:
+    - text: "Requests to the most common social media trackers (Facebook, Twitter and LinkedIn), cryptominers and known fingerprinters are blocked."
+      new: true
+    - text: "Other tracking content, such as ads and embedded videos, still loads, but its cross-site tracking cookies are blocked."
+      new: true
+
 third-party-cookies:
   status: partitioned
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
+    - title: privacytests.org (2026-10-22)
+      url: https://privacytests.org/
   claims:
     - text: "Access restricted for known trackers."
     - text: "Cookies are partitioned between the site and the third-party. Cookies are not shared across sites."
-      new: true
 
 first-party-cookies:
   status: limited
@@ -17,11 +37,14 @@ first-party-cookies:
 
 other-third-party-storage:
   status: partitioned
+  checked: 2026-10-31
+  sources:
+    - title: privacytests.org (2026-10-22)
+      url: https://privacytests.org/
   claims:
     - text: "`localStorage` and `IndexedDB` restricted for known trackers."
     - text: "`sessionStorage` is not restricted."
     - text: "Storage is partitioned between the site and the third-party. Storage is not shared across sites."
-      new: true
 
 other-first-party-storage:
   status: limited
@@ -33,13 +56,29 @@ cname-cloaking:
   claims:
     - text: "No restrictions."
 
+fingerprinting:
+  checked: 2026-10-31
+  sources:
+    - title: Firefox 151 release notes
+      url: https://www.firefox.com/en-US/firefox/151.0/releasenotes/
+    - title: Cookie Status test, 2026-10-31
+  claims:
+    - text: "Limits how much information about the device and browser is revealed to sites. Mozilla says this makes about 14% fewer users uniquely identifiable, and about 49% fewer on macOS."
+      appliesTo: Firefox 151+
+      new: true
+    - text: "Requests to known fingerprinters are blocked (see Blocking of known trackers)."
+      new: true
+    - text: "Freezes the macOS version to `10.15` in the User-Agent string."
+
 referrer:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
   claims:
     - text: "Default browser policy (`strict-origin-when-cross-origin` or stricter)"
+    - text: "Sites can't loosen it for cross-site requests: with `unsafe-url`, only the origin is sent."
       new: true
-    - text: "If the referring URL has a tracking parameter (e.g. `fbclid`), `document.referrer` string is truncated to eTLD+1."
 
 other:
   claims:
-    - text: "Automatically block requests to tracking domains that are also listed in the Fingerprinting category of the Disconnect.me list."
-    - text: "Freeze Mac OS X version to 10_15 in the User Agent string."
+    - text: "n/a"

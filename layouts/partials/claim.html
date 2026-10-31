@@ -1,0 +1,4 @@
+{{- /* One claim: text, optional "applies to" tag and "new" tag. */ -}}
+{{- .text | markdownify }}
+{{- with .appliesTo }} <span class="applies-tag" title="Applies to {{ . }}">{{ . }}</span>{{ end }}
+{{- if .new }} <span class="new-tag">New</span>{{ end }}

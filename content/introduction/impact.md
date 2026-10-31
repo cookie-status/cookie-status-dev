@@ -19,13 +19,17 @@ Websites regularly utilize cookies in both **first-party** and **third-party con
 
 ### Cookies in third-party context
 
-Because browsers like [Edge](/edge/) and [Firefox](/firefox/) use lists (Trust Protection Lists and Disconnect.me, respectively) to collect information about *known trackers*, it's unlikely that any regular website would get their domain blacklisted. It would require that domain to participate in a tracking scheme, and for some public push to get the domain classified as a tracking domain.
+Browsers like [Edge](/edge/) and [Firefox](/firefox/) use lists (both based on Disconnect.me) to identify *known trackers*, and it's unlikely that any regular website would get their domain on these lists. It would require that domain to participate in a tracking scheme, and for some public push to get the domain classified as a tracking domain.
 
 {{< figure src="/images/content/disconnect-me-list.jpg" title="Beginning of the Disconnect.me entity list" class="left-align shadow" >}}
 
-On browsers like these, using their default tracking protection settings, websites could still continue to operate efficiently with third-party cookies.
+Even so, third-party cookies behave differently in each browser's default settings:
 
-Browsers like **Safari** and **Brave** block *all* third-party cookie access. This means that both benign (e.g. SSO flows) and cross-site tracking scenarios are neutered. Safari offers the [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API) as a way for sites to establish consent from the browser user for allowing access to third-party storage.
+* **Chrome** and **Edge** allow them (Edge blocks them for known trackers).
+* **Firefox** and **Brave** [partition](/glossary/#partitioning) them, so they work, but a third party gets a separate set of cookies on each site. Brave also clears the partition when the user leaves the site.
+* **Safari** blocks them.
+
+Where cookies are partitioned or blocked, both benign (e.g. SSO flows) and cross-site tracking scenarios are affected. Safari offers the [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API) as a way for sites to establish consent from the browser user for allowing access to third-party storage.
 
 Because of this, websites that require third-party cookies should utilize the Storage Access API to get user's consent to access first-party storage for a classified domain.
 
@@ -33,7 +37,7 @@ Because of this, websites that require third-party cookies should utilize the St
 
 ### Cookies in first-party context
 
-With browsers such as Chrome, Edge, and Firefox, the first-party context is unimpacted when it comes to tracking protection.
+With Chrome and Edge, the only restriction on first-party cookies is a maximum lifetime of 400 days. Brave caps cookie lifetimes at about 6 months. Firefox deletes the storage of known trackers that the user hasn't interacted with in 45 days, which rarely affects regular sites.
 
 With **Safari**, *script-writable storage* is impacted by Intelligent Tracking Prevention.
 
@@ -48,13 +52,13 @@ Cookies should never be used to store or send confidential information. They are
 
 Websites should set business-critical cookies with the `Set-Cookie` header using the [`SameSite`](https://www.owasp.org/index.php/SameSite) and [`Secure`](https://www.owasp.org/index.php/SecureFlag) flags. If the cookie does not need to be accessed by JavaScript, then the [`HttpOnly`](https://www.owasp.org/index.php/HttpOnly) flag should be set as well.
 
-By setting the cookie in an HTTP response, it is unimpacted by Intelligent Tracking Prevention's restrictions on first-party storage.
+By setting the cookie in an HTTP response, it avoids Intelligent Tracking Prevention's 7-day limit on script-writable storage, as long as the response comes from the site's own servers. Cookies set by a subdomain that points to a third party, through a CNAME record or a mismatched IP address, are [capped at 7 days](/safari/#cname-cloaking) too.
 
 ### Referrer downgrade
 
 With **cross-origin** requests, browsers are moving to a stricter default policy of [stripping the referrer to its origin](https://www.chromestatus.com/feature/6251880185331712), thus removing all path, query, and fragment identifiers from it.
 
-Safari is taking an even stricter stance, stripping [all cross-origin referrers](https://bugs.webkit.org/show_bug.cgi?id=201353) to their origin, but also downgrading referrers to eTLD+1 (so `www.mysite.com/path` becomes `mysite.com`) when the navigation source is a classified domain with URL decoration.
+Safari is taking an even stricter stance, stripping the referrer of [all third-party requests](https://webkit.org/tracking-prevention/) to their origin, but also downgrading referrers to eTLD+1 (so `www.mysite.com/path` becomes `mysite.com`) when the navigation source is a classified domain with URL decoration.
 
 {{< figure src="/images/content/safari-referrer-downgrade.jpg" title="Navigation from www.gtmtools.com (a classified domain) becomes a referrer string that's stripped to eTLD+1" class="left-align" >}}  
 
@@ -62,9 +66,7 @@ Safari is taking an even stricter stance, stripping [all cross-origin referrers]
 Because of the unreliability of the referrer, websites should avoid placing too much importance on interpreting what is stored in the referrer string, especially when using JavaScript's `document.referrer`.
 {{% /notice %}}
 
-The Brave browser has adopted an [*even* stricter stance](https://github.com/brave/brave-browser/wiki/Blocking-goals-and-policy#blocking-techniques-and-methods), where they opt to **spoof** the referrer on cross-origin requests: 
-
-> Second, Brave modifies the referrer header when making cross origin requests. Brave "lies" on these requests, and says the request was being issued from the same domain being requested, instead of the true, cross-domain origin.
+The Brave browser doesn't let sites relax the default policy, so cross-site requests never carry more than the origin of the referring page.
 
 ## Advertising and marketing technologies
 
@@ -90,7 +92,7 @@ For vendors needing browser storage access in **first-party context**, these han
 * Ability to **look back beyond the last touch in attribution models** is somewhat restricted.
 
 {{% notice info %}}
-**"Somewhat restricted"** above refers to the fact that out of the major browsers, only Safari is currently restricting first-party storage access. Thus the severity of these restrictions depends on the typical share of Safari traffic on the advertised website.
+**"Somewhat restricted"** above refers to the fact that out of the major browsers, Safari restricts first-party storage access the most. Thus the severity of these restrictions depends on the typical share of Safari traffic on the advertised website.
 {{% /notice %}}
 
 ## Digital analytics
@@ -103,7 +105,7 @@ However, there is an industry of **first-party analytics**, where the focus is o
 
 {{< figure src="/images/content/google-analytics.jpg" title="Google Analytics is the most popular web analytics platform in use" class="left-align" >}}
 
-On Chrome, Firefox, and Edge, the capabilities of digital analytics are not really restricted. Because much of digital analytics works with browser storage in **first-party context**, the restrictions on known trackers in third-party context do not impact the capability to monitor users browsing the website itself. 
+On Chrome, Firefox, and Edge, the capabilities of digital analytics are not really restricted. **Brave** is the exception: it blocks requests to many analytics vendors outright, so their scripts never run. Because much of digital analytics works with browser storage in **first-party context**, the restrictions on known trackers in third-party context do not impact the capability to monitor users browsing the website itself. 
 
 However, on **Safari**, especially since [ITP 2.1](https://www.simoahava.com/analytics/itp-2-1-and-web-analytics/), the accuracy of first-party analytics has been compromised as well.
 
@@ -121,7 +123,7 @@ Because this cookie is set **with JavaScript**, Safari's ITP restricts its expir
 With [ITP 2.2](https://webkit.org/blog/8828/intelligent-tracking-prevention-2-2/), cookie expiration is reduced to 1 day if the user followed a decorated link from a known tracker (e.g. a Google ad click), making it even more difficult to analyze user behavior past a very short time window.
 {{% /notice %}}
 
-Websites can [move these identifier cookies to **HTTP responses**](https://www.simoahava.com/google-cloud/create-cookie-rewrite-web-service-google-cloud/) rather than have them be set with JavaScript. For now, this would preserve the expiraton of such cookies.
+Websites can [move these identifier cookies to **HTTP responses**](https://www.simoahava.com/google-cloud/create-cookie-rewrite-web-service-google-cloud/) rather than have them be set with JavaScript. This preserves the expiration of such cookies in Safari, as long as the HTTP response comes from the site's own servers (see [CNAME cloaking](/safari/#cname-cloaking)).
 
 **Referrer downgrade** impacts web analytics as well, because these platforms often provide **channel** data based on campaign identifiers in the URL and/or information stored in the referrer string. By downgrading referrers to their origins, web analytics tools can no longer accurately measure which particular page brought the user to the current site.
 

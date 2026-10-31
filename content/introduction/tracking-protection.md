@@ -63,7 +63,7 @@ console.log(cookies); // userId=abcd1234; logged-in=true
 
 If `document.cookie` is invoked in a third-party context, such as an `<iframe>` element embedding content from a third-party source, the string will be populated only if the web browser **allows third-party cookies**.
 
-Since the cookies are readily available for any JavaScript running on the page, a malicious vendor with a **script running on the site** could utilize the API to read and process the cookies stored on the user's company.
+Since the cookies are readily available for any JavaScript running on the page, a malicious vendor with a **script running on the site** could utilize the API to read and process the cookies stored on the user's computer.
 
 ### Writing cookies
 
@@ -93,7 +93,7 @@ What matters is the **context** of the access.
 Nevertheless, to align with other discussions around the same topic, Cookie Status will use *first-party cookie*  and *third-party cookie* for clarity's sake.
 {{% /notice %}}
 
-**First-party context** means that the operation happens between domains within **the same site**, í.e. domains that share the **eTLD+1**. **Third-party context** means that the operation happens **cross-site**, i.e. between domains that do not share the **eTLD+1**.
+**First-party context** means that the operation happens between domains within **the same site**, i.e. domains that share the **eTLD+1**. **Third-party context** means that the operation happens **cross-site**, i.e. between domains that do not share the **eTLD+1**.
 
 Here are some examples. Consider the user to be on the domain **www.cookiestatus.com**. 
 
@@ -152,11 +152,11 @@ This approach of comparing the third-party domains against a curated list is uti
 
 The **Brave** browser, similarly, pulls in tracking domains from [multiple sources](https://github.com/brave/adblock-rust/blob/master/src/filter_lists/default.rs). Notably, Brave combines prescribed lists (from e.g. [EasyList](https://easylist.to/) and [uBlock Origin](https://github.com/gorhill/uBlock)) with a more dynamic list based on crawl data ([PageGraph](https://github.com/brave/brave-browser/wiki/PageGraph)). 
 
-With **list-based protection**, the browser maintains a list of domains against which each outgoing HTTP request from the site is pattern-matched. If there is a match between the request target and one of the domains in these lists, the request is **blocked**.
+With **list-based protection**, the browser maintains a list of domains against which each outgoing HTTP request from the site is pattern-matched. If there is a match between the request target and one of the domains in these lists, the browser either **blocks** the request or lets it load **without storage access**, depending on the browser and the type of tracker. Brave blocks most matches; Firefox and Edge block only some categories by default (see [Blocking of known trackers](/#row-tracker-blocking)).
 
-This means that browsers can block both **downloading script resources** and **HTTP requests to tracking endpoints** (e.g. image pixels).
+Blocking means that browsers can stop both **downloading script resources** and **HTTP requests to tracking endpoints** (e.g. image pixels).
 
-By blocking the script download, browsers don't need to worry about further storage access restrictions, because the JavaScript from the vendor was never loaded and thus can't abuse the browser storage on the user's company.
+By blocking the script download, browsers don't need to worry about further storage access restrictions, because the JavaScript from the vendor was never loaded and thus can't abuse the browser storage on the user's computer.
 
 By blocking the pixel and other HTTP endpoints, browsers ensure that in cases where the site is loading the JavaScript from a non-blocked source, the script will not be able to communicate with its endpoint.
 
@@ -169,7 +169,7 @@ The biggest problems with list-based protection are:
 
 ### Algorithmic protection
 
-The **Safari** browser has opted for a different tact. Instead of a binary approach (blocked vs. not blocked) and a set list of domains, Safari's [Intelligent Tracking Prevention](https://webkit.org/blog/category/privacy/) uses multiple methods to restrict the storage access for third parties that are *algorithmically* classified as having cross-site tracking capabilities. Here's how they describe the [classification process](https://webkit.org/blog/7675/intelligent-tracking-prevention/): 
+The **Safari** browser has opted for a different tack. Instead of a binary approach (blocked vs. not blocked) and a set list of domains, Safari's [Intelligent Tracking Prevention](https://webkit.org/blog/category/privacy/) uses multiple methods to restrict the storage access for third parties that are *algorithmically* classified as having cross-site tracking capabilities. Here's how they describe the [classification process](https://webkit.org/blog/7675/intelligent-tracking-prevention/): 
 
 > A machine learning model is used to classify which top privately-controlled domains have the ability to track the user cross-site, based on the collected statistics. Out of the various statistics collected, three vectors turned out to have strong signal for classification based on current tracking practices: subresource under number of unique domains, sub frame under number of unique domains, and number of unique domains redirected to. All data collection and classification happens on-device.
 

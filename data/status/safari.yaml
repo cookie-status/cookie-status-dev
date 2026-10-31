@@ -3,11 +3,35 @@ classification-of-known-trackers:
   claims:
     - text: "Algorithmic"
 
+tracker-blocking:
+  status: limited
+  checked: 2026-10-30
+  sources:
+    - title: Blocking identity resolution infrastructure (WebKit blog)
+      url: https://webkit.org/blog/18438/blocking-identity-resolution-infrastructure/
+    - title: WebKit bug 324771
+      url: https://bugs.webkit.org/show_bug.cgi?id=324771
+  claims:
+    - text: "Cross-site requests to identity resolution (\"ID graph\") services are blocked."
+      appliesTo: Safari 27+
+      new: true
+    - text: "Navigations and same-site requests to these services are not blocked. Apple maintains the list and doesn't publish it."
+      appliesTo: Safari 27+
+      new: true
+    - text: "Other known trackers are not blocked. ITP restricts their storage instead."
+
 third-party-cookies:
   status: blocked
+  checked: 2026-10-30
+  sources:
+    - title: Cookie Status test, Safari 26
+    - title: Cookie Status test, 2026-10-31
+    - title: Intelligent Tracking Prevention 2.0 (WebKit blog)
+      url: https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/
   claims:
     - text: "All access restricted, except with Storage Access API."
     - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+    - text: "Temporary compatibility fix: if a site opens a third party in a pop-up and the user interacts with it, the third party gets cookie access when embedded on that site."
       new: true
 
 first-party-cookies:
@@ -18,9 +42,15 @@ first-party-cookies:
 
 other-third-party-storage:
   status: partitioned
+  checked: 2026-10-30
+  sources:
+    - title: Cookie Status test, Safari 26
+    - title: Tracking Prevention in WebKit
+      url: https://webkit.org/tracking-prevention/
   claims:
     - text: "`localStorage` is partitioned and reset between application launches."
-    - text: "`IndexedDB` is restricted."
+    - text: "`IndexedDB` is partitioned and cleared when Safari quits."
+      new: true
     - text: "`sessionStorage` is partitioned."
 
 other-first-party-storage:
@@ -33,17 +63,34 @@ cname-cloaking:
   claims:
     - text: "Expiration of cookies set with `Set-Cookie` HTTP response headers is 7 days at most, if the response originates from a subdomain that has a CNAME alias to a cross-site origin, or if the subdomain is configured with A/AAAA records where the first half of the IP address does not match the first half of the IP address of the website the user is currently browsing."
 
-referrer:
+fingerprinting:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, Safari 26
+    - title: Cookie Status test, 2026-10-31
   claims:
-    - text: "Downgrade cross-site `document.referrer` to origin."
-    - text: "Downgrade all cross-site request headers to origin."
-    - text: "For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), `document.referrer` is downgraded to eTLD+1."
+    - text: "No noise is added to fingerprinting APIs such as canvas: the canvas fingerprint was the same across sites and restarts."
+      appliesTo: Safari 26
+      new: true
+    - text: "Freezes the macOS version to `10_15_7` in the User-Agent string."
+
+referrer:
+  checked: 2026-10-31
+  sources:
+    - title: Tracking Prevention in WebKit
+      url: https://webkit.org/tracking-prevention/
+    - title: Cookie Status test, 2026-10-31
+  claims:
     - text: "Default browser policy (`strict-origin-when-cross-origin`)"
+    - text: "In third-party requests (images, scripts, frames), the referrer is always cut to the origin, also in `document.referrer`."
+      new: true
+    - text: "In navigations, sites can loosen the policy: with `unsafe-url`, the full URL is sent to other sites."
+      new: true
+    - text: "For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), `document.referrer` is downgraded to eTLD+1."
 
 other:
   claims:
     - text: "Detect delays in bounce trackers and treat them as regular bounces."
     - text: "Extend WebKit's tracking protections to all browsers running on iOS 14 and newer. These protections can only be disabled by the user."
     - text: "Purge all site data from classified domains if no user interaction (or Storage Access API grant) in first-party context has been recorded in the last 30 days."
-    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."
     - text: "Safari hides the user's IP address in requests sent to known trackers."

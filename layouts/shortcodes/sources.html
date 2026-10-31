@@ -1,0 +1,13 @@
+{{- /* Lists the sources of one table row for the current browser page: {{< sources "tracker-blocking" >}} */ -}}
+{{- $cell := index (index site.Data.status .Page.Section) (.Get 0) }}
+{{- if not $cell }}{{ errorf "%s: sources shortcode: no row %q for %q" .Position (.Get 0) .Page.Section }}{{ end }}
+{{- with $cell.sources }}
+<aside class="sources">
+  <p class="sources-title">sources{{ with $cell.checked }} · checked {{ . }}{{ end }}</p>
+  <ul>
+    {{- range . }}
+    <li>{{ if .url }}<a href="{{ .url }}">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</li>
+    {{- end }}
+  </ul>
+</aside>
+{{- end }}

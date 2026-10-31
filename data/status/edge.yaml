@@ -1,25 +1,61 @@
 # See brave.yaml for the format.
 classification-of-known-trackers:
+  checked: 2026-10-31
+  sources:
+    - title: Tracking prevention in Microsoft Edge
+      url: https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention
   claims:
-    - text: "Trust Protection Lists (with engagement and organization mitigation)"
+    - text: "Disconnect.me lists, delivered as Trust Protection Lists, with organization and engagement mitigations."
+      new: true
+
+tracker-blocking:
+  status: limited
+  checked: 2026-10-31
+  sources:
+    - title: Tracking prevention in Microsoft Edge
+      url: https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention
+  claims:
+    - text: "Requests to known cryptominers and fingerprinters are blocked, even on sites the user engages with."
+      new: true
+    - text: "Fingerprinters that are only on Disconnect.me's Fingerprinting list, and in no other category, are not blocked."
+      new: true
+    - text: "Other known trackers still load, but without storage access."
+      new: true
 
 third-party-cookies:
   status: limited
+  checked: 2026-10-30
+  sources:
+    - title: Tracking prevention in Microsoft Edge
+      url: https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention
+    - title: Cookie Status test, Edge 155
+    - title: Cookie Status test, 2026-10-31
   claims:
+    - text: "Access blocked for known trackers, unless the user engages with the tracker's site or organization."
     - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+    - text: "Cookies restricted to a maximum lifetime of 400 days."
       new: true
-    - text: "Access restricted for known trackers."
 
 first-party-cookies:
-  status: none
+  status: limited
+  checked: 2026-10-30
+  sources:
+    - title: Cookie Status test, Edge 155
   claims:
-    - text: "No restrictions."
+    - text: "Cookies restricted to a maximum lifetime of 400 days."
+      new: true
 
 other-third-party-storage:
-  status: limited
+  status: partitioned
+  checked: 2026-10-30
+  sources:
+    - title: Cookie Status test, Edge 155
+    - title: privacytests.org (2026-10-22)
+      url: https://privacytests.org/
   claims:
-    - text: "Access restricted for known trackers."
-    - text: "No restrictions for other domains."
+    - text: "Access blocked for known trackers, with the same mitigations as cookies."
+    - text: "Storage of other domains is partitioned."
+      new: true
 
 other-first-party-storage:
   status: none
@@ -31,11 +67,26 @@ cname-cloaking:
   claims:
     - text: "No restrictions."
 
+fingerprinting:
+  checked: 2026-10-31
+  sources:
+    - title: Tracking prevention in Microsoft Edge
+      url: https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention
+    - title: Cookie Status test, 2026-10-31
+  claims:
+    - text: "Requests to known fingerprinters are blocked (see Blocking of known trackers)."
+      new: true
+    - text: "Freezes the macOS version to `10_15_7` in the User-Agent string."
+
 referrer:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
   claims:
     - text: "Default browser policy (`strict-origin-when-cross-origin`)"
+    - text: "Sites can loosen the policy: with `unsafe-url`, the full URL is sent to other sites."
+      new: true
 
 other:
   claims:
-    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."
-      new: true
+    - text: "n/a"

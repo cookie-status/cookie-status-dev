@@ -1,0 +1,272 @@
+# Timeline of default-mode changes, shown on /history/. Any order; the page
+# sorts by date. Only changes that apply in default browsing belong here.
+#   date:      YYYY-MM-DD, or YYYY-MM when the exact day isn't known
+#   browsers:  ids from data/browsers.yaml (empty for site news)
+#   rows:      optional, row ids from data/features.yaml the change affects
+#   source:    {title, url}
+
+- date: 2026-09-14
+  browsers: [safari]
+  title: Safari 27 blocks identity resolution services
+  summary: Cross-site requests to "ID graph" services, which link the same person across sites and devices, are blocked whenever "Prevent cross-site tracking" is on. Apple maintains the list of domains.
+  rows: [tracker-blocking]
+  source:
+    title: Blocking identity resolution infrastructure (WebKit blog)
+    url: https://webkit.org/blog/18438/blocking-identity-resolution-infrastructure/
+
+- date: 2026-05-19
+  browsers: [firefox]
+  title: Firefox 151 adds fingerprinting protection to Standard mode
+  summary: Firefox limits how much information about the device and browser is revealed to sites in its default mode, not only in Strict mode.
+  rows: [fingerprinting]
+  source:
+    title: Firefox 151 release notes
+    url: https://www.firefox.com/en-US/firefox/151.0/releasenotes/
+
+- date: 2025-04-22
+  browsers: [chrome]
+  title: Chrome keeps third-party cookies
+  summary: Google says Chrome will keep its current approach to third-party cookies and won't add a separate prompt for users to choose. Third-party cookies stay enabled by default.
+  rows: [third-party-cookies]
+  source:
+    title: Next steps for Privacy Sandbox and tracking protections in Chrome
+    url: https://privacysandbox.google.com/blog/privacy-sandbox-next-steps
+
+- date: 2025-03-31
+  browsers: [safari]
+  title: Safari 18.4 supports partitioned cookies (CHIPS)
+  summary: Cookies set with the `Partitioned` attribute work in third-party context, kept separate for each top-level site. Domains classified by ITP still get no third-party cookies.
+  rows: [third-party-cookies]
+  source:
+    title: Safari 18.4 release notes
+    url: https://developer.apple.com/documentation/safari-release-notes/safari-18_4-release-notes
+
+- date: 2024-07-22
+  browsers: [chrome]
+  title: Google drops its plan to phase out third-party cookies
+  summary: Instead of removing third-party cookies, Google proposes letting users make a choice in Chrome. The plan was itself dropped in April 2025.
+  rows: [third-party-cookies]
+  source:
+    title: A new path for Privacy Sandbox on the web
+    url: https://privacysandbox.com/news/privacy-sandbox-update/
+
+- date: 2024-01-04
+  browsers: [chrome]
+  title: Chrome restricts third-party cookies for 1% of users
+  summary: A test of "Tracking Protection" blocks third-party cookies by default for a random 1% of Chrome users. The test ended when Google changed course.
+  rows: [third-party-cookies]
+  source:
+    title: Google shares update on next step toward phasing out third-party cookies in Chrome
+    url: https://blog.google/products/chrome/privacy-sandbox-tracking-protection/
+
+- date: 2023-07-18
+  browsers: [chrome, edge]
+  title: Chromium partitions third-party storage
+  summary: From Chrome 115, storage, service workers and communication APIs in third-party frames are partitioned by top-level site, rolled out gradually. Edge has the same behavior.
+  rows: [other-third-party-storage]
+  source:
+    title: Storage partitioning deprecation trial (Chrome for Developers)
+    url: https://developer.chrome.com/blog/storage-partitioning-deprecation-trial
+
+- date: 2023-05-30
+  browsers: [chrome, edge]
+  title: Chrome 114 supports partitioned cookies (CHIPS)
+  summary: Third-party cookies can opt in to partitioning with the `Partitioned` attribute. Edge 114 followed days later.
+  rows: [third-party-cookies]
+  source:
+    title: Cookies Having Independent Partitioned State (CHIPS)
+    url: https://privacysandbox.google.com/cookies/chips
+
+- date: 2022-08-02
+  browsers: [chrome, edge]
+  title: Cookie lifetimes capped at 400 days
+  summary: Chrome 104 limits the expiration of new cookies to 400 days, whether they're set by script or by HTTP header. Edge applies the same cap.
+  rows: [first-party-cookies, third-party-cookies]
+  source:
+    title: Cookie Expires and Max-Age attributes now have upper limit (Chrome for Developers)
+    url: https://developer.chrome.com/blog/cookie-max-age-expires/
+
+- date: 2022-06-14
+  browsers: [firefox]
+  title: Total Cookie Protection on for all Firefox users
+  summary: Firefox partitions cookies and other storage of every third party by top-level site in its default Standard mode.
+  rows: [third-party-cookies, other-third-party-storage]
+  source:
+    title: Firefox rolls out Total Cookie Protection by default to all users worldwide
+    url: https://blog.mozilla.org/en/products/firefox/firefox-rolls-out-total-cookie-protection-by-default-to-all-users-worldwide/
+
+- date: 2021-10-14
+  browsers: [brave]
+  title: Brave skips known bounce trackers
+  summary: With "debouncing", Brave notices when a link goes through a known tracking domain and navigates straight to the destination (desktop 1.32).
+  rows: [other]
+  source:
+    title: Debouncing (Brave privacy updates)
+    url: https://brave.com/privacy-updates/11-debouncing/
+
+- date: 2021-09-20
+  browsers: [safari]
+  title: Safari 15 hides the IP address from known trackers
+  summary: Requests to known trackers no longer reveal the user's IP address.
+  rows: [other]
+  source:
+    title: Safari 15 release notes
+    url: https://developer.apple.com/documentation/safari-release-notes/safari-15-release-notes
+
+- date: 2021-02-01
+  browsers: [brave]
+  title: Brave announces ephemeral third-party storage
+  summary: Instead of blocking storage in third-party frames, Brave gives each one a temporary partition that is cleared when the user leaves the site. It was turned on by default later in 2021.
+  rows: [third-party-cookies, other-third-party-storage]
+  source:
+    title: Ephemeral third-party site storage (Brave privacy updates)
+    url: https://brave.com/privacy-updates/7-ephemeral-storage/
+
+- date: 2020-11-12
+  browsers: [safari]
+  title: Safari caps cookies from CNAME-cloaked subdomains
+  summary: Cookies set by HTTP response from a subdomain that is a CNAME alias for a third party expire after 7 days at most.
+  rows: [cname-cloaking]
+  source:
+    title: CNAME cloaking and bounce tracking defense (WebKit blog)
+    url: https://webkit.org/blog/11338/cname-cloaking-and-bounce-tracking-defense/
+
+- date: 2020-11
+  browsers: [brave]
+  title: Brave uncloaks CNAME trackers
+  summary: Brave 1.17 resolves the DNS of each request and blocks it if a CNAME record points to a domain on its blocklists.
+  rows: [cname-cloaking]
+  source:
+    title: Brave 1.17.73 release
+    url: https://github.com/brave/brave-browser/releases/tag/v1.17.73
+
+- date: 2020-09-16
+  browsers: [safari]
+  title: WebKit's protections extend to all iOS browsers
+  summary: With iOS 14, Intelligent Tracking Prevention applies to every browser and in-app browser on iOS, since they all use WebKit. Only the user can turn it off.
+  rows: [other]
+  source:
+    title: Tracking Prevention in WebKit
+    url: https://webkit.org/tracking-prevention/
+
+- date: 2020-08-25
+  browsers: [chrome, edge]
+  title: Chrome 85 trims the referrer by default
+  summary: The default referrer policy becomes `strict-origin-when-cross-origin`, so other sites only see the origin of the referring page.
+  rows: [referrer]
+  source:
+    title: A new default Referrer-Policy for Chrome (Chrome for Developers)
+    url: https://developer.chrome.com/blog/referrer-policy-new-chrome-default/
+
+- date: 2020-07-28
+  browsers: [firefox]
+  title: Firefox 79 clears data from redirect trackers
+  summary: Cookies and site data of known trackers are deleted daily unless the user has interacted with the site in the last 45 days.
+  rows: [first-party-cookies, other-first-party-storage]
+  source:
+    title: Firefox 79 release notes
+    url: https://www.mozilla.org/en-US/firefox/79.0/releasenotes/
+
+- date: 2020-03-24
+  browsers: [safari]
+  title: Safari blocks all third-party cookies
+  summary: Safari 13.1 blocks third-party cookies for all domains, not only classified trackers, and caps all script-writable storage at 7 days of browser use without interaction.
+  rows: [third-party-cookies, other-first-party-storage]
+  source:
+    title: Full third-party cookie blocking and more (WebKit blog)
+    url: https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/
+
+- date: 2020-01-15
+  browsers: [edge]
+  title: New Edge ships with tracking prevention
+  summary: The Chromium-based Edge 79 is released with tracking prevention set to Balanced by default.
+  rows: [classification-of-known-trackers, third-party-cookies]
+  source:
+    title: Tracking prevention in Microsoft Edge
+    url: https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention
+
+- date: 2020-01-07
+  browsers: [firefox]
+  title: Firefox 72 blocks known fingerprinters
+  summary: Requests to domains in Disconnect.me's Fingerprinting category, when also listed as trackers, are blocked by default.
+  rows: [tracker-blocking, fingerprinting]
+  source:
+    title: Firefox 72 release notes
+    url: https://www.mozilla.org/en-US/firefox/72.0/releasenotes/
+
+- date: 2019-11-21
+  browsers: []
+  title: Cookie Status launches
+  summary: The site starts tracking how browsers handle cookies, storage and tracking by default.
+
+- date: 2019-10-22
+  browsers: [firefox]
+  title: Firefox 70 blocks social media trackers
+  summary: Requests to the most common social media trackers are blocked by default.
+  rows: [tracker-blocking]
+  source:
+    title: Firefox 70 release notes
+    url: https://www.mozilla.org/en-US/firefox/70.0/releasenotes/
+
+- date: 2019-09-23
+  browsers: [safari]
+  title: ITP 2.3
+  summary: Script-writable storage is deleted after 7 days without interaction on sites reached via known trackers, and `document.referrer` is trimmed for them.
+  rows: [other-first-party-storage, referrer]
+  source:
+    title: Intelligent Tracking Prevention 2.3 (WebKit blog)
+    url: https://webkit.org/blog/9521/intelligent-tracking-prevention-2-3/
+
+- date: 2019-09-03
+  browsers: [firefox]
+  title: Enhanced Tracking Protection on by default
+  summary: Firefox 69 blocks third-party cookies of known trackers and cryptominers for all users.
+  rows: [third-party-cookies, tracker-blocking]
+  source:
+    title: Firefox 69 release notes
+    url: https://www.mozilla.org/en-US/firefox/69.0/releasenotes/
+
+- date: 2019-04-24
+  browsers: [safari]
+  title: ITP 2.2
+  summary: Cookies set by script on pages reached from a known tracker with link decoration expire after 24 hours.
+  rows: [first-party-cookies]
+  source:
+    title: Intelligent Tracking Prevention 2.2 (WebKit blog)
+    url: https://webkit.org/blog/8828/intelligent-tracking-prevention-2-2/
+
+- date: 2019-02-21
+  browsers: [safari]
+  title: ITP 2.1
+  summary: Cookies set with `document.cookie` expire after 7 days at most.
+  rows: [first-party-cookies]
+  source:
+    title: Intelligent Tracking Prevention 2.1 (WebKit blog)
+    url: https://webkit.org/blog/8613/intelligent-tracking-prevention-2-1/
+
+- date: 2018-06-04
+  browsers: [safari]
+  title: ITP 2.0
+  summary: Classified domains lose third-party cookie access immediately, unless granted through the Storage Access API or the pop-up compatibility fix.
+  rows: [third-party-cookies]
+  source:
+    title: Intelligent Tracking Prevention 2.0 (WebKit blog)
+    url: https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/
+
+- date: 2018-02-21
+  browsers: [safari]
+  title: Storage Access API
+  summary: Embedded third parties can ask the user for access to their cookies.
+  rows: [third-party-cookies]
+  source:
+    title: Introducing Storage Access API (WebKit blog)
+    url: https://webkit.org/blog/8124/introducing-storage-access-api/
+
+- date: 2017-06-05
+  browsers: [safari]
+  title: Intelligent Tracking Prevention 1.0
+  summary: Safari starts classifying cross-site trackers on the device and restricting their cookies.
+  rows: [classification-of-known-trackers, third-party-cookies]
+  source:
+    title: Intelligent Tracking Prevention (WebKit blog)
+    url: https://webkit.org/blog/7675/intelligent-tracking-prevention/

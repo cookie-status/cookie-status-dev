@@ -56,9 +56,10 @@
           {{- partial "status-chip.html" $cell.status }}
           <ul class="claims">
             {{- range $cell.claims }}
-            <li{{ if .new }} class="new"{{ end }}>{{ .text | markdownify }}{{ if .new }} <span class="new-tag">New</span>{{ end }}</li>
+            <li{{ if .new }} class="new"{{ end }}>{{ partial "claim.html" . }}</li>
             {{- end }}
           </ul>
+          {{- partial "cell-sources.html" $cell }}
           <a class="more" href="{{ printf "/%s/#%s" $browser.id $feature.id | relURL }}" aria-label="{{ $browser.name }}: {{ $feature.name }}, details">Details</a>
         </td>
         {{- end }}

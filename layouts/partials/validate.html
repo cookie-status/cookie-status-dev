@@ -5,6 +5,21 @@
 {{- if .IsHome }}
   {{- $features := slice }}
   {{- range site.Data.features }}{{ $features = $features | append .id }}{{ end }}
+  {{- $browserIds := slice }}
+  {{- range site.Data.browsers }}{{ $browserIds = $browserIds | append .id }}{{ end }}
+  {{- range site.Data.history }}
+    {{- if not (findRE `^\d{4}-\d{2}(-\d{2})?$` (string .date)) }}
+      {{- errorf "data/history.yaml: %q has date %q, expected YYYY-MM-DD or YYYY-MM" .title .date }}
+    {{- end }}
+    {{- $title := .title }}
+    {{- range .browsers }}
+      {{- if not (in $browserIds .) }}{{ errorf "data/history.yaml: %q has unknown browser %q" $title . }}{{ end }}
+    {{- end }}
+    {{- range .rows }}
+      {{- if not (in $features .) }}{{ errorf "data/history.yaml: %q has unknown row %q" $title . }}{{ end }}
+    {{- end }}
+    {{- if not .summary }}{{ errorf "data/history.yaml: %q has no summary" $title }}{{ end }}
+  {{- end }}
   {{- range site.Data.browsers }}
     {{- if not (site.GetPage (printf "/%s" .id)) }}
       {{- errorf "data/browsers.yaml: no content page for browser %q (expected content/%s/_index.md)" .id .id }}
@@ -35,6 +50,16 @@
         {{- range $cell.claims }}
           {{- if not .text }}
             {{- errorf "data/status/%s.yaml: row %q has a claim without text" $id $key }}
+          {{- end }}
+        {{- end }}
+        {{- range $cell.sources }}
+          {{- if not .title }}
+            {{- errorf "data/status/%s.yaml: row %q has a source without a title" $id $key }}
+          {{- end }}
+        {{- end }}
+        {{- with $cell.checked }}
+          {{- if not (findRE `^\d{4}-\d{2}-\d{2}` (string .)) }}
+            {{- errorf "data/status/%s.yaml: row %q has checked %q, expected YYYY-MM-DD" $id $key . }}
           {{- end }}
         {{- end }}
       {{- end }}

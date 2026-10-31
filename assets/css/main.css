@@ -14,6 +14,7 @@
   --tint: #e6f0fb;
   --ink: #0f1b2d;
   --muted: #52627a;
+  --header-h: 61px;
   --line: #d6e3f0;
   --accent: #1f6fd1;
   --accent-ink: #165bb0;
@@ -134,7 +135,6 @@ img { max-width: 100%; height: auto; }
   display: inline-flex; align-items: center; gap: 8px;
   font: 600 1rem/1 var(--f-mono); color: var(--ink); text-decoration: none; letter-spacing: -.01em;
 }
-.brand .icon { color: var(--accent); width: 22px; height: 22px; }
 .brand .tld { color: var(--muted); font-weight: 400; }
 .brand .cursor { display: inline-block; width: .55em; height: 1.05em; background: var(--accent); margin-left: 2px; vertical-align: -0.15em; }
 @media (prefers-reduced-motion: no-preference) {
@@ -236,6 +236,20 @@ img { max-width: 100%; height: auto; }
   color: var(--new); border: 1px solid currentColor; padding: 2px 4px; border-radius: 3px; vertical-align: 1px;
 }
 
+.applies-tag {
+  display: inline-block; font: 500 .62rem/1 var(--f-mono); letter-spacing: .02em;
+  color: var(--accent); background: var(--accent-bg); padding: 3px 5px; border-radius: 3px; vertical-align: 1px;
+}
+
+.cell-sources { margin: 0 0 8px; font: .72rem/1.45 var(--f-mono); color: var(--muted); }
+.cell-sources summary { cursor: pointer; width: fit-content; }
+.cell-sources ul { margin: 6px 0 0; padding-left: 1em; }
+.cell-sources li { margin: 0 0 4px; }
+
+.sources { margin: 12px 0 24px; padding: 10px 14px; border-left: 2px solid var(--line); font-size: .85rem; }
+.sources-title { margin: 0 0 4px; font: 500 .72rem/1.4 var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.sources ul { margin: 0; padding-left: 1.1em; }
+
 /* Comparison table */
 
 .matrix-panel {
@@ -253,7 +267,23 @@ img { max-width: 100%; height: auto; }
 .toggle:hover { border-color: var(--accent); color: var(--ink); }
 .toggle[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
-.matrix-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+/* The browser header row stays visible while scrolling. A scroll container
+   would trap position: sticky, so wide screens let the table overflow the page
+   and stick below the site header; narrower screens scroll inside a box. */
+.matrix-scroll {
+  overflow: auto; max-height: calc(100vh - var(--header-h) - 16px);
+  border: 1px solid var(--line); border-radius: var(--radius);
+}
+.matrix thead th {
+  font: 500 .75rem/1.2 var(--f-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
+  background: var(--soft); position: sticky; top: 0; z-index: 2;
+}
+@media (min-width: 1140px) {
+  .matrix-scroll { overflow: visible; max-height: none; }
+  .matrix thead th { top: var(--header-h); }
+  .matrix thead .corner { border-top-left-radius: var(--radius); }
+  .matrix thead th:last-child { border-top-right-radius: var(--radius); }
+}
 .matrix { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 1000px; font-size: .88rem; line-height: 1.45; }
 .matrix th, .matrix td {
   text-align: left; vertical-align: top; padding: 12px 14px;
@@ -261,10 +291,6 @@ img { max-width: 100%; height: auto; }
 }
 .matrix tr > :last-child { border-right: 0; }
 .matrix tr:last-child > * { border-bottom: 0; }
-.matrix thead th {
-  font: 500 .75rem/1.2 var(--f-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
-  background: var(--soft); position: sticky; top: 0; z-index: 2;
-}
 .matrix tbody th {
   position: sticky; left: 0; z-index: 1; width: 210px;
   background: var(--surface); font-weight: 600;
@@ -292,7 +318,7 @@ img { max-width: 100%; height: auto; }
 .feature-rows td:hover { background: var(--soft); }
 .matrix.is-highlight td li:not(.new) { opacity: .35; }
 .matrix.is-highlight td li.new { background: var(--accent-bg); border-radius: 4px; padding: 2px 4px; margin-left: -4px; }
-.matrix.is-compact .claims, .matrix.is-compact .feature-question { display: none; }
+.matrix.is-compact .claims, .matrix.is-compact .cell-sources, .matrix.is-compact .feature-question { display: none; }
 .matrix.is-compact td { vertical-align: middle; }
 .matrix.is-compact td.has-new .chip::after { content: "new"; color: var(--new); margin-left: 4px; font-size: .9em; }
 
@@ -301,7 +327,7 @@ img { max-width: 100%; height: auto; }
 /* Narrow screens: one card per feature, one block per browser. */
 @media (max-width: 760px) {
   .matrix-panel { padding: 0; border: 0; background: none; }
-  .matrix-scroll { overflow: visible; border: 0; }
+  .matrix-scroll { overflow: visible; max-height: none; border: 0; }
   .matrix { min-width: 0; display: block; }
   .matrix thead { display: none; }
   .matrix tbody, .matrix tr { display: block; }
@@ -446,3 +472,35 @@ img { max-width: 100%; height: auto; }
   .matrix { min-width: 0; font-size: 8pt; }
 }
 .search mark { background: var(--accent-bg); color: var(--accent-ink); border-radius: 2px; padding: 0 2px; }
+.nowrap { white-space: nowrap; }
+
+/* History timeline */
+
+.history { padding-bottom: 64px; }
+.history-intro { max-width: 72ch; margin: 24px 0 8px; }
+.history-filter { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0 8px; }
+.filter-label { font: 500 .75rem/1 var(--f-mono); color: var(--muted); }
+.history-year h2 { font: 600 1.4rem/1 var(--f-mono); margin: 40px 0 12px; color: var(--accent); }
+.history-year h2::before { content: "## "; color: var(--muted); }
+.timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+.event { position: relative; display: grid; grid-template-columns: 11ch minmax(0, 1fr); gap: 4px 20px; padding: 14px 0 14px 22px; }
+.event::before {
+  content: ""; position: absolute; left: -6px; top: 20px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--surface); border: 2px solid var(--accent);
+}
+.event-site::before { background: var(--accent); }
+.event time { font: 500 .8rem/1.6 var(--f-mono); color: var(--muted); padding-top: 2px; }
+.event-body { max-width: 72ch; }
+.event h3 { font-size: 1.05rem; margin: 2px 0 4px; }
+.event-body p { margin: 0 0 6px; }
+.event-browsers { display: flex; flex-wrap: wrap; gap: 6px; }
+.browser-tag {
+  font: 500 .7rem/1 var(--f-mono); text-decoration: none; color: var(--accent-ink);
+  background: var(--accent-bg); padding: 4px 6px; border-radius: 4px;
+}
+.browser-tag:hover { text-decoration: underline; }
+.event-meta { font: .75rem/1.5 var(--f-mono); color: var(--muted); }
+.history-empty { font-family: var(--f-mono); color: var(--muted); }
+@media (max-width: 600px) {
+  .event { grid-template-columns: minmax(0, 1fr); }
+}

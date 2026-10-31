@@ -12,14 +12,20 @@
         <li>updated <b>{{ time.Format "2006-01-02" site.Data.site.updated }}</b></li>
       </ul>
     </div>
-    {{- /* A live query of the table data, rendered as terminal output. */}}
+    {{- /* A third-party response that sets a tracking cookie, and what each browser does with it (from the table data). */}}
     {{- $row := "third-party-cookies" }}
-    <figure class="terminal" aria-label="Third-party cookie status in each browser">
-      <div class="terminal-bar"><span></span><span></span><span></span><em>zsh</em></div>
-<pre><span class="p">$</span> cookiestatus get {{ $row }}
+    <figure class="terminal" aria-label="What each browser does with a third-party tracking cookie">
+      <div class="terminal-bar"><span></span><span></span><span></span><em>http</em></div>
+<pre><span class="c"># tracker.example, embedded on news.example</span>
+HTTP/2 200
+<span class="k">set-cookie</span>: uid=8f3a; Max-Age=31536000;
+            SameSite=None; Secure
+
+<span class="c"># what each browser does with it</span>
 {{ range $browsers }}{{ $cell := index (index site.Data.status .id) $row }}{{ printf "%-9s" (lower .name) }}<span class="k">{{ with index site.Data.statuses $cell.status }}{{ lower .label }}{{ end }}</span>
 {{ end }}
-<span class="p">$</span> curl -sI cookiestatus.com | grep -i set-cookie
+<span class="p">$</span> curl -sI https://www.cookiestatus.com \
+    | grep -i set-cookie
 <span class="c"># no output: this site sets no cookies</span></pre>
     </figure>
   </div>

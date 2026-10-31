@@ -8,13 +8,19 @@ aliases = ["/chrome/current-status/", "/chrome/privacy-sandbox/", "/chrome/priva
 +++
 ## Current status
 
-Chrome's initiative for browser tracking protections (among other things) is called [Privacy Sandbox](https://www.privacysandbox.com/). While Chrome's pledge to remove third-party cookies has been [put on hold](https://privacysandbox.com/news/privacy-sandbox-update/), the project includes many other interesting features, such as **storage partitioning** (see below).
+Chrome's initiative for browser tracking protections (among other things) was called [Privacy Sandbox](https://www.privacysandbox.com/). In April 2025, Google [announced](https://privacysandbox.google.com/blog/privacy-sandbox-next-steps) that Chrome would keep its current approach to third-party cookies: they stay enabled by default, and there won't be a separate prompt asking users to choose. Some protections from the project did ship, such as **storage partitioning** (see below).
 
 ## Classification of "known trackers"
 
-Chrome does not classify classify trackers or domains for the purposes of tracking protection.
+Chrome does not classify trackers or domains for the purposes of tracking protection.
+
+## Blocking of known trackers {#tracker-blocking}
+
+Chrome does not block requests to known trackers.
 
 ## Third-party cookies
+
+Third-party cookies are **allowed** by default. Google has dropped its plan to restrict them ([source](https://privacysandbox.google.com/blog/privacy-sandbox-next-steps)).
 
 Chrome restricts the maximum lifetime of cookies to 400 days.
 
@@ -43,11 +49,7 @@ Chrome does not restrict the use of other browser storage in first-party context
 
 No protections against CNAME cloaking.
 
-## Referrer
-
-Chrome 85 sets the default referrer policy to `strict-origin-when-cross-origin`. This means that for cross-origin requests (e.g. `sub.domain.com` to `othersub.domain.com`, or `sub.domain.com` to `sub.otherdomain.com`) the `referer` HTTP header and `document.referrer` JavaScript API are truncated to show just the **origin** of the website making the request. Thus a page such as `https://www.domain.com/some-page?param=value` would show up just as `https://www.domain.com` in the referrer records.
-
-## Other
+## Fingerprinting
 
 On macOS Chrome, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
 
@@ -55,3 +57,15 @@ On macOS Chrome, the version number in the User Agent string is frozen to `10_15
 Sample User Agent string when running Chrome 90.0.4430.212 on macOS 11.3.1:<br/>
 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"`
 {{% /notice %}}
+
+## Referrer
+
+Chrome 85 sets the default referrer policy to `strict-origin-when-cross-origin`. This means that for cross-origin requests (e.g. `sub.domain.com` to `othersub.domain.com`, or `sub.domain.com` to `sub.otherdomain.com`) the `referer` HTTP header and `document.referrer` JavaScript API are truncated to show just the **origin** of the website making the request. Thus a page such as `https://www.domain.com/some-page?param=value` would show up just as `https://www.domain.com` in the referrer records.
+
+Sites can loosen this policy. A page with the `unsafe-url` policy sends its full URL to other sites.
+
+{{< sources "referrer" >}}
+
+## Other
+
+Nothing else to note for Chrome's default settings.
