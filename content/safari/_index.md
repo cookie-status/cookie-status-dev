@@ -98,6 +98,8 @@ If the user *has* interacted with the embedded site in first-party context in th
 **Example**: The user visits `www.comment-service.com`, and logs into the service. The service sets a cookie in first-party context to save the user's login state. Then, the user browses to `www.blog-site.com`, which embeds `www.comment-service.com` in an `<iframe>`. In the `<iframe>`, the user clicks a button which initiates a login state check on `www.comment-service.com`. This time, `www.comment-service.com` uses the Storage Access API, and the user is prompted if they want to allow `www.comment-service.com` to access its first-party storage. If the user allows it, the embedded site will have access to its cookies, even though it is running in a third-party context.
 {{% /notice %}}
 
+Safari prompts the user for each embedded site that hasn't been granted access before, and a grant expires after 30 days of browser use without interaction ([source](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API)).
+
 If the user doesn't interact with the site again in first-party context in 30 days of Safari use, Safari will clear all storage from the embedded site, and prevent any new storage from being set. This will continue until the user interacts with the site in first-party context again.
 
 {{% notice info %}}
@@ -122,7 +124,9 @@ If the referring domain is a known tracker, and if the URL has query parameters 
 
 {{% /notice %}}
 
-First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking).
+**Classified domains** are an exception. If ITP has classified a domain as a tracker and the user hasn't interacted with it as a first party (visited it and clicked, tapped or typed) in 30 days of browser use, Safari deletes **all** its site data, including cookies set with `Set-Cookie`. This affects first-party cookies on sites that ITP has classified, which site owners don't always expect ([source](https://webkit.org/tracking-prevention/)).
+
+Other first-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking).
 
 ## Other third-party storage
 
@@ -131,6 +135,8 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 `sessionStorage` is partitioned in a similar way ([source](https://github.com/firebase/firebase-js-sdk/issues/6716#issuecomment-1416793915)).
 
 `IndexedDB` is also partitioned, and it is cleared when Safari quits.
+
+The **HTTP cache** for third-party content is partitioned by top-level site as well, which Safari has done since 2013.
 
 {{< sources "other-third-party-storage" >}}
 

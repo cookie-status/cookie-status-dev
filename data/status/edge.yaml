@@ -30,9 +30,13 @@ third-party-cookies:
       url: https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention
     - title: Cookie Status test, Edge 155
     - title: Cookie Status test, 2026-10-31
+    - title: Storage Access API (MDN)
+      url: https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API
   claims:
     - text: "Access blocked for known trackers, unless the user engages with the tracker's site or organization."
     - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+    - text: "Supports the Storage Access API, which matters mostly where third-party cookies are blocked."
+      new: true
     - text: "Cookies restricted to a maximum lifetime of 400 days."
       new: true
 

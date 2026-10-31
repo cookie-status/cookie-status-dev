@@ -21,8 +21,8 @@ Pick a browser and a kind of third party: one on the browsers' tracker lists, or
 
 * **Cookies:** Firefox and Brave partition third-party cookies by default (Firefox blocks them outright for known trackers, Brave blocks the trackers' requests). Chrome shares them unless the cookie opts in to partitioning with the `Partitioned` attribute ([CHIPS](/glossary/#chips)), and so does Edge, except for known trackers, whose cookies it blocks. Safari blocks third-party cookies, but supports partitioned ones through CHIPS.
 * **Other storage:** all five browsers partition `localStorage`, IndexedDB and similar storage in third-party frames. See [Other browser storage in third-party context](/features/other-third-party-storage/).
-* **Network state:** Chromium-based browsers also partition the HTTP cache, so cached files can't be used to recognize a browser across sites.
+* **Network state:** all five browsers also partition the HTTP cache, so cached files can't be used to recognize a browser across sites. Safari has done this since 2013, Chrome since version 86 and Firefox since version 85.
 
 ## Getting unpartitioned access back
 
-Embedded content that genuinely needs its own cookies, such as a sign-in widget, can ask for them with the [Storage Access API](/glossary/#storage-access-api). The browser may grant access automatically, after a click, or after asking the user. Safari also still grants access after the user interacts with the third party in a pop-up opened by the site ([details](/safari/#third-party-cookies)).
+Embedded content that genuinely needs its own cookies, such as a sign-in widget, can ask for them with the [Storage Access API](/glossary/#storage-access-api). Chrome, Edge, Firefox and Safari support it. The browser may grant access automatically, after a click, or after asking the user: Safari and Chrome prompt for each embedded site, while Firefox only prompts once a site has asked on several sites. Safari also still grants access after the user interacts with the third party in a pop-up opened by the site ([details](/safari/#third-party-cookies)).
