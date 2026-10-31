@@ -28,9 +28,13 @@ third-party-cookies:
     - title: Cookie Status test, 2026-10-31
     - title: Intelligent Tracking Prevention 2.0 (WebKit blog)
       url: https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/
+    - title: WebKit Features in Safari 26.2
+      url: https://webkit.org/blog/17640/webkit-features-for-safari-26-2/
   claims:
     - text: "All access restricted, except with Storage Access API."
-    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context. First shipped in Safari 18.4, removed in 18.5, back in 26.2."
+      appliesTo: Safari 26.2+
+      new: true
     - text: "Temporary compatibility fix: if a site opens a third party in a pop-up and the user interacts with it, the third party gets cookie access when embedded on that site."
       new: true
 
@@ -55,8 +59,13 @@ other-third-party-storage:
 
 other-first-party-storage:
   status: limited
+  sources:
+    - title: Full third-party cookie blocking and more (WebKit blog)
+      url: https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/
   claims:
     - text: "All script-writable storage is deleted after 7 days of browser use without interaction (click, tap, text input) with the site."
+    - text: "Web apps added to the Home Screen keep their own count of days of use, so their first-party data isn't expected to be deleted."
+      new: true
 
 cname-cloaking:
   status: limited
@@ -89,8 +98,15 @@ referrer:
     - text: "For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), `document.referrer` is downgraded to eTLD+1."
 
 other:
+  sources:
+    - title: Tracking Prevention in WebKit
+      url: https://webkit.org/tracking-prevention/
+    - title: Introducing Private Click Measurement (WebKit blog)
+      url: https://webkit.org/blog/11529/introducing-private-click-measurement-pcm/
   claims:
     - text: "Detect delays in bounce trackers and treat them as regular bounces."
     - text: "Extend WebKit's tracking protections to all browsers running on iOS 14 and newer. These protections can only be disabled by the user."
     - text: "Purge all site data from classified domains if no user interaction (or Storage Access API grant) in first-party context has been recorded in the last 30 days."
     - text: "Safari hides the user's IP address in requests sent to known trackers."
+    - text: "Private Click Measurement, a privacy-preserving API for measuring ad clicks, is on by default."
+      new: true

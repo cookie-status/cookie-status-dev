@@ -3,6 +3,7 @@
 #   date:      YYYY-MM-DD, or YYYY-MM when the exact day isn't known
 #   browsers:  ids from data/browsers.yaml (empty for site news)
 #   rows:      optional, row ids from data/features.yaml the change affects
+#   state:     optional: trial, announced or reverted (omit for shipped changes)
 #   source:    {title, url}
 
 - date: 2026-09-14
@@ -14,6 +15,15 @@
     title: Blocking identity resolution infrastructure (WebKit blog)
     url: https://webkit.org/blog/18438/blocking-identity-resolution-infrastructure/
 
+- date: 2025-12
+  browsers: [safari]
+  title: CHIPS returns in Safari 26.2
+  summary: Partitioned cookies with the `Partitioned` attribute are supported again, after being removed in Safari 18.5 for further work.
+  rows: [third-party-cookies]
+  source:
+    title: WebKit Features in Safari 26.2
+    url: https://webkit.org/blog/17640/webkit-features-for-safari-26-2/
+
 - date: 2026-05-19
   browsers: [firefox]
   title: Firefox 151 adds fingerprinting protection to Standard mode
@@ -23,9 +33,29 @@
     title: Firefox 151 release notes
     url: https://www.firefox.com/en-US/firefox/151.0/releasenotes/
 
+- date: 2025-10-17
+  browsers: [chrome]
+  title: Google retires most Privacy Sandbox technologies
+  state: announced
+  summary: Topics, Protected Audience, Attribution Reporting, Related Website Sets and others are being phased out. CHIPS and FedCM stay.
+  rows: [third-party-cookies]
+  source:
+    title: Update on plans for Privacy Sandbox technologies
+    url: https://privacysandbox.google.com/blog/update-on-plans-for-privacy-sandbox-technologies
+
+- date: 2025-07-22
+  browsers: [firefox]
+  title: Firefox 141 supports partitioned cookies (CHIPS)
+  summary: Third-party cookies can opt in to partitioning with the `Partitioned` attribute. Total Cookie Protection already partitions them, so this mainly helps developers write one cookie for all browsers.
+  rows: [third-party-cookies]
+  source:
+    title: Firefox 141 release notes
+    url: https://www.firefox.com/en-US/firefox/141.0/releasenotes/
+
 - date: 2025-04-22
   browsers: [chrome]
   title: Chrome keeps third-party cookies
+  state: announced
   summary: Google says Chrome will keep its current approach to third-party cookies and won't add a separate prompt for users to choose. Third-party cookies stay enabled by default.
   rows: [third-party-cookies]
   source:
@@ -35,7 +65,7 @@
 - date: 2025-03-31
   browsers: [safari]
   title: Safari 18.4 supports partitioned cookies (CHIPS)
-  summary: Cookies set with the `Partitioned` attribute work in third-party context, kept separate for each top-level site. Domains classified by ITP still get no third-party cookies.
+  summary: Cookies set with the `Partitioned` attribute work in third-party context, kept separate for each top-level site. The feature was removed again in Safari 18.5 (May 2025) and returned in 26.2.
   rows: [third-party-cookies]
   source:
     title: Safari 18.4 release notes
@@ -44,6 +74,7 @@
 - date: 2024-07-22
   browsers: [chrome]
   title: Google drops its plan to phase out third-party cookies
+  state: announced
   summary: Instead of removing third-party cookies, Google proposes letting users make a choice in Chrome. The plan was itself dropped in April 2025.
   rows: [third-party-cookies]
   source:
@@ -53,6 +84,7 @@
 - date: 2024-01-04
   browsers: [chrome]
   title: Chrome restricts third-party cookies for 1% of users
+  state: trial
   summary: A test of "Tracking Protection" blocks third-party cookies by default for a random 1% of Chrome users. The test ended when Google changed course.
   rows: [third-party-cookies]
   source:
@@ -116,6 +148,7 @@
 - date: 2021-02-01
   browsers: [brave]
   title: Brave announces ephemeral third-party storage
+  state: announced
   summary: Instead of blocking storage in third-party frames, Brave gives each one a temporary partition that is cleared when the user leaves the site. It was turned on by default later in 2021.
   rows: [third-party-cookies, other-third-party-storage]
   source:
@@ -130,6 +163,15 @@
   source:
     title: CNAME cloaking and bounce tracking defense (WebKit blog)
     url: https://webkit.org/blog/11338/cname-cloaking-and-bounce-tracking-defense/
+
+- date: 2020-10-06
+  browsers: [chrome, edge]
+  title: Chrome 86 partitions the HTTP cache
+  summary: Cached files are stored separately for each top-level site, so a third party can't use the cache to recognize the same browser on different sites.
+  rows: [other-third-party-storage]
+  source:
+    title: Gaining security and privacy by partitioning the cache (Chrome for Developers)
+    url: https://developer.chrome.com/blog/http-cache-partitioning
 
 - date: 2020-11
   browsers: [brave]

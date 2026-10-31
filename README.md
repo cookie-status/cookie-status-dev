@@ -12,7 +12,7 @@ Source for [www.cookiestatus.com](https://www.cookiestatus.com), a reference for
 | `data/statuses.yaml` | The status vocabulary (Blocked, Partitioned, Limited, …). |
 | `data/site.yaml` | The "Last updated" date and note on the homepage. |
 | `content/<browser>/_index.md` | The full explanation for each browser. |
-| `content/introduction/`, `content/glossary.md` | Background and definitions. |
+| `content/learn/`, `content/features/`, `content/glossary.md` | Background and definitions. |
 
 To change the comparison table, edit `data/status/<browser>.yaml` and the matching section of `content/<browser>/_index.md`, then update `data/site.yaml`. The build fails with a clear message if a row, status or browser is missing or misspelled.
 

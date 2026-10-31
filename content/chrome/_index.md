@@ -8,7 +8,7 @@ aliases = ["/chrome/current-status/", "/chrome/privacy-sandbox/", "/chrome/priva
 +++
 ## Current status
 
-Chrome's initiative for browser tracking protections (among other things) was called [Privacy Sandbox](https://www.privacysandbox.com/). In April 2025, Google [announced](https://privacysandbox.google.com/blog/privacy-sandbox-next-steps) that Chrome would keep its current approach to third-party cookies: they stay enabled by default, and there won't be a separate prompt asking users to choose. Some protections from the project did ship, such as **storage partitioning** (see below).
+Chrome's initiative for browser tracking protections (among other things) was called [Privacy Sandbox](https://www.privacysandbox.com/). In April 2025, Google [announced](https://privacysandbox.google.com/blog/privacy-sandbox-next-steps) that Chrome would keep its current approach to third-party cookies: they stay enabled by default, and there won't be a separate prompt asking users to choose. In October 2025, Google [retired most of the remaining Privacy Sandbox technologies](https://privacysandbox.google.com/blog/update-on-plans-for-privacy-sandbox-technologies), such as Topics, Protected Audience and Attribution Reporting. Some protections from the project did ship and stay, such as **storage partitioning** and **CHIPS** (see below).
 
 ## Classification of "known trackers"
 
@@ -41,6 +41,10 @@ Chrome **partitions** storage in embedded frames that load content from a cross-
 {{% /notice %}}
 
 
+Since Chrome 86, the **HTTP cache** is also partitioned by top-level site, so a third party can't use cached files to recognize the same browser on different sites ([source](https://developer.chrome.com/blog/http-cache-partitioning)).
+
+{{< sources "other-third-party-storage" >}}
+
 ## Other first-party storage
 
 Chrome does not restrict the use of other browser storage in first-party context.
@@ -50,6 +54,8 @@ Chrome does not restrict the use of other browser storage in first-party context
 No protections against CNAME cloaking.
 
 ## Fingerprinting
+
+Chrome has [reduced the User-Agent string](https://www.chromium.org/updates/ua-reduction/): the minor version, the platform version and the device model are frozen to fixed values. Sites that need these details can ask for them through **User-Agent Client Hints**. Chrome doesn't block fingerprinting scripts.
 
 On macOS Chrome, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
 

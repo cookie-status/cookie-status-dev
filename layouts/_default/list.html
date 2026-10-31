@@ -13,6 +13,7 @@
     {{ partial "toc.html" . }}
     <div class="prose" data-pagefind-body>
       {{ .Content }}
+      {{- if in (slice "brave" "chrome" "edge" "firefox" "safari") .Section }}{{ if .IsSection }}{{ partial "browser-history.html" . }}{{ end }}{{ end }}
       {{ if .IsSection }}
       {{ with .Pages }}
       <ul class="child-pages">

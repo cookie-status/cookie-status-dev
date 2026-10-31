@@ -1,0 +1,35 @@
+{{ define "main" }}
+<article class="page">
+  <header class="page-header">
+    <div class="wrap">
+      {{ partial "breadcrumbs.html" . }}
+      <h1>{{ .Title }}</h1>
+      {{ partial "page-meta.html" . }}
+    </div>
+  </header>
+  <div class="wrap" data-pagefind-body>
+    <div class="prose feature-intro">{{ .Content }}</div>
+    <ol class="feature-list">
+      {{- range site.Data.features }}
+      {{- $p := site.GetPage (printf "/features/%s" .id) }}
+      <li>
+        <a href="{{ $p.RelPermalink }}">
+          <span class="feature-list-name">{{ .name }}</span>
+          <span class="feature-list-q">{{ .question }}</span>
+        </a>
+        {{- $fid := .id }}
+        {{- $hasStatus := false }}
+        {{- range site.Data.browsers }}{{ if .matrix }}{{ if (index (index site.Data.status .id) $fid).status }}{{ $hasStatus = true }}{{ end }}{{ end }}{{ end }}
+        {{- if $hasStatus }}
+        <span class="feature-list-chips">
+          {{- range site.Data.browsers }}{{ if .matrix }}{{ $cell := index (index site.Data.status .id) $fid }}
+          <span class="mini">{{ .name }}{{ with $cell.status }} {{ partial "status-chip.html" . }}{{ end }}</span>
+          {{- end }}{{ end }}
+        </span>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ol>
+  </div>
+</article>
+{{ end }}

@@ -145,6 +145,8 @@ For same-site requests (both navigational and non-navigational), referrer has **
 
 ## Other
 
+Brave also **skips known bounce trackers** ("[debouncing](https://brave.com/privacy-updates/11-debouncing/)"). If a link goes through a known tracking domain on its way to the real destination, Brave navigates straight to the destination, so the tracking domain never sees the visit.
+
 Brave [removes known tracker identifier parameters](https://github.com/brave/brave-core/blob/master/browser/net/brave_site_hacks_network_delegate_helper.cc#L29) from URL strings. On top-level navigation (e.g. landing on a page with such parameters in the URL), the parameters are stripped out in a 307 internal redirect. On non-navigational HTTP requests, the parameter is stripped from the request URL.
 
 Here is the list of parameters that are stripped:

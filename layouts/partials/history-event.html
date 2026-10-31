@@ -1,0 +1,20 @@
+{{- /* One entry of data/history.yaml as a timeline item. */ -}}
+        <li class="event{{ if not .browsers }} event-site{{ end }}{{ with .state }} event-{{ . }}{{ end }}" id="{{ partial "history-id.html" . }}" data-browsers="{{ delimit .browsers " " }}">
+          <time datetime="{{ .date }}">{{ .date }}</time>
+          <div class="event-body">
+            {{- with .browsers }}
+            <p class="event-browsers">
+              {{- range . }}{{ $b := index (where site.Data.browsers "id" .) 0 }}<a class="browser-tag" href="{{ printf "/%s/" . | relURL }}">{{ $b.name }}</a>{{ end }}
+            </p>
+            {{- end }}
+            <h3>{{ .title }}{{ with .state }} <span class="state-tag state-{{ . }}">{{ index (dict "trial" "in trial" "announced" "announced" "reverted" "reverted") . }}</span>{{ end }}</h3>
+            <p>{{ .summary | markdownify }}</p>
+            {{- if or .rows .source }}
+            <p class="event-meta">
+              {{- with .rows }}affects: {{ range $i, $r := . }}{{ if $i }}, {{ end }}{{ $f := index (where site.Data.features "id" $r) 0 }}<a href="{{ printf "/features/%s/" $r | relURL }}">{{ lower $f.short }}</a>{{ end }}{{ end }}
+              {{- if and .rows .source }} · {{ end }}
+              {{- with .source }}source: <a href="{{ .url }}">{{ .title }}</a>{{ end }}
+            </p>
+            {{- end }}
+          </div>
+        </li>

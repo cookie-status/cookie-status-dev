@@ -64,6 +64,8 @@ With [Total Cookie Protection](https://blog.mozilla.org/en/products/firefox/fire
 
 {{< sources "third-party-cookies" >}}
 
+Since [Firefox 141](https://www.firefox.com/en-US/firefox/141.0/releasenotes/), Firefox also supports the `Partitioned` cookie attribute (CHIPS). Third-party cookies are partitioned anyway, so this mainly means developers can use the same cookie settings in all browsers.
+
 There are some edge cases where a partitioned third-party is granted unpartitioned access to its embedder. These involve pop-up windows and redirects, and you can read more about them [here](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning#storage_access_heuristics).
 
 ## First-party cookies

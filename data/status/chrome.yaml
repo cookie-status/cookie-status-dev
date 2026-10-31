@@ -17,8 +17,10 @@ third-party-cookies:
     - title: Cookie Status test, 2026-10-31
     - title: Next steps for Privacy Sandbox and tracking protections in Chrome (April 2025)
       url: https://privacysandbox.google.com/blog/privacy-sandbox-next-steps
+    - title: Update on plans for Privacy Sandbox technologies (October 2025)
+      url: https://privacysandbox.google.com/blog/update-on-plans-for-privacy-sandbox-technologies
   claims:
-    - text: "Third-party cookies are allowed. Google has dropped its plan to restrict them by default."
+    - text: "Third-party cookies are allowed. Google has dropped its plan to restrict them by default, and retired most other Privacy Sandbox technologies in October 2025."
       new: true
     - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
     - text: "Cookies restricted to a maximum lifetime of 400 days."
@@ -37,8 +39,13 @@ other-third-party-storage:
   sources:
     - title: privacytests.org (2026-10-22)
       url: https://privacytests.org/
+    - title: Gaining security and privacy by partitioning the cache (Chrome for Developers)
+      url: https://developer.chrome.com/blog/http-cache-partitioning
   claims:
     - text: "Chrome partitions third-party storage."
+    - text: "The HTTP cache is partitioned by top-level site, so cached files can't be used to track across sites."
+      appliesTo: Chrome 86+
+      new: true
 
 other-first-party-storage:
   status: none
@@ -54,7 +61,11 @@ fingerprinting:
   checked: 2026-10-31
   sources:
     - title: Cookie Status test, 2026-10-31
+    - title: User-Agent Reduction (Chromium)
+      url: https://www.chromium.org/updates/ua-reduction/
   claims:
+    - text: "The User-Agent string is reduced: the minor version, platform version and device model are frozen. Sites can ask for the details through User-Agent Client Hints."
+      new: true
     - text: "Freezes the macOS version to `10_15_7` in the User-Agent string."
 
 referrer:

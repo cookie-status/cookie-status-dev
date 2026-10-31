@@ -35,8 +35,14 @@ jobs:
           node-version: 22
 
       # The build fails if data/ is inconsistent (see layouts/partials/validate.html).
+      # Warnings, such as claims not checked in 12 months, go to the job summary.
       - name: Build
-        run: hugo --gc --minify
+        run: |
+          set -o pipefail
+          hugo --gc --minify 2>&1 | tee build.log
+          if grep -q '^WARN' build.log; then
+            { echo '### Build warnings'; echo; grep '^WARN' build.log | sed 's/^WARN */- /'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Build search index
         run: npx -y "pagefind@${PAGEFIND_VERSION}" --site public

@@ -1,7 +1,9 @@
 {{- /* Sources and checked date for one table cell. Takes the cell from data/status/<browser>.yaml. */ -}}
 {{- if or .sources .checked }}
-<details class="cell-sources">
-  <summary>{{ with .sources }}Sources ({{ len . }}){{ else }}Checked{{ end }}{{ with $.checked }} · <span class="nowrap">{{ . }}</span>{{ end }}</summary>
+{{- $stale := false }}
+{{- with .checked }}{{ $stale = lt (time (string .)) (now.AddDate -1 0 0) }}{{ end }}
+<details class="cell-sources{{ if $stale }} is-stale{{ end }}">
+  <summary>{{ with .sources }}Sources ({{ len . }}){{ else }}Checked{{ end }}{{ with $.checked }} · <span class="nowrap">{{ . }}</span>{{ end }}{{ if $stale }} <span class="stale-tag" title="Last checked more than 12 months ago">stale</span>{{ end }}</summary>
   {{- with .sources }}
   <ul>
     {{- range . }}

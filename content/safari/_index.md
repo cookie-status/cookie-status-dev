@@ -11,7 +11,7 @@ aliases = ["/safari/current-status/", "/safari/intelligent-tracking-prevention/"
 | Detail                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Intelligent Tracking Prevention
-| **Originally deployed in**    | [Safari 13](https://developer.apple.com/documentation/safari_release_notes/safari_13_release_notes) in **iOS 13**, **macOS Catalina, Mojave, and High Sierra** |
+| **Originally deployed in**    | [Safari 11](https://webkit.org/blog/7675/intelligent-tracking-prevention/) (2017), as ITP 1.0 |
 | **User controls**             | ITP **doesn't let users control** how it works. Users can simply toggle ITP off by unchecking "Prevent cross-site tracking" in Safari's Security preferences. |
 
 {{< figure src="/images/content/safari-privacy-control.jpg" title="Privacy controls in Safari" class="left-align" >}}
@@ -72,7 +72,7 @@ This still worked in a test with Safari 26 on 30 October 2026. How long the acce
 
 Note that this is listed as a **temporary** fix and could be invalidated at any time. Because the pop-up already requires user interaction (the login action itself), WebKit recommends to use the Storage Access API for proper handling of third-party storage access (see below).
 
-Safari introduced an **opt-in** flag for cookies in version 18.4: `Partitioned;`. This is part of the **C**ookies **H**aving **I**ndependent **P**artitioned **S**tate proposal (CHIPS). Cookies with this flag can be accessed in third-party context, but they are partitioned between the site sending requests to the third-party and the third-party itself. Cookies in a partition cannot be accessed by other sites that also communicate with the same third-party. Domains flagged by ITP cannot access cookies in 3P context, even with the `Partitioned;` flag.
+Safari supports an **opt-in** flag for cookies: `Partitioned;`. It first shipped in Safari 18.4 (March 2025), was removed in 18.5, and [returned in Safari 26.2](https://webkit.org/blog/17640/webkit-features-for-safari-26-2/). This is part of the **C**ookies **H**aving **I**ndependent **P**artitioned **S**tate proposal (CHIPS). Cookies with this flag can be accessed in third-party context, but they are partitioned between the site sending requests to the third-party and the third-party itself. Cookies in a partition cannot be accessed by other sites that also communicate with the same third-party. Domains flagged by ITP cannot access cookies in 3P context, even with the `Partitioned;` flag.
 
 {{% notice note %}}
 **Example**: The user is on `www.blog-site.com`, which sends a request to `www.comment-service.com`. The latter sets a cookie with the `Partitioned;` flag in the HTTP response. This cookie is included in requests from `www.blog-site.com` to `www.comment-service.com`, because even though Safari blocks third-party cookies, those with the `Partitioned;` flag are exempt from this blocking. However, if the user visits `www.other-site.com` that also sends requests to `www.comment-service.com`, cookies partitioned between `www.blog-site.com` and `www.comment-service.com` are not included in the requests.
@@ -145,6 +145,8 @@ All script-writable storage is deleted in **7 days of browser use** since last i
 * SessionStorage
 * Service Worker registrations and cache
 
+Web apps that the user has added to the **Home Screen** keep their own count of days of use, separate from Safari, so WebKit doesn't expect their first-party data to be deleted ([source](https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/)).
+
 ## CNAME cloaking
 
 If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
@@ -197,5 +199,7 @@ Similarly, Safari protects against **tracker collusion**, where multiple trackin
 With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-prevention/) are extended to **all** browsers running on the iOS platform. There is no way for the browser or any app using the browser to toggle these protections off. Only the user can opt-out of cross-site tracking protections.
 
 WebKit browsers also delete **all site data** (script-writable storage, all cookies) if the site domain has been classified by ITP and if there has been no meaningful interaction with the site in first-party context in the last 30 days. Granted access through Storage Access API resets the timer as well.
+
+**Private Click Measurement** (PCM) is [on by default](https://webkit.org/blog/11529/introducing-private-click-measurement-pcm/). It lets an advertiser learn that an ad click led to a conversion, with only limited, delayed data and no cross-site identifier.
 
 With **Safari 15**, the browser hides the user's actual IP address in requests sent to origins that are listed in DuckDuckGo's [Tracker Radar](https://github.com/duckduckgo/tracker-radar) list.

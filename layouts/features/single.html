@@ -1,0 +1,58 @@
+{{ define "main" }}
+{{- $id := .Params.feature }}
+{{- $feature := index (where site.Data.features "id" $id) 0 }}
+{{- if not $feature }}{{ errorf "%s: front matter feature %q is not in data/features.yaml" .File.Path $id }}{{ end }}
+<article class="page">
+  <header class="page-header">
+    <div class="wrap">
+      {{ partial "breadcrumbs.html" . }}
+      <h1>{{ .Title }}</h1>
+      <p class="page-lede">{{ $feature.question }}</p>
+      {{ partial "page-meta.html" . }}
+    </div>
+  </header>
+  <div class="wrap" data-pagefind-body>
+    <div class="prose feature-intro">{{ .Content }}</div>
+
+    <section class="feature-section" aria-labelledby="by-browser">
+      <h2 id="by-browser">By browser</h2>
+      <div class="feature-grid">
+        {{- range site.Data.browsers }}{{ if .matrix }}
+        {{- $cell := index (index site.Data.status .id) $id }}
+        <section class="feature-card" aria-labelledby="fc-{{ .id }}">
+          <h3 id="fc-{{ .id }}"><a href="{{ printf "/%s/#%s" .id $id | relURL }}">{{ .name }}</a></h3>
+          {{- partial "status-chip.html" $cell.status }}
+          <ul class="claims">
+            {{- range $cell.claims }}
+            <li{{ if .new }} class="new"{{ end }}>{{ partial "claim.html" . }}</li>
+            {{- end }}
+          </ul>
+          {{- partial "cell-sources.html" $cell }}
+        </section>
+        {{- end }}{{ end }}
+      </div>
+    </section>
+
+    {{- $events := slice }}
+    {{- range site.Data.history }}{{ if in .rows $id }}{{ $events = $events | append . }}{{ end }}{{ end }}
+    {{- with $events }}
+    <section class="feature-section" aria-labelledby="feature-history">
+      <h2 id="feature-history">History</h2>
+      <ol class="timeline">
+        {{- range sort . "date" "desc" }}
+        {{- partial "history-event.html" . }}
+        {{- end }}
+      </ol>
+      <p class="more-link"><a href="{{ "/history/" | relURL }}">All changes →</a></p>
+    </section>
+    {{- end }}
+
+    <nav class="feature-nav" aria-label="Other features">
+      {{- $ids := slice }}{{ range site.Data.features }}{{ $ids = $ids | append .id }}{{ end }}
+      {{- $i := 0 }}{{ range $n, $f := $ids }}{{ if eq $f $id }}{{ $i = $n }}{{ end }}{{ end }}
+      {{- if gt $i 0 }}{{ $prev := index site.Data.features (sub $i 1) }}<a rel="prev" href="{{ printf "/features/%s/" $prev.id | relURL }}">← {{ $prev.short }}</a>{{ else }}<span></span>{{ end }}
+      {{- if lt (add $i 1) (len $ids) }}{{ $next := index site.Data.features (add $i 1) }}<a rel="next" href="{{ printf "/features/%s/" $next.id | relURL }}">{{ $next.short }} →</a>{{ end }}
+    </nav>
+  </div>
+</article>
+{{ end }}
