@@ -13,8 +13,6 @@ aliases = ["/brave/current-status/", "/brave/shields/", "/brave/useful-resources
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Shields                                                      |
 | **Originally deployed in**    | 0.55.18                                                      |
-| **Latest update deployed in** | [v1.30.86](https://github.com/brave/brave-browser/releases/tag/v1.30.86)                         |
-| **Latest update includes**    | No longer block requests to filtered origins if the requests are same-site with the site the user is browsing. |
 | **User controls**             | Site-specific and global controls for: <ul><li>**Cross-site tracker blocking**</li><li>**Automatic connection upgrade to HTTPS**</li><li>**Script blocking**</li><li>**Cookie blocking**</li><li>**Device recognition blocking**</li> |
 
 {{< figure src="/images/content/brave-blocking-general.jpg" title="Brave Shields default settings" class="left-align" >}}
@@ -44,6 +42,18 @@ Brave matches each outgoing request from the web browser against these lists (us
 
 By blocking requests upstream, it means that if the request initiated a resource download (such as a JavaScript library), this resource is never downloaded and thus the code is not executed in the user's browser. If the request initiated a pixel call (such as a GET for an image), it means the pixel call will be aborted before it is received by the endpoint.
 
+{{< sources "classification-of-known-trackers" >}}
+
+## Blocking of known trackers {#tracker-blocking}
+
+With Shields at their default **Standard** level, Brave **blocks** third-party requests that match its [filter lists](#classification-of-known-trackers). This covers ads, trackers and cryptominers, and also known fingerprinting services: Brave says it blocks requests to fingerprint.com's domains and other known fingerprinting services.
+
+Requests that are **same-site** with the page the user is browsing are not blocked (see the note [above](#classification-of-known-trackers)).
+
+Some scripts are not blocked outright but **replaced** with a stripped-down version that keeps the page working, for example so that a site calling a missing analytics function doesn't break.
+
+{{< sources "tracker-blocking" >}}
+
 ## Third-party cookies
 
 **All** third-party cookies are blocked by default in subresource requests (e.g. CDN loads, pixel pings).
@@ -54,19 +64,25 @@ In frames (e.g. `<iframe>`), access is **partitioned** and set to **site-length*
 
 **Partitioned access** means that the `document.cookie` API will work in a cross-site `<iframe>`, but the storage will be unique between the site embedding the frame and the frame itself. Another site embedding the same frame would have a different storage profile.
 
-**Site-length** expiration means that as soon as the last page of the site embedding the cross-site frame is closed, the partitioned storage is cleared. This is different to how e.g. Safari works, where the storage is cleared only upon the browser being closed (this clears the storage also in Brave).
+**Site-length** expiration means that shortly after the last page of the site embedding the cross-site frame is closed, the partitioned storage is cleared. Brave waits about 30 seconds, so that sign-in flows that briefly leave the site keep working. This is different to how e.g. Safari works, where the storage is cleared only upon the browser being closed (this clears the storage also in Brave).
+
+{{< sources "third-party-cookies" >}}
 
 ## First-party cookies
 
-For cookies set with JavaScript's `document.cookie`, expiration is set to a maximum of **7 days**.
+Cookies have a maximum expiration of about **6 months**. This applies to cookies set with JavaScript's `document.cookie` and with the `Set-Cookie` HTTP response header alike.
 
 {{% notice note %}}
 
-**Example**: The user visits a page that is running an A/B testing tool which stores the experiment details into a cookie named `__exp`. This cookie is set with **JavaScript**. Even though setting the cookie works, and the user is assigned to an experiment group successfully, if the user takes more than **7 days** to revisit the site, the cookie will have been expired and the user would potentially get assigned to a new, different group upon their next visit.
+**Example**: The user visits a page that is running an A/B testing tool which stores the experiment details into a cookie named `__exp`, with an expiration of one year. Brave shortens the expiration to about 6 months. If the user returns after 7 months, the cookie is gone and the user may be assigned to a new, different group.
 
 {{% /notice %}}
 
-For cookies set with the `Set-Cookie` HTTP response header, expiration is set to a maximum of **6 months**.
+{{% notice info %}}
+Earlier versions of this page said that cookies set with `document.cookie` expire in 7 days. That is no longer the case: in a test on 30 October 2026, a one-year cookie set with `document.cookie` was capped at the same 6 months as one set with `Set-Cookie`.
+{{% /notice %}}
+
+{{< sources "first-party-cookies" >}}
 
 ## Other third-party storage
 
@@ -98,6 +114,21 @@ Brave Shields blocks network requests to domains in Brave's blocklists. With ver
 
 {{% /notice %}}
 
+## Fingerprinting
+
+Brave has lots of initiatives for [neutralizing fingerprinting surfaces](https://brave.com/brave-fingerprinting-and-privacy-budgets/). By default, it **randomizes** the values returned by APIs that are commonly used for fingerprinting, such as the [HTML canvas](https://github.com/brave/brave-browser/issues/5614). The random seed changes per site and per session, so the same device looks different on each site and after a restart. Highly identifying APIs are blocked, as are browser-language and font fingerprinting.
+
+Known fingerprinting services are also [blocked outright](#tracker-blocking).
+
+On macOS Brave, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
+
+{{% notice info %}}
+Sample User Agent string when running Brave 1.24.85 on macOS 11.3.1:<br/>
+`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"`
+{{% /notice %}}
+
+{{< sources "fingerprinting" >}}
+
 ## Referrer
 
 For cross-origin subresource and navigational HTTP requests, Brave defaults to the `strict-origin-when-cross-origin` Referrer Policy. Brave prevents the policy from ever being more relaxed than this, so even if a policy of e.g. `unsafe-url` is used, cross-origin requests would still have the referrer set to just the origin of the referring page.
@@ -109,6 +140,8 @@ For cross-origin subresource and navigational HTTP requests, Brave defaults to t
 {{% /notice %}}
 
 For same-site requests (both navigational and non-navigational), referrer has **normal** behavior.
+
+{{< sources "referrer" >}}
 
 ## Other
 
@@ -149,11 +182,3 @@ Here is the list of parameters that are stripped:
 
 {{% /notice %}}
 
-Brave has lots of initiatives for [neutralizing fingerprinting surfaces](https://brave.com/brave-fingerprinting-and-privacy-budgets/), with features such as [randomized HTML canvas fingerprints](https://github.com/brave/brave-browser/issues/5614) preferred over just removing or clearing the fingerprint surfaces.
-
-On macOS Brave, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
-
-{{% notice info %}}
-Sample User Agent string when running Brave 1.24.85 on macOS 11.3.1:<br/>
-`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"`
-{{% /notice %}}´

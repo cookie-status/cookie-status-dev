@@ -30,3 +30,23 @@ if (search && window.PagefindUI) {
   const q = new URLSearchParams(location.search).get('q');
   if (q) ui.triggerSearch(q);
 }
+
+// History page: filter the timeline by browser. Without JavaScript every entry is shown.
+const filter = document.querySelector('.history-filter');
+if (filter) {
+  filter.hidden = false;
+  const buttons = filter.querySelectorAll('button');
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+      document.querySelectorAll('.timeline .event').forEach((event) => {
+        event.hidden = id !== '' && !event.dataset.browsers.split(' ').includes(id);
+      });
+      document.querySelectorAll('.history-year').forEach((year) => {
+        year.hidden = !year.querySelector('.event:not([hidden])');
+      });
+      document.querySelector('.history-empty').hidden = !!document.querySelector('.event:not([hidden])');
+    });
+  });
+}

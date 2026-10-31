@@ -1,0 +1,13 @@
+{{- /* Sources and checked date for one table cell. Takes the cell from data/status/<browser>.yaml. */ -}}
+{{- if or .sources .checked }}
+<details class="cell-sources">
+  <summary>{{ with .sources }}Sources ({{ len . }}){{ else }}Checked{{ end }}{{ with $.checked }} · <span class="nowrap">{{ . }}</span>{{ end }}</summary>
+  {{- with .sources }}
+  <ul>
+    {{- range . }}
+    <li>{{ if .url }}<a href="{{ .url }}">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</details>
+{{- end }}

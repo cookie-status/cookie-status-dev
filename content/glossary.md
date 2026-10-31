@@ -22,9 +22,15 @@ Often focuses on data collection in a **first-party context**, but especially in
 
 ## Chromium
 
-An open-source web browser project, used as the foundation of a variety of browsers (e.g. [Brave](https://brave.com/) and [Edge (Beta)](https://www.microsoftedgeinsider.com/)).
+An open-source web browser project, used as the foundation of a variety of browsers, including [Chrome](/chrome/), [Brave](/brave/) and [Edge](/edge/).
 
 Much of the technology in Chromium is also used in the Chrome browser, but the two projects diverge when it comes to the full tech stack.
+
+---
+
+## CHIPS
+
+**C**ookies **H**aving **I**ndependent **P**artitioned **S**tate. A cookie set with the `Partitioned` attribute can be used in **third-party context**, but it is [partitioned](#partitioning) by the top-level site. Supported by Chrome, Edge and Safari.
 
 ---
 
@@ -92,7 +98,7 @@ Thus a user browsing a site on `sub.blog.domain.com` can read and write cookies 
 
 The name of the tracking protection mechanism in the [Firefox](/firefox/) web browser.
 
-ETP uses the [Disconnect.me](https://disconnect.me/) lists to determine whether a given domain is a known tracker or not.
+ETP uses the [Disconnect.me](https://disconnect.me/) lists to determine whether a given domain is a known tracker or not. Since 2022, its default Standard mode also includes **Total Cookie Protection**, which [partitions](#partitioning) the cookies and storage of every third party.
 
 ---
 
@@ -106,11 +112,29 @@ The eTLD+1 term is used in particular by Safari's Intelligent Tracking Preventio
 
 ---
 
+## Fingerprinting
+
+Identifying a browser by combining many small details it exposes, such as screen size, fonts, time zone and how it draws to a `<canvas>`. Unlike a cookie, a fingerprint can't be deleted by the user. Browsers counter it by blocking known fingerprinting scripts, by reducing the detail they expose, or by adding random noise to the values (Brave calls this *farbling*).
+
+---
+
 ## First-party
 
 In the context of **storage access**, first-party references the domain the user is currently on. Browser storage is typically completely restricted to the first-party.
 
 Cookie access is a bit different, as the browser can access cookies in a first-party context on the domain they are on *and* on any domain higher up in the domain hierarchy (all the way to eTLD+1).
+
+---
+
+## Gecko
+
+The browser engine of [Firefox](/firefox/). ("Quantum" was the name of the 2017 project that rebuilt large parts of it.)
+
+---
+
+## Identity resolution
+
+Services that link identifiers such as hashed email addresses, IP addresses and device signals to recognize the same person across sites and devices, building an *identity graph* ("ID graph"). They are an alternative to **third-party cookies** for **cross-site tracking**. Safari 27 [blocks cross-site requests](/safari/#tracker-blocking) to known identity resolution services.
 
 ---
 
@@ -130,17 +154,17 @@ Since the values are passed in the URL, the target site can access them by simpl
 
 ---
 
+## Partitioning
+
+Keeping a third party's cookies or other storage separate for each top-level site it's embedded on. `b.example` embedded on `a.example` gets one storage area, and `b.example` embedded on `c.example` gets another, so the two can't be linked. Brave, Chrome, Edge, Firefox and Safari all partition at least some third-party storage by default.
+
+---
+
 ## PageGraph
 
 [PageGraph](https://github.com/brave/brave-browser/wiki/PageGraph) is a tool built for the Brave browser, which analyzes the way in which a web document operates (and is operated on) within the browser. 
 
 PageGraph builds a representation of things like node changes, network requests, and script execution, so that this research could be used to, for example, optimize the privacy-preserving feature restrictions of the browser that produced the graph.
-
----
-
-## Quantum
-
-The browser engine used by the latest versions of the Firefox browser. It's an improved / redesigned iteration of Firefox's original **Gecko** engine.
 
 ---
 
@@ -150,7 +174,7 @@ When the web browser issues a request to a web server, that request often includ
 
 If the target resource is a web page, i.e. the request originated from a link click, when the web page is rendered the referrer string is written into the `document.referrer` property.
 
-Due to its capability to carry information that could be utilized in cross-site tracking contexts, browsers are actively working towards making the referrer string less informative by a process called *referrer downgrade* or by completely stripping and/or spoofing it.
+Due to its capability to carry information that could be utilized in cross-site tracking contexts, browsers make the referrer string less informative through *referrer downgrade*.
 
 ---
 
@@ -158,9 +182,9 @@ Due to its capability to carry information that could be utilized in cross-site 
 
 Downgrading the referrer means stripping out parts of it that could be utilized for cross-site tracking or carrying sensitive information.
 
-Browsers [are working on](https://www.chromestatus.com/feature/6251880185331712) defaulting to `strict-origin-when-cross-origin`, which would mean that for request outside the current domain namespace the referrer would be stripped of its path, query, and fragment parts. Thus `https://www.sourcedomain.com/some-page-with-link/?id=12345` would become `https://www.sourcedomain.com` in the `referer` header.
+All major browsers now default to the `strict-origin-when-cross-origin` [referrer policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy), which means that for cross-origin requests the referrer is stripped of its path, query, and fragment parts. Thus `https://www.sourcedomain.com/some-page-with-link/?id=12345` would become `https://www.sourcedomain.com` in the `referer` header.
 
-The **Brave** browser strips the referrer in all navigational cross-origin requests (e.g. clicking on a link to move to another page). For other cross-origin requests, the referrer header is spoofed to contain the origin being requested rather than the origin being referred from.
+**Brave** and **Firefox** don't let sites loosen this policy for cross-site requests, and **Safari** always cuts the referrer of third-party requests to the origin. See each browser's page for details.
 
 ---
 
@@ -170,11 +194,17 @@ Refers to browser storage that can be accessed with JavaScript. Typically this w
 
 ---
 
+## Storage Access API
+
+A web API that lets content embedded in **third-party context**, such as an `<iframe>`, ask for access to its unpartitioned cookies, usually after a click and sometimes with a prompt to the user. See [Safari](/safari/#storage-access-api) for how it works there.
+
+---
+
 ## Third-party
 
 In the context of **storage access**, third-party means that the browser is trying to access storage that is not on the current domain. 
 
-For example, while on `web.domain.com` if the browser makes a request for an image on `image.imagestore.com`, the request would have access to cookies written on `image.imagestore.com` only if the browser did not block third-party cookies. Similarly, if the response from `image.imagestore.com` tries to write a cookie with a `Set-Cookie` header, this would only work if the browser allowed third-party cookies.
+For example, while on `web.domain.com` if the browser makes a request for an image on `image.imagestore.com`, whether the request has access to cookies written on `image.imagestore.com` depends on the browser: it may send them, send only a [partitioned](#partitioning) set, or send none. The same applies when the response from `image.imagestore.com` tries to write a cookie with a `Set-Cookie` header.
 
 If the web browser loaded another domain's content in an `<iframe>` element, then any storage access (using e.g. `document.cookie` or `localStorage`) within that `<iframe>` would happen in a third-party context.
 
@@ -182,4 +212,4 @@ If the web browser loaded another domain's content in an `<iframe>` element, the
 
 ## WebKit
 
-A browser engine developed by Apple and used as the engine for the Safari browser and **all** the iOS browsers.
+A browser engine developed by Apple and used as the engine for the Safari browser. Outside the EU, all browsers on iOS and iPadOS must use WebKit, so they all get its [tracking protections](/safari/).

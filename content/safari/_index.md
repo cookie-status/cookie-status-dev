@@ -38,11 +38,37 @@ If a domain is classified by Safari as having cross-site tracking capabilities, 
 
 To monitor the list of domains classified by your Safari instance, or to test ITP in action, you can utilize the **ITP Debug Mode**, with instructions for use found behind [this link](https://www.simoahava.com/privacy/itp-debug-mode-in-safari/).
 
+## Blocking of known trackers {#tracker-blocking}
+
+Starting with **Safari 27**, Safari blocks cross-site requests to **identity resolution** services, also known as "ID graph" providers. These services match identifiers such as hashed email addresses, IP addresses and device signals to link the same person across sites and devices, which gets around the cookie restrictions described below.
+
+The blocking is on by default whenever "Prevent cross-site tracking" is enabled, which is the default setting.
+
+* Only **cross-site subresource requests** are blocked, such as scripts, pixels and frames loaded by another site.
+* **Navigations** to these services (the user visiting the service's own site) and **same-site** requests are not blocked.
+* Apple maintains the list of blocked domains and can update it without a Safari update. The list is **not public**.
+
+{{% notice note %}}
+**Example**: A news site loads a script from an identity resolution service that tries to match the visitor to a profile built on other sites. In Safari 27, the request is blocked before it reaches the network, so the script never runs. If the user visits the identity resolution service's own website, the page loads normally.
+{{% /notice %}}
+
+Apple's announcement doesn't list domains. A [WebKit bug report](https://bugs.webkit.org/show_bug.cgi?id=324771) about over-blocking mentions requests to domains such as `uidapi.com`, `id5-sync.com`, `rlcdn.com`, `pippio.com`, `permutive.com`, `ad.gt` and `adsrvr.org` being affected. Blocking of `adsrvr.org` was narrowed in the iOS 27.2 beta after the report.
+
+Other than this, Safari does not block requests to known trackers by default. Instead, Intelligent Tracking Prevention restricts what classified domains can store (see below).
+
+{{< sources "tracker-blocking" >}}
+
 ## Third-party cookies
 
 Safari blocks **all** access to cookies in third-party context.
 
-To support legacy federated login scenarios, an exception to the rule above is a [temporary compatibility fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) that was introduced in ITP 2.0. This fix applies to scenarios where a site opens a pop-up to a federated login service and then relies on third-party cookies to persist the login on the site itself. ITP detects this type of pop-up behavior and forwards third-party storage access to the site after the login service sets the cookie (in third-party context).
+To support legacy federated login scenarios, an exception to the rule above is a [temporary compatibility fix](https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/) that was introduced in ITP 2.0. This fix applies to scenarios where a site opens a pop-up to a federated login service and then relies on third-party cookies to persist the login on the site itself. If the user interacts with the pop-up, Safari gives the pop-up's site access to its cookies when it is embedded on the site that opened the pop-up. It gets no access when embedded on other sites.
+
+{{% notice note %}}
+**Example**: `www.shop.example` opens `login.example` in a pop-up. The user clicks a button in the pop-up, and `login.example` sets a cookie. Afterwards, an `<iframe>` from `login.example` embedded on `www.shop.example` can read that cookie, and `document.hasStorageAccess()` returns `true`, also after the frame is reloaded. The same `<iframe>` embedded on `www.other.example` gets no cookie.
+{{% /notice %}}
+
+This still worked in a test with Safari 26 on 30 October 2026. How long the access lasts was not tested.
 
 Note that this is listed as a **temporary** fix and could be invalidated at any time. Because the pop-up already requires user interaction (the login action itself), WebKit recommends to use the Storage Access API for proper handling of third-party storage access (see below).
 
@@ -51,6 +77,8 @@ Safari introduced an **opt-in** flag for cookies in version 18.4: `Partitioned;`
 {{% notice note %}}
 **Example**: The user is on `www.blog-site.com`, which sends a request to `www.comment-service.com`. The latter sets a cookie with the `Partitioned;` flag in the HTTP response. This cookie is included in requests from `www.blog-site.com` to `www.comment-service.com`, because even though Safari blocks third-party cookies, those with the `Partitioned;` flag are exempt from this blocking. However, if the user visits `www.other-site.com` that also sends requests to `www.comment-service.com`, cookies partitioned between `www.blog-site.com` and `www.comment-service.com` are not included in the requests.
 {{% /notice %}}
+
+{{< sources "third-party-cookies" >}}
 
 ### Storage Access API
 
@@ -94,7 +122,7 @@ If the referring domain is a known tracker, and if the URL has query parameters 
 
 {{% /notice %}}
 
-First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking)..
+First-party cookies set with the `Set-Cookie` HTTP response header are not impacted by ITP, and have no restrictions placed on their expiration, unless they meet the criterion for [CNAME cloaking (see below)](#cname-cloaking).
 
 ## Other third-party storage
 
@@ -102,7 +130,9 @@ First-party cookies set with the `Set-Cookie` HTTP response header are not impac
 
 `sessionStorage` is partitioned in a similar way ([source](https://github.com/firebase/firebase-js-sdk/issues/6716#issuecomment-1416793915)).
 
-`IndexedDB` is restricted.
+`IndexedDB` is also partitioned, and it is cleared when Safari quits.
+
+{{< sources "other-third-party-storage" >}}
 
 ## Other first-party storage
 
@@ -119,27 +149,44 @@ All script-writable storage is deleted in **7 days of browser use** since last i
 
 If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
 
-If a subdomain is set with A/AAAA records that resolve to an IP address where the **first half** of the address does **not** match the first half of the IP address for the website the user is currently browsing, then any cookies set with `Set-Cookie` HTTP repsonse headers will be restricted to a maximum 7 day expiration.
+If a subdomain is set with A/AAAA records that resolve to an IP address where the **first half** of the address does **not** match the first half of the IP address for the website the user is currently browsing, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
 
 {{% notice note %}}
 **Example:** A site on `https://domain.example` uses the subdomain `https://tracker.domain.example` to set cookies in order to avoid WebKit's restrictions on [script-writable first-party storage](#first-party-cookies). However, `https://tracker.domain.example/` has a CNAME alias to `https://domain.cloud.endpoint`, where the web server handling this logic resides. On desktop Safari (on Big Sur) and all major iOS and iPadOS browsers, any cookies set with HTTP responses from `https://tracker.domain.example` will now be restricted to an expiration of maximum 7 days.
 {{% /notice %}}
 
 {{% notice note %}}
-**Example:** The user is browisng `https://domain.example` which resolves to an IP address of `100.100.100.100`. The website makes a request to `https://tracker.domain.example` which resolves to an IP address of `200.200.200.200`. On the Safari browser, any cookies set with HTTP responses from `https://tracker.domain.example` will be restricted to an expiration of maximum 7 days.
+**Example:** The user is browsing `https://domain.example` which resolves to an IP address of `100.100.100.100`. The website makes a request to `https://tracker.domain.example` which resolves to an IP address of `200.200.200.200`. On the Safari browser, any cookies set with HTTP responses from `https://tracker.domain.example` will be restricted to an expiration of maximum 7 days.
 {{% /notice %}}
+
+## Fingerprinting
+
+In Safari 26, no noise is added to APIs that are commonly used for fingerprinting in default browsing. In a test on 30 October 2026, the HTML canvas fingerprint was identical on different sites and after restarting Safari.
+
+On macOS Safari, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
+
+{{% notice info %}}
+Sample User Agent string when running Safari 14.1 on macOS 11.3.1:<br/>
+`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15"`
+{{% /notice %}}
+
+{{< sources "fingerprinting" >}}
 
 ## Referrer
 
-Safari downgrades `document.referrer` to **origin** in cross-site navigation.
+Safari has the default Referrer Policy of `strict-origin-when-cross-origin`.
 
-Safari downgrades the referrer in cross-site request headers to **origin**. Thus if a page on `https://www.domain.com/page/page.html` tried to load an image from `https://images.imagecdn.com`, the `referer` header would show `https://www.domain.com` rather than the full referrer.
+In **third-party requests**, Safari always downgrades the referrer to the **origin**, even if the page sets a looser policy. Thus if a page on `https://www.domain.com/page/page.html` tried to load an image from `https://images.imagecdn.com`, the `referer` header would show `https://www.domain.com` rather than the full referrer. The same applies to `document.referrer` in embedded third-party content. In a test on 31 October 2026, a cross-site `fetch()` from a page with the `unsafe-url` policy sent only the page's origin.
 
 Furthermore, if the referring domain is a known tracker, and if the *referring page* has query parameters (`?key=value`) or fragments (`#somevalue`), the `document.referrer` property is downgraded to **effective top-level domain plus one part** (eTLD+1). Thus a request originating from `https://sub.classified.domain.com/page?userId=abcd1234` would end up as `https://domain.com` in the `document.referrer` property of the landing page.
 
-> Note that the above restrictions only apply if the site tries to set a Referrer Policy of `unsafe-url` or `no-referrer-when-downgrade`. In other words, Safari effectively prevents the referrer policy from being relaxed so that anything beyond the origin is sent in cross-site requests.
+In **navigations** to other sites, however, a site can loosen the policy. In a test on 31 October 2026, a page with the `unsafe-url` policy sent its full URL, including the query string, when navigating to another site.
 
-Safari has the default Referrer Policy of `strict-origin-when-cross-origin`.
+{{% notice info %}}
+Earlier versions of this page said that Safari prevents sites from loosening the referrer policy in all cross-site requests. That only holds for third-party requests, not for navigations.
+{{% /notice %}}
+
+{{< sources "referrer" >}}
 
 ## Other
 
@@ -151,11 +198,4 @@ With **Safari 14**, WebKit's [tracking preventions](https://webkit.org/tracking-
 
 WebKit browsers also delete **all site data** (script-writable storage, all cookies) if the site domain has been classified by ITP and if there has been no meaningful interaction with the site in first-party context in the last 30 days. Granted access through Storage Access API resets the timer as well.
 
-With **Safari 15**, the browser hides the user's actual IP address in requests sent to origins that are listed in DuckDuckGo's [Tracker Radar](https://github.com/duckduckgo/tracker-radar) list. 
-
-On macOS Safari, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
-
-{{% notice info %}}
-Sample User Agent string when running Safari 14.1 on macOS 11.3.1:<br/>
-`"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15"`
-{{% /notice %}}
+With **Safari 15**, the browser hides the user's actual IP address in requests sent to origins that are listed in DuckDuckGo's [Tracker Radar](https://github.com/duckduckgo/tracker-radar) list.

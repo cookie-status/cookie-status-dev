@@ -1,29 +1,65 @@
 # Each key is a row id from data/features.yaml.
-#   status:  optional, a key from data/statuses.yaml
-#   claims:  short statements shown in the comparison table (inline Markdown)
-#     new:   true if the claim changed in the latest update
+#   status:   optional, a key from data/statuses.yaml
+#   checked:  optional, date the row was last checked (YYYY-MM-DD)
+#   sources:  optional, list of {title, url}; url is optional for own tests
+#   claims:   short statements shown in the comparison table (inline Markdown)
+#     new:        true if the claim changed in the latest update
+#     appliesTo:  optional, versions or platforms the claim is limited to
 classification-of-known-trackers:
+  checked: 2026-10-31
+  sources:
+    - title: Brave Shields
+      url: https://brave.com/shields/
   claims:
-    - text: "Multiple filter lists"
+    - text: "Filter lists: EasyList, EasyPrivacy, uBlock Origin lists and Brave's own lists."
+
+tracker-blocking:
+  status: blocked
+  checked: 2026-10-31
+  sources:
+    - title: Brave Shields
+      url: https://brave.com/shields/
+    - title: Brave fingerprinting protections
+      url: https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections
+  claims:
+    - text: "Third-party requests that match the filter lists are blocked, including ads, trackers, cryptominers and known fingerprinting services."
+      new: true
+    - text: "Requests that are same-site with the page are not blocked."
+      new: true
+    - text: "Some blocked scripts are replaced with harmless stand-ins so the page keeps working."
+      new: true
 
 third-party-cookies:
   status: partitioned
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
+    - title: privacytests.org (2026-10-22)
+      url: https://privacytests.org/
   claims:
-    - text: "Restrict access in subresource requests."
+    - text: "Not sent in cross-site subresource requests."
     - text: "Partitioned access in frame."
-    - text: "Partitioned storage is cleared when no more first-party documents that use the partition are open, or when the browser is closed."
+    - text: "Partitioned storage is cleared shortly after the user leaves the site (closes all its tabs), or when the browser is closed."
 
 first-party-cookies:
   status: limited
+  checked: 2026-10-30
+  sources:
+    - title: Cookie Status test, Brave 1.97
   claims:
-    - text: "For cookies set with `document.cookie`, expiration set to 7 days."
-    - text: "Otherwise maximum expiry set to 6 months."
+    - text: "Maximum expiry of about 6 months, for cookies set with both `document.cookie` and `Set-Cookie`."
+      new: true
 
 other-third-party-storage:
   status: partitioned
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
+    - title: privacytests.org (2026-10-22)
+      url: https://privacytests.org/
   claims:
     - text: "Partitioned access in frame."
-    - text: "Partitioned storage is cleared when no more first-party documents that use the partition are open, or when the browser is closed."
+    - text: "Partitioned storage is cleared shortly after the user leaves the site (closes all its tabs), or when the browser is closed."
 
 other-first-party-storage:
   status: none
@@ -35,14 +71,32 @@ cname-cloaking:
   claims:
     - text: "Brave blocks any network requests where either the requested URL or that URL's CNAME record matches any rules in Brave's blocklists."
 
-referrer:
+fingerprinting:
+  checked: 2026-10-31
+  sources:
+    - title: Brave Shields
+      url: https://brave.com/shields/
+    - title: Brave fingerprinting protections
+      url: https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections
+    - title: Cookie Status test, 2026-10-31
   claims:
-    - text: "`strict-origin-when-cross-origin` or stricter referrer policy in subresource requests and cross-site navigational requests."
+    - text: "Randomizes values from APIs used for fingerprinting, such as canvas. The random seed changes per site and per session."
       new: true
+    - text: "Blocks browser-language and font fingerprinting."
+      new: true
+    - text: "Freezes the macOS version to `10_15_7` in the User-Agent string."
+
+referrer:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
+  claims:
+    - text: "`strict-origin-when-cross-origin` or stricter referrer policy in subresource requests and cross-site navigational requests. Sites can't loosen it: with `unsafe-url`, only the origin is sent."
     - text: "Same-site navigation preserves the referrer."
 
 other:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
   claims:
     - text: "Remove known tracking parameters (`fbclid`, `gclid`, `msclkid`, `mc_eid`, and others) from URL query strings."
-    - text: "Randomize HTML canvas fingerprints by first-party domain."
-    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."

@@ -3,20 +3,40 @@ classification-of-known-trackers:
   claims:
     - text: "n/a"
 
+tracker-blocking:
+  status: none
+  checked: 2026-10-31
+  claims:
+    - text: "Requests to known trackers are not blocked."
+      new: true
+
 third-party-cookies:
   status: none
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
+    - title: Next steps for Privacy Sandbox and tracking protections in Chrome (April 2025)
+      url: https://privacysandbox.google.com/blog/privacy-sandbox-next-steps
   claims:
-    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+    - text: "Third-party cookies are allowed. Google has dropped its plan to restrict them by default."
       new: true
+    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
     - text: "Cookies restricted to a maximum lifetime of 400 days."
 
 first-party-cookies:
   status: limited
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
   claims:
     - text: "Cookies restricted to a maximum lifetime of 400 days."
 
 other-third-party-storage:
   status: partitioned
+  checked: 2026-10-31
+  sources:
+    - title: privacytests.org (2026-10-22)
+      url: https://privacytests.org/
   claims:
     - text: "Chrome partitions third-party storage."
 
@@ -30,10 +50,22 @@ cname-cloaking:
   claims:
     - text: "No restrictions."
 
+fingerprinting:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
+  claims:
+    - text: "Freezes the macOS version to `10_15_7` in the User-Agent string."
+
 referrer:
+  checked: 2026-10-31
+  sources:
+    - title: Cookie Status test, 2026-10-31
   claims:
     - text: "Default browser policy (`strict-origin-when-cross-origin`)"
+    - text: "Sites can loosen the policy: with `unsafe-url`, the full URL is sent to other sites."
+      new: true
 
 other:
   claims:
-    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."
+    - text: "n/a"

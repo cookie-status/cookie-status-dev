@@ -12,8 +12,6 @@ aliases = ["/firefox/current-status/", "/firefox/enhanced-tracking-protection/",
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Enhanced Tracking Protection (ETP)                                    |
 | **Originally deployed in**    | [69.0](https://www.mozilla.org/en-US/firefox/69.0/releasenotes/)                                                     |
-| **Latest update deployed in** | [June 14, 2022](https://blog.mozilla.org/en/products/firefox/firefox-rolls-out-total-cookie-protection-by-default-to-all-users-worldwide/) |
-| **Latest update includes** | Total Cookie Protection rolled out to all users. |
 | **User controls**             | <ul><li>**Choose between Standard, Strict, and Custom levels**</li><li>**In Custom level, select which types of trackers and scripts to block**</li><li>**Add exceptions to the domains blocked by Enhanced Tracking Protection**</li><ul> |
 
 {{< figure src="/images/content/etp-modes.jpg" title="Enhanced Tracking Protection levels" class="left-align" >}}
@@ -27,8 +25,8 @@ Firefox utilizes the following Disconnect.me categories in ETP:
 * **Advertising** - third-party cookies blocked
 * **Analytics** - third-party cookies blocked
 * **Cryptomining** - all third-party requests blocked
-* **Fingerprinting** - third-party requests blocked [conditionally](#other)
-* **Social** - third-party cookies blocked
+* **Fingerprinting** - third-party requests blocked [conditionally](#tracker-blocking)
+* **Social** - third-party cookies blocked, and requests to social media trackers blocked
 
 {{% notice note %}}
 
@@ -36,9 +34,23 @@ Firefox utilizes the following Disconnect.me categories in ETP:
 
 {{% /notice %}}
 
-Tracking Content blocking (enabled in **Private windows** by default) will not just strip cookies but actually **block** all resource requests to domains listed in Disconnect.me.
+Firefox deletes all stored site data (incl. cookies, browser storage) if the site is a known tracker and hasn't been interacted with in the last 45 days (see [First-party cookies](#first-party-cookies)).
 
-Firefox deletes all stored site data (incl. cookies, browser storage) if the site is a known tracker and hasn't been interacted with in the last 30 days.
+## Blocking of known trackers {#tracker-blocking}
+
+In the default **Standard** mode of Enhanced Tracking Protection, Firefox **blocks** requests to:
+
+* **Social media trackers**: the most common trackers from Facebook, Twitter and LinkedIn that appear on other websites.
+* **Cryptominers**.
+* **Known fingerprinters**: domains that are in Disconnect.me's Fingerprinting category **and** in one of the tracking categories (Advertising, Analytics, or Social).
+
+Other **tracking content**, such as ads and embedded videos with tracking code, still loads in the default mode, but its cross-site tracking cookies are blocked. Cookies that aren't used for cross-site tracking, such as login or shopping cart cookies, are still allowed.
+
+{{% notice note %}}
+**Example**: A site embeds a Facebook tracking script. Firefox blocks the request, so the script never loads. An analytics script from a domain listed under Analytics still loads, but it can't use its cross-site cookies.
+{{% /notice %}}
+
+{{< sources "tracker-blocking" >}}
 
 ## Third-party cookies
 
@@ -49,6 +61,8 @@ With [Total Cookie Protection](https://blog.mozilla.org/en/products/firefox/fire
 {{% notice note %}}
 **Example**: If `siteA.com` tries to load a resource from `siteB.com`, the latter will have access (assuming it is not on the list of known trackers) to its cookies. However, these cookies are stored in a special **partition** keyed between `siteA.com` and `siteB.com`. If a second site, such as `siteC.com` loads a resource from `siteB.com`, the cookies the latter will have access to will not be the same as those available when embedded via `siteA.com`.
 {{% /notice %}}
+
+{{< sources "third-party-cookies" >}}
 
 There are some edge cases where a partitioned third-party is granted unpartitioned access to its embedder. These involve pop-up windows and redirects, and you can read more about them [here](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning#storage_access_heuristics).
 
@@ -90,23 +104,31 @@ Note that domains in the Cryptomining category have all incoming requests blocke
 
 No protections against CNAME cloaking.
 
-## Referrer
+## Fingerprinting
 
-The default referrer policy is `strict-origin-when-cross-origin`. More relaxed policies are not permitted.
+Since **Firefox 151** (May 2026), the default Standard mode also limits how much information about the device and browser is revealed to sites, a protection that was previously only in Strict mode. Mozilla says this reduces the number of users that common fingerprinting techniques can uniquely identify by about 14% on average, and by about 49% on macOS.
 
-If the referring URL has a tracking parameter (e.g. `fbclid`), the `document.referrer` string is truncated to eTLD+1.
-
-{{% notice note %}}
-**Example**: If the user browses from `https://www.my.domain/purchase-page?fbclid=12345` to `https://www.my.domain/home-page/`, the `document.referrer` string will show just `https://my.domain/`.
-{{% /notice %}}
-
-## Other
-
-If the domain is in the Fingerprinting category of Disconnect.me **and** in one of the tracking categories (Advertising, Analytics, or Social), all third-party **requests** to the domain are blocked.
+Firefox also [blocks requests](#tracker-blocking) to known fingerprinters.
 
 On macOS Firefox, the version number in the User Agent string is frozen to `10.15` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
 
 {{% notice info %}}
 Sample User Agent string when running Firefox 88.0.1 on macOS 11.3.1:<br/>
 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:88.0) Gecko/20100101 Firefox/88.0"`
-{{% /notice %}}´
+{{% /notice %}}
+
+{{< sources "fingerprinting" >}}
+
+## Referrer
+
+The default referrer policy is `strict-origin-when-cross-origin`. Sites can't loosen it for cross-site requests: in a test on 31 October 2026, a page with the `unsafe-url` policy still sent only its origin to another site.
+
+{{% notice info %}}
+Earlier versions of this page said that Firefox trims `document.referrer` to eTLD+1 when the referring URL has a tracking parameter such as `fbclid`. The same test found no such trimming: navigating from `https://www.example.com/?fbclid=123` to another site gave `https://www.example.com/`.
+{{% /notice %}}
+
+{{< sources "referrer" >}}
+
+## Other
+
+Nothing else to note for Firefox's default settings.

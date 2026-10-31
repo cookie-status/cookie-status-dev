@@ -12,8 +12,6 @@ aliases = ["/edge/current-status/", "/edge/tracking-prevention/", "/edge/useful-
 | ----------------------------- | ------------------------------------------------------------ |
 | **Mechanism**                 | Tracking prevention                                          |
 | **Originally deployed in**    | [78.0.276.8](https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8)                                                     |
-| **Latest update deployed in** | 114 |
-| **Latest update includes** | Cookies Having Independent Partitioned State (CHIPS) allows opt-in to partitioned third-party cookies. |
 | **User controls** | Customizable settings to: <ul><li>**Choose between Basic, Balanced or Strict mode**</li><li>**View trackers that have been blocked**</li><li>**Add sites to list of exceptions for which trackers should always be allowed to run**</li><li>**Check your site engagement scores**</li></ul> |
 
 {{< figure src="/images/content/edge-tracking-settings.jpg" title="Edge Tracking prevention settings" class="left-align" >}}
@@ -31,13 +29,23 @@ Edge restricts storage access to and/or blocks resources loaded from the followi
 * Fingerprinting
 * Social
 
-The chart below shows the level of blocking for each category. **Balanced** is the default level of tracking prevention in the browser.
+The table below shows what **Balanced**, the default level, does to each category ([source](https://learn.microsoft.com/en-us/microsoft-edge/web-platform/tracking-prevention#current-tracking-prevention-behavior)).
 
-{{< figure src="/images/content/edge-block-chart.jpg" title="From: https://bit.ly/39PlJ6S" class="left-align" >}}
+| Category | Balanced (default) |
+| --- | --- |
+| Advertising | S |
+| Analytics | - |
+| Content | S |
+| Cryptomining | B |
+| Fingerprinting | B |
+| Social | S |
+| Other | S |
 
-**S** means that storage access is restricted for domains falling under the given category. 
+**S** means that storage access is restricted for domains falling under the given category.
 
-**B** means that all resources are blocked for domains falling under the given category. 
+**B** means that storage access is restricted **and** resource loads are blocked for domains falling under the given category.
+
+**-** means that nothing is restricted.
 
 To prevent storage access and resource blocking from breaking user experience, Edge has introduced some **mitigations** to how cross-site tracking prevention works.
 
@@ -63,7 +71,7 @@ Activities that improve the site engagement score are:
 
 The site engagement score is calculated as a double value between 0-100. 
 
-Engagement scores are keyed **by origin** (so `www.domain.com` would have a different engagement score from `sub.domain.com`), and engagement scores are cleared with browser history (or, for scores accumulated in *incognito mode*, when the browser is shut down). Engagement scores also **decay with time**.
+Engagement scores are keyed **by origin** (so `www.domain.com` would have a different engagement score from `sub.domain.com`), and engagement scores are cleared with browser history. Engagement scores also **decay with time**.
 
 Edge determines a score of **4.1** to represent sufficient engagement with a site to enable mitigation for tracking prevention. 
 
@@ -85,15 +93,37 @@ Organization engagement mitigation means that if one site in an organization rec
 
 {{% /notice %}}
 
+{{< sources "classification-of-known-trackers" >}}
+
+## Blocking of known trackers {#tracker-blocking}
+
+In the default **Balanced** mode, Edge blocks requests to known trackers in the **Cryptomining** and **Fingerprinting** categories. The engagement mitigations above don't apply to these categories, so they are blocked even on sites the user visits often.
+
+The Fingerprinting category only covers domains that are on Disconnect.me's Fingerprinting list **and** in another tracking category. Domains that are only on the Fingerprinting list are treated as non-malicious and are not blocked.
+
+Other known trackers (Advertising, Content, Social, Other) still load, but without access to cookies or other storage. Analytics trackers are not restricted at all in Balanced mode.
+
+{{% notice note %}}
+**Example**: A site loads a script from a domain that Disconnect.me lists under both Advertising and Fingerprinting. Edge blocks the request, so the script never runs. A script from a domain that is only listed under Advertising loads and runs, but it can't read or write cookies or storage.
+{{% /notice %}}
+
+{{< sources "tracker-blocking" >}}
+
 ## Third-party cookies
 
-Third-party cookies are blocked from all domains listed in the Trust Protection Lists (considering the **mitigations** listed above).
+Third-party cookies are blocked from domains listed in the Trust Protection Lists in the Advertising, Content, Social and Other categories (considering the **mitigations** listed above).
+
+Like Chrome, Edge caps the lifetime of all cookies at **400 days**.
 
 Edge supports an **opt-in** flag for cookies, `Partitioned;`. This is part of the **C**ookies **H**aving **I**ndependent **P**artitioned **S**tate proposal (CHIPS). Cookies with this flag can be accessed in third-party context, but they are partitioned between the site sending requests to the third-party and the third-party itself. Cookies in a partition cannot be accessed by other sites that also communicate with the same third-party. 
 
+{{< sources "third-party-cookies" >}}
+
 ## First-party cookies
 
-No restrictions.
+Cookies have a maximum lifetime of **400 days**, whether they are set with `document.cookie` or the `Set-Cookie` HTTP response header. Other than that, Edge does not restrict first-party cookies.
+
+{{< sources "first-party-cookies" >}}
 
 {{% notice info %}}
 
@@ -103,7 +133,15 @@ Note that domains in Cryptomining and Fingerprinting categories of the Trust Pro
 
 ## Other third-party storage
 
-All other third-party browser storage is blocked from domains listed in the Trust Protection Lists (considering the **mitigations** listed above).
+Other third-party browser storage is blocked for the same known trackers as [third-party cookies](#third-party-cookies) (considering the **mitigations** listed above).
+
+For all other domains, storage in third-party context is **partitioned**, as in Chrome.
+
+{{% notice note %}}
+**Example**: If `siteA.com` loads an iframe from `siteB.com`, and `siteB.com` is not a known tracker, the iframe can use `localStorage`. But that storage is only shared with other `siteB.com` frames on `siteA.com`. When `siteC.com` embeds the same iframe, it sees a separate, empty storage.
+{{% /notice %}}
+
+{{< sources "other-third-party-storage" >}}
 
 ## Other first-party storage
 
@@ -119,11 +157,9 @@ Note that domains in Cryptomining and Fingerprinting categories of the Trust Pro
 
 No protections against CNAME cloaking.
 
-## Referrer
+## Fingerprinting
 
-Default browser policy (`strict-origin-when-cross-origin`).
-
-## Other
+Edge [blocks requests](#tracker-blocking) to known fingerprinters.
 
 On macOS Edge, the version number in the User Agent string is frozen to `10_15_7` to fix compatibility issues with upgrading to macOS version 11+ (Big Sur). This has obvious privacy implications as well, as the platform version is no longer useful for fingerprinting purposes.
 
@@ -131,3 +167,13 @@ On macOS Edge, the version number in the User Agent string is frozen to `10_15_7
 Sample User Agent string when running Edge 90.0.818.62 on macOS 11.3.1:<br/>
 `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.62"`
 {{% /notice %}}
+
+## Referrer
+
+Default browser policy (`strict-origin-when-cross-origin`). As in Chrome, sites can loosen it: a page with the `unsafe-url` policy sends its full URL to other sites.
+
+{{< sources "referrer" >}}
+
+## Other
+
+Nothing else to note for Edge's default settings.

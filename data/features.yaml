@@ -5,6 +5,11 @@
   short: Known trackers
   question: How does the browser decide which domains are trackers?
 
+- id: tracker-blocking
+  name: Blocking of known trackers
+  short: Tracker blocking
+  question: Does the browser stop requests to known trackers or fingerprinting scripts from loading at all?
+
 - id: third-party-cookies
   name: Cookies in 3rd party context
   short: 3rd-party cookies
@@ -29,6 +34,11 @@
   name: CNAME cloaking
   short: CNAME cloaking
   question: Does the browser see through a first-party subdomain that points to a third-party service?
+
+- id: fingerprinting
+  name: Fingerprinting
+  short: Fingerprinting
+  question: Does the browser change or hide the values scripts use to fingerprint the device?
 
 - id: referrer
   name: Referrer

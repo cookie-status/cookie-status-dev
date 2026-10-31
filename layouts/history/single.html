@@ -1,0 +1,57 @@
+{{ define "main" }}
+{{- $browsers := site.Data.browsers }}
+{{- $features := site.Data.features }}
+<article class="page">
+  <header class="page-header">
+    <div class="wrap">
+      {{ partial "breadcrumbs.html" . }}
+      <h1>{{ .Title }}</h1>
+      {{ partial "page-meta.html" . }}
+    </div>
+  </header>
+  <div class="wrap history" data-pagefind-body>
+    <div class="prose history-intro">{{ .Content }}</div>
+
+    <div class="history-filter" role="group" aria-label="Filter by browser" hidden>
+      <span class="filter-label">filter:</span>
+      <button type="button" class="toggle" data-filter="" aria-pressed="true">All</button>
+      {{- range $browsers }}
+      <button type="button" class="toggle" data-filter="{{ .id }}" aria-pressed="false">{{ .name }}</button>
+      {{- end }}
+    </div>
+
+    {{- $year := "" }}
+    {{- range sort site.Data.history "date" "desc" }}
+    {{- $y := substr .date 0 4 }}
+    {{- if ne $y $year }}
+    {{- if $year }}</ol></section>{{ end }}
+    {{- $year = $y }}
+    <section class="history-year" aria-labelledby="y{{ $y }}">
+      <h2 id="y{{ $y }}">{{ $y }}</h2>
+      <ol class="timeline">
+    {{- end }}
+        <li class="event{{ if not .browsers }} event-site{{ end }}" data-browsers="{{ delimit .browsers " " }}">
+          <time datetime="{{ .date }}">{{ .date }}</time>
+          <div class="event-body">
+            {{- with .browsers }}
+            <p class="event-browsers">
+              {{- range . }}{{ $b := index (where $browsers "id" .) 0 }}<a class="browser-tag" href="{{ printf "/%s/" . | relURL }}">{{ $b.name }}</a>{{ end }}
+            </p>
+            {{- end }}
+            <h3>{{ .title }}</h3>
+            <p>{{ .summary | markdownify }}</p>
+            {{- if or .rows .source }}
+            <p class="event-meta">
+              {{- with .rows }}affects: {{ range $i, $r := . }}{{ if $i }}, {{ end }}{{ $f := index (where $features "id" $r) 0 }}<a href="{{ printf "/#row-%s" $r | relURL }}">{{ lower $f.short }}</a>{{ end }}{{ end }}
+              {{- if and .rows .source }} · {{ end }}
+              {{- with .source }}source: <a href="{{ .url }}">{{ .title }}</a>{{ end }}
+            </p>
+            {{- end }}
+          </div>
+        </li>
+    {{- end }}
+    {{- if $year }}</ol></section>{{ end }}
+    <p class="history-empty" hidden>No changes for this browser.</p>
+  </div>
+</article>
+{{ end }}
