@@ -1,0 +1,45 @@
+# See brave.yaml for the format.
+classification-of-known-trackers:
+  claims:
+    - text: "Disconnect.me"
+
+third-party-cookies:
+  status: partitioned
+  claims:
+    - text: "Access restricted for known trackers."
+    - text: "Cookies are partitioned between the site and the third-party. Cookies are not shared across sites."
+      new: true
+
+first-party-cookies:
+  status: limited
+  claims:
+    - text: "All storage is purged from known trackers daily, unless the user has interacted with the site in first-party context within the last 45 days."
+
+other-third-party-storage:
+  status: partitioned
+  claims:
+    - text: "`localStorage` and `IndexedDB` restricted for known trackers."
+    - text: "`sessionStorage` is not restricted."
+    - text: "Storage is partitioned between the site and the third-party. Storage is not shared across sites."
+      new: true
+
+other-first-party-storage:
+  status: limited
+  claims:
+    - text: "All storage is purged from known trackers daily, unless the user has interacted with the site in first-party context within the last 45 days."
+
+cname-cloaking:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+referrer:
+  claims:
+    - text: "Default browser policy (`strict-origin-when-cross-origin` or stricter)"
+      new: true
+    - text: "If the referring URL has a tracking parameter (e.g. `fbclid`), `document.referrer` string is truncated to eTLD+1."
+
+other:
+  claims:
+    - text: "Automatically block requests to tracking domains that are also listed in the Fingerprinting category of the Disconnect.me list."
+    - text: "Freeze Mac OS X version to 10_15 in the User Agent string."

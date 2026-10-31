@@ -1,0 +1,52 @@
+# Browsers covered by the site, in display order.
+# `matrix: true` puts the browser in the comparison table on the homepage
+# and requires a matching data/status/<id>.yaml file.
+- id: brave
+  name: Brave
+  engine: Chromium
+  mechanism: Shields
+  mechanismUrl: https://support.brave.com/hc/en-us/articles/360022973471-What-is-Shields-
+  deployedIn: "0.55.18"
+  releaseNotes: https://brave.com/latest/
+  defaultMode: Default Shield settings
+  matrix: true
+
+- id: chrome
+  name: Chrome
+  engine: Chromium
+  releaseNotes: https://chromereleases.googleblog.com/search/label/Stable%20updates
+  matrix: true
+
+- id: edge
+  name: Edge
+  engine: Chromium
+  mechanism: Tracking prevention
+  mechanismUrl: https://blogs.windows.com/msedgedev/2019/06/27/tracking-prevention-microsoft-edge-preview/
+  deployedIn: "78.0.276.8"
+  deployedUrl: https://www.microsoftedgeinsider.com/en-us/welcome/update?channel=beta&version=78.0.276.8
+  releaseNotes: https://www.microsoftedgeinsider.com/en-us/whats-new
+  defaultMode: Balanced
+  matrix: true
+
+- id: firefox
+  name: Firefox
+  engine: Gecko
+  mechanism: Enhanced Tracking Protection (ETP)
+  mechanismUrl: https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop
+  deployedIn: "69.0"
+  deployedUrl: https://www.mozilla.org/en-US/firefox/69.0/releasenotes/
+  releaseNotes: https://www.mozilla.org/en-US/firefox/releases/
+  defaultMode: Standard
+  matrix: true
+
+- id: safari
+  name: Safari
+  engine: WebKit
+  mechanism: Intelligent Tracking Prevention (ITP)
+  mechanismUrl: https://webkit.org/blog/7675/intelligent-tracking-prevention/
+  deployedIn: Safari 11
+  deployedUrl: https://en.wikipedia.org/wiki/Safari_version_history#Safari_11
+  releaseNotes: https://developer.apple.com/documentation/safari_release_notes
+  defaultMode: ITP enabled
+  matrix: true
+

@@ -1,11 +1,10 @@
 +++
 title = "Chrome"
-metatitle = "Chrome :: Current status"
+metatitle = "Chrome tracking protections"
 date = 2019-11-21T15:32:10+02:00
 weight = 15
-chapter = false
 logo = "chrome"
-pre = "<b><i class=\"fab fa-chrome\"></i> </b>"
+aliases = ["/chrome/current-status/", "/chrome/privacy-sandbox/", "/chrome/privacy-sandobx/", "/chrome/useful-resources/"]
 +++
 ## Current status
 
@@ -24,6 +23,8 @@ Chrome supports an **opt-in** flag in cookies, `Partitioned;`. This is part of t
 ## First-party cookies
 
 Chrome restricts the maximum lifetime of cookies to 400 days. Other than that, Chrome does not restrict the use of first-party cookies.
+
+<span id="third-party-storage"></span>
 
 ## Other third-party storage
 

@@ -1,0 +1,43 @@
+{{- /*
+  Fails the build if the comparison data is inconsistent, so mistakes are
+  caught in CI instead of on the live site. Runs once, on the homepage.
+*/ -}}
+{{- if .IsHome }}
+  {{- $features := slice }}
+  {{- range site.Data.features }}{{ $features = $features | append .id }}{{ end }}
+  {{- range site.Data.browsers }}
+    {{- if not (site.GetPage (printf "/%s" .id)) }}
+      {{- errorf "data/browsers.yaml: no content page for browser %q (expected content/%s/_index.md)" .id .id }}
+    {{- end }}
+    {{- if .matrix }}
+      {{- $id := .id }}
+      {{- $status := index site.Data.status $id }}
+      {{- if not $status }}
+        {{- errorf "data/browsers.yaml: %q has matrix: true but data/status/%s.yaml is missing" $id $id }}
+      {{- end }}
+      {{- range $feature := $features }}
+        {{- if not (index $status $feature) }}
+          {{- errorf "data/status/%s.yaml: missing row %q" $id $feature }}
+        {{- end }}
+      {{- end }}
+      {{- range $key, $cell := $status }}
+        {{- if not (in $features $key) }}
+          {{- errorf "data/status/%s.yaml: unknown row %q (not in data/features.yaml)" $id $key }}
+        {{- end }}
+        {{- with $cell.status }}
+          {{- if not (index site.Data.statuses .) }}
+            {{- errorf "data/status/%s.yaml: row %q has unknown status %q (see data/statuses.yaml)" $id $key . }}
+          {{- end }}
+        {{- end }}
+        {{- if not $cell.claims }}
+          {{- errorf "data/status/%s.yaml: row %q has no claims" $id $key }}
+        {{- end }}
+        {{- range $cell.claims }}
+          {{- if not .text }}
+            {{- errorf "data/status/%s.yaml: row %q has a claim without text" $id $key }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

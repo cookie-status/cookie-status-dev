@@ -1,11 +1,10 @@
 +++
 title = "Safari"
-metatitle = "Safari :: Current status"
+metatitle = "Safari tracking protections"
 date = 2019-11-21T15:33:32+02:00
 weight = 30
-chapter = false
 logo = "safari"
-pre = "<b><i class=\"fab fa-safari\"></i> </b>"
+aliases = ["/safari/current-status/", "/safari/intelligent-tracking-prevention/", "/safari/useful-resources/"]
 +++
 ## Current status
 

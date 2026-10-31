@@ -1,12 +1,11 @@
 +++
 title = "Brave"
-metatitle = "Brave :: Current status"
+metatitle = "Brave tracking protections"
 date = 2019-11-21T15:32:10+02:00
 weight = 10
-chapter = false
 logo = "brave"
-pre = "<b class=\"temp-brave\"></b>"
 
+aliases = ["/brave/current-status/", "/brave/shields/", "/brave/useful-resources/"]
 +++
 ## Current status
 

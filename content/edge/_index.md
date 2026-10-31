@@ -1,11 +1,10 @@
 +++
 title = "Edge"
-metatitle = "Edge :: Current status"
+metatitle = "Edge tracking protections"
 date = 2019-11-21T15:33:24+02:00
 weight = 20
-chapter = false
 logo = "edge"
-pre = "<b><i class=\"fab fa-edge\"></i> </b>"
+aliases = ["/edge/current-status/", "/edge/tracking-prevention/", "/edge/useful-resources/"]
 +++
 ## Current status
 

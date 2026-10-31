@@ -1,132 +1,29 @@
-<!DOCTYPE html>
-<html lang="{{ .Page.Language | default "en" }}" class="js csstransforms3d">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{ hugo.Generator }}
-    {{ partial "meta.html" . }}
-    {{ partial "favicon.html" . }}
-    <title>
-      {{ if .Params.metatitle }}
-      {{ .Params.metatitle }} | cookiestatus.com
-      {{ else }}
-      {{ .Title }} :: {{ .Site.Title }}
-      {{ end }}
-    </title>
-
-    {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
-    <link href="{{"css/nucleus.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/fontawesome-all.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/hybrid.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/featherlight.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/perfect-scrollbar.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/auto-complete.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/atom-one-dark-reasonable.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/theme.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    <link href="{{"css/hugo-theme.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    {{with .Site.Params.themeVariant}}
-      <link href="{{(printf "css/theme-%s.css" .) | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
-    {{end}}
-
-    <script src="{{"js/jquery-3.3.1.min.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      {{ if .Site.Params.disableInlineCopyToClipBoard }}
-        :not(pre) > code + span.copy-to-clipboard {
-            display: none;
-        }
-      {{ end }}
-    </style>
-    {{ partial "custom-header.html" . }}
-  </head>
-  <body class="" data-url="{{ .RelPermalink }}">
-    {{ partial "menu.html" . }}
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              {{if not .IsHome}}
-              <div>
-                <div id="top-bar">
-                {{ if and (or .IsPage .IsSection) .Site.Params.editURL }}
-                  {{ $File := .File }}
-                  {{ $Site := .Site }}
-                  {{with $File.Path }}
-                  <div id="top-github-link">
-                    <a class="github-link" title='Edit' href="{{ $Site.Params.editURL }}%2F{{ replace $File.Dir "\\" "%2F" }}{{ $File.LogicalName }}" target="blank">
-                      <i class="fa fa-edit"></i>
-                      <span id="top-github-link-text">Edit</span>
-                    </a>
-                  </div>
-                  {{ end }}
-                {{ end }}
-                {{$toc := (and (not .Params.disableToc) (not .Params.chapter))}}
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  {{ if .Params.toc }}
-                  <a href="#toc"><i class="fas fa-list-alt"></i></a>
-                  {{ end }}
-                  <span class="links">
-                 {{$showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb))}}
-                 {{if $showBreadcrumb}}
-                    {{ template "breadcrumb" dict "page" . "value" .Title }}
-                 {{ else }}
-                   {{ .Title }} 
-                 {{ end }}
-                  </span>
-                </div>
-                {{ if $toc }}
-                    {{ partial "toc.html" . }}
-                {{ end }}
-              </div>
-            </div>
-            {{ end }}
-        <div id="head-tags">
-        {{ partial "tags.html" . }}
-        </div>
-        {{ if .Params.chapter }}
-          <div id="chapter">
-        {{ end }}
-        <div id="body-inner">
-          {{if and (not .IsHome) (not .Params.chapter) }}
-          {{ if .Params.logo }}
-	  <h3 style="text-align: center;">
-	    {{ if eq .Params.logo "brave" }}
-	    <i class="fa" style="background-image: url('/images/browser-icons/brave-h3.png');width:32px;height:38px"></i>
-            {{ else if eq .Params.logo "cliqz" }}
-	    <i class="fa" style="background-image: url('/images/browser-icons/cliqz-h3.png');width:32px;height:32px;"></i>
-{{ else }}
-	    <i class="fab fa-{{ .Params.logo }}"></i>
-            {{ end }}
-	  </h3>
-	  {{ end }}
-            <h1>
-              {{ if eq .Kind "taxonomy" }}
-                {{.Kind}} ::
-              {{ end }}
-              {{.Title}}
-            </h1>
-            {{ if .Params.toc }}
-            <div id="toc">
-              <strong>TABLE OF CONTENTS</strong>
-              {{.TableOfContents}}
-            </div>
-            {{ end }}
-          {{end}}
-
-        {{define "breadcrumb"}}
-          {{$parent := .page.Parent }}
-          {{ if $parent }}
-            {{ $value := (printf "<a href='%s'>%s</a> > %s" $parent.RelPermalink $parent.Title .value) }}
-            {{ template "breadcrumb" dict "page" $parent "value" $value }} 
-          {{else}}
-            {{.value|safeHTML}}
-          {{end}}
-        {{end}}
-
+{{- $current := . }}
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} home">
+      {{ partial "icon.html" "cookie" }}<span>cookiestatus<span class="tld">.com</span><span class="cursor" aria-hidden="true"></span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <details class="nav-browsers">
+        <summary>Browsers</summary>
+        <ul>
+          {{- range site.Data.browsers }}
+          {{- with site.GetPage (printf "/%s" .id) }}
+          <li><a href="{{ .RelPermalink }}"{{ if eq $current.Section .Section }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+          {{- end }}
+          {{- end }}
+        </ul>
+      </details>
+      {{- range site.Menus.main }}
+      {{- $active := false }}
+      {{- with .Page }}
+      {{- if .IsHome }}{{ $active = $current.IsHome }}
+      {{- else }}{{ $active = or (eq $current .) (and .Section (eq $current.Section .Section)) }}
+      {{- end }}
+      {{- end }}
+      <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}{{ if eq .Name "Overview" }} class="nav-overview"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,49 @@
+# See brave.yaml for the format.
+classification-of-known-trackers:
+  claims:
+    - text: "Algorithmic"
+
+third-party-cookies:
+  status: blocked
+  claims:
+    - text: "All access restricted, except with Storage Access API."
+    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+      new: true
+
+first-party-cookies:
+  status: limited
+  claims:
+    - text: "For cookies set with `document.cookie`, deletion happens after 7 days of browser use without user interaction on the site."
+    - text: "For cookies set with `document.cookie`, expiration set to 24 hours on pages with URL decoration (query parameters or fragments) when referring domain is a known tracker."
+
+other-third-party-storage:
+  status: partitioned
+  claims:
+    - text: "`localStorage` is partitioned and reset between application launches."
+    - text: "`IndexedDB` is restricted."
+    - text: "`sessionStorage` is partitioned."
+
+other-first-party-storage:
+  status: limited
+  claims:
+    - text: "All script-writable storage is deleted after 7 days of browser use without interaction (click, tap, text input) with the site."
+
+cname-cloaking:
+  status: limited
+  claims:
+    - text: "Expiration of cookies set with `Set-Cookie` HTTP response headers is 7 days at most, if the response originates from a subdomain that has a CNAME alias to a cross-site origin, or if the subdomain is configured with A/AAAA records where the first half of the IP address does not match the first half of the IP address of the website the user is currently browsing."
+
+referrer:
+  claims:
+    - text: "Downgrade cross-site `document.referrer` to origin."
+    - text: "Downgrade all cross-site request headers to origin."
+    - text: "For referrers that are known trackers, where the referring page also has URL decoration (query parameters or fragments), `document.referrer` is downgraded to eTLD+1."
+    - text: "Default browser policy (`strict-origin-when-cross-origin`)"
+
+other:
+  claims:
+    - text: "Detect delays in bounce trackers and treat them as regular bounces."
+    - text: "Extend WebKit's tracking protections to all browsers running on iOS 14 and newer. These protections can only be disabled by the user."
+    - text: "Purge all site data from classified domains if no user interaction (or Storage Access API grant) in first-party context has been recorded in the last 30 days."
+    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."
+    - text: "Safari hides the user's IP address in requests sent to known trackers."

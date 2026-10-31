@@ -1,0 +1,39 @@
+# See brave.yaml for the format.
+classification-of-known-trackers:
+  claims:
+    - text: "n/a"
+
+third-party-cookies:
+  status: none
+  claims:
+    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+      new: true
+    - text: "Cookies restricted to a maximum lifetime of 400 days."
+
+first-party-cookies:
+  status: limited
+  claims:
+    - text: "Cookies restricted to a maximum lifetime of 400 days."
+
+other-third-party-storage:
+  status: partitioned
+  claims:
+    - text: "Chrome partitions third-party storage."
+
+other-first-party-storage:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+cname-cloaking:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+referrer:
+  claims:
+    - text: "Default browser policy (`strict-origin-when-cross-origin`)"
+
+other:
+  claims:
+    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."

@@ -1,0 +1,13 @@
+{{ define "main" }}
+<article class="page">
+  <header class="page-header">
+    <div class="wrap">
+      <p class="page-path">HTTP/1.1 404 Not Found</p>
+      <h1>Page not found</h1>
+    </div>
+  </header>
+  <div class="wrap">
+  <p>That page doesn't exist, or it has moved. Try the <a href="{{ "/" | relURL }}">comparison table</a> or <a href="{{ "/search/" | relURL }}">search</a>.</p>
+  </div>
+</article>
+{{ end }}

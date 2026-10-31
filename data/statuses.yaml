@@ -1,0 +1,18 @@
+# Status vocabulary for the comparison table. A cell's `status` must be one
+# of these keys. Statuses are optional: rows that are not about restricting
+# something (classification, referrer, other) are shown without one.
+blocked:
+  label: Blocked
+  description: Access is denied by default.
+partitioned:
+  label: Partitioned
+  description: Access is allowed, but kept separate for each top-level site, so it can't be used to follow the user across sites.
+limited:
+  label: Limited
+  description: Allowed with restrictions, such as shorter lifetimes or rules that only apply to known trackers.
+none:
+  label: No restrictions
+  description: The browser doesn't restrict this beyond standard web platform behavior.
+unverified:
+  label: Unverified
+  description: The current claim hasn't been confirmed by testing or official documentation.

@@ -1,0 +1,5 @@
+{{- /* {{% notice note|info|tip|warning %}} … {{% /notice %}}, kept compatible with the old theme. */ -}}
+{{- $type := .Get 0 | default "note" }}
+<aside class="notice notice-{{ $type }}">
+{{ .Inner }}
+</aside>

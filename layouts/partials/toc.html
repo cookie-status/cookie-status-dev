@@ -1,0 +1,6 @@
+{{- if and .TableOfContents (gt (len .Fragments.Headings) 0) (ne .Params.toc false) }}
+<nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  {{ .TableOfContents }}
+</nav>
+{{- end }}

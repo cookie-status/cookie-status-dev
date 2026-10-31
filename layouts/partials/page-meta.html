@@ -1,0 +1,4 @@
+<p class="page-meta">
+  {{- if not .Lastmod.IsZero }}<span>last_modified: <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2006-01-02" }}</time></span>{{ end }}
+  <a href="{{ site.Params.issueUrl }}{{ .Title | urlquery }}">{{ partial "icon.html" "edit" }}suggest_edit</a>
+</p>

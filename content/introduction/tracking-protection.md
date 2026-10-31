@@ -97,14 +97,12 @@ Nevertheless, to align with other discussions around the same topic, Cookie Stat
 
 Here are some examples. Consider the user to be on the domain **www.cookiestatus.com**. 
 
-{{< table >}}
 | Scenario                                                     | Type of context     | eTLD+1                          | Details                                                      |
 | ------------------------------------------------------------ | ------------------- | ------------------------------- | ------------------------------------------------------------ |
 | The browser requests an image from **images.cookiestatus.com**. | First-party context | cookiestatus.com                | The `cookie` header includes all cookies written on **images.cookiestatus.com** and **cookiestatus.com**. The `Set-Cookie` header can write a cookie on ***.cookiestatus.com**. |
 | The browser loads a JavaScript file from **cdn.vendor.com**. | Third-party context | cookiestatus.com vs. vendor.com | The `cookie` header includes all cookies written on **cdn.vendor.com** and **vendor.com**. The `Set-Cookie` header can write a cookie on ***.vendor.com**. |
 | The browser runs `document.cookie` on the page in the top frame (the main window). | First-party context | cookiestatus.com                | The command can be used to read and write cookies on **www.cookiestatus.com** and **cookiestatus.com**. |
 | The browser loads a page from **booking.vendor.com** in an `<iframe>` and runs `document.cookie` on that page. | Third-party context | vendor.com                      | The command can be used to read and write cookies on **booking.vendor.com** and **vendor.com**. |
-{{< /table >}}
 
 In the **first-party context** scenarios above, the cookie read/write operations will work unless the browser blocks *all* cookies or has **cookiestatus.com** in a blacklist.
 
@@ -181,19 +179,13 @@ However, Safari's approach *is* binary in a sense - you can either enable **all*
 
 {{< figure src="/images/content/safari-settings.jpg" title="Safari privacy settings" class="left-align" >}}
 
-**Cliqz** has a similar tact. This is explained in detail in [this research paper](https://arxiv.org/abs/1804.08959), and in this [blog post](https://whotracks.me/blog/how_cliqz_antitracking_protects_users.html). Basically, they combine local and global evaluation of the data passed to and from the web browser to establish heuristical models for identifying potential tracker connections. 
-
-Cliqz' approach is two-fold. First, they **purge** identifiers from the HTTP requests that could be misused for tracking. Second, they **block** cookie access in third-party context, unless the user interacts with the third-party domain (e.g. in a widget).
-
-A **global safe set** is compiled from the actions Cliqz' anti-tracking mechanism takes on each individual browser, and this *global* research data is used to fine-tune the *local* behavior of Cliqz' tracking protections.
-
 The algorithmic approach is effective because it identifies potential tracking domains **dynamically** and without using a centralized list. This means that there's less overhead in pattern-matching the HTTP requests as the list of domains for the browser would only include those the browser has actually communicated with.
 
 The algorithm also ensures that locally hosted tracking domains and reverse proxies would also be under scrutiny (unless served in a same-site context).
 
 The main problems with this approach are:
 
-* **False positives**, where the algorithm classifies domains that serve no cross-site tracking purpose, or purges identifiers that are not used for tracking.
+* **False positives**, where the algorithm classifies domains that serve no cross-site tracking purpose.
 * There is also some **reaction lag**, because the algorithm would require enough data to classify each new domain. It's thus possible some communication with a tracking domain would be permitted before access is restricted.
 * **Lack of predictability**, which is not necessarily a problem or a bad thing, but a list-based approach allows for community oversight of the domains that have been blacklisted. 
 
