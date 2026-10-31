@@ -157,6 +157,8 @@ Web apps that the user has added to the **Home Screen** keep their own count of 
 
 If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
 
+Since [Safari 27.2](https://webkit.org/blog/18515/webkit-features-for-safari-27-2/), this cap no longer applies to cookies set by the response to a **top-level navigation**, the page the user is opening. Before 27.2, a site whose own hostname is a CNAME to another domain, as is common with hosting providers and CDNs, could have its cookies capped at 7 days by mistake.
+
 If a subdomain is set with A/AAAA records that resolve to an IP address where the **first half** of the address does **not** match the first half of the IP address for the website the user is currently browsing, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
 
 {{% notice note %}}
@@ -166,6 +168,8 @@ If a subdomain is set with A/AAAA records that resolve to an IP address where th
 {{% notice note %}}
 **Example:** The user is browsing `https://domain.example` which resolves to an IP address of `100.100.100.100`. The website makes a request to `https://tracker.domain.example` which resolves to an IP address of `200.200.200.200`. On the Safari browser, any cookies set with HTTP responses from `https://tracker.domain.example` will be restricted to an expiration of maximum 7 days.
 {{% /notice %}}
+
+{{< sources "cname-cloaking" >}}
 
 ## Fingerprinting
 

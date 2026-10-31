@@ -6,6 +6,15 @@
 #   state:     optional: trial, announced or reverted (omit for shipped changes)
 #   source:    {title, url}
 
+- date: 2026-10-26
+  browsers: [safari]
+  title: Safari 27.2 stops capping cookies on CNAME-hosted sites
+  summary: Cookies set by the response to a top-level navigation are no longer capped at 7 days when the site's own hostname is a CNAME to another domain, such as a hosting provider.
+  rows: [cname-cloaking]
+  source:
+    title: WebKit Features for Safari 27.2
+    url: https://webkit.org/blog/18515/webkit-features-for-safari-27-2/
+
 - date: 2026-09-14
   browsers: [safari]
   title: Safari 27 blocks identity resolution services
