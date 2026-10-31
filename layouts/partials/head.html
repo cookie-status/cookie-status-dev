@@ -1,0 +1,16 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- $title := .Title }}
+{{- with .Params.metatitle }}{{ $title = . }}{{ end }}
+<title>{{ if .IsHome }}{{ site.Title }}: browser tracking protections compared{{ else }}{{ $title }} | {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ $title }}{{ end }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="website">
+{{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

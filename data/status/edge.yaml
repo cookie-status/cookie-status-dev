@@ -1,0 +1,41 @@
+# See brave.yaml for the format.
+classification-of-known-trackers:
+  claims:
+    - text: "Trust Protection Lists (with engagement and organization mitigation)"
+
+third-party-cookies:
+  status: limited
+  claims:
+    - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+      new: true
+    - text: "Access restricted for known trackers."
+
+first-party-cookies:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+other-third-party-storage:
+  status: limited
+  claims:
+    - text: "Access restricted for known trackers."
+    - text: "No restrictions for other domains."
+
+other-first-party-storage:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+cname-cloaking:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+referrer:
+  claims:
+    - text: "Default browser policy (`strict-origin-when-cross-origin`)"
+
+other:
+  claims:
+    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."
+      new: true

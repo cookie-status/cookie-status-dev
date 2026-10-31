@@ -1,0 +1,69 @@
+{{- $browsers := where site.Data.browsers "matrix" true }}
+<div class="matrix-tools" role="group" aria-label="Table options">
+  <button type="button" class="toggle" data-toggle="highlight" aria-pressed="false">Highlight latest changes</button>
+  <button type="button" class="toggle" data-toggle="compact" aria-pressed="false">Statuses only</button>
+</div>
+<div class="matrix-scroll" role="region" aria-label="Comparison of browser tracking protections" tabindex="0">
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th scope="col" class="corner"><span class="visually-hidden">Feature</span></th>
+        {{- range $browsers }}
+        <th scope="col" class="browser-col">
+          <a href="{{ printf "/%s/" .id | relURL }}">{{ .name }}</a>
+          <span class="engine">{{ .engine }}</span>
+        </th>
+        {{- end }}
+      </tr>
+    </thead>
+    <tbody class="meta-rows">
+      <tr>
+        <th scope="row">Mechanism</th>
+        {{- range $browsers }}
+        <td data-browser="{{ .name }}">{{ if .mechanism }}{{ if .mechanismUrl }}<a href="{{ .mechanismUrl }}">{{ .mechanism }}</a>{{ else }}{{ .mechanism }}{{ end }}{{ else }}<span class="na">n/a</span>{{ end }}</td>
+        {{- end }}
+      </tr>
+      <tr>
+        <th scope="row">Deployed in</th>
+        {{- range $browsers }}
+        <td data-browser="{{ .name }}">{{ if .deployedIn }}{{ if .deployedUrl }}<a href="{{ .deployedUrl }}">{{ .deployedIn }}</a>{{ else }}{{ .deployedIn }}{{ end }}{{ else }}<span class="na">n/a</span>{{ end }}</td>
+        {{- end }}
+      </tr>
+      <tr>
+        <th scope="row">Default protection mode</th>
+        {{- range $browsers }}
+        <td data-browser="{{ .name }}">{{ with .defaultMode }}{{ . }}{{ else }}<span class="na">n/a</span>{{ end }}</td>
+        {{- end }}
+      </tr>
+      <tr>
+        <th scope="row">Latest release</th>
+        {{- range $browsers }}
+        <td data-browser="{{ .name }}">{{ with .releaseNotes }}<a href="{{ . }}">Release notes</a>{{ end }}</td>
+        {{- end }}
+      </tr>
+    </tbody>
+    <tbody class="feature-rows">
+      {{- range $feature := site.Data.features }}
+      <tr id="row-{{ $feature.id }}">
+        <th scope="row">
+          <span class="feature-name">{{ $feature.name }}</span>
+          <span class="feature-question">{{ $feature.question }}</span>
+        </th>
+        {{- range $browser := $browsers }}
+        {{- $cell := index (index site.Data.status $browser.id) $feature.id }}
+        {{- $hasNew := gt (len (where $cell.claims "new" true)) 0 }}
+        <td data-browser="{{ $browser.name }}"{{ if $hasNew }} class="has-new"{{ end }}>
+          {{- partial "status-chip.html" $cell.status }}
+          <ul class="claims">
+            {{- range $cell.claims }}
+            <li{{ if .new }} class="new"{{ end }}>{{ .text | markdownify }}{{ if .new }} <span class="new-tag">New</span>{{ end }}</li>
+            {{- end }}
+          </ul>
+          <a class="more" href="{{ printf "/%s/#%s" $browser.id $feature.id | relURL }}" aria-label="{{ $browser.name }}: {{ $feature.name }}, details">Details</a>
+        </td>
+        {{- end }}
+      </tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+{{- /* At-a-glance status list at the top of a browser page, built from the same data as the homepage table. */ -}}
+{{- $b := index (where site.Data.browsers "id" .Section) 0 }}
+{{- if and $b $b.matrix }}
+{{- $status := index site.Data.status $b.id }}
+<section class="summary" aria-labelledby="summary-title">
+  <h2 id="summary-title" class="summary-title">At a glance</h2>
+  <ul class="summary-list">
+    {{- range site.Data.features }}
+    {{- $cell := index $status .id }}
+    <li>
+      <a href="#{{ .id }}">
+        <span class="summary-feature">{{ .short }}</span>
+        {{- $first := (index $cell.claims 0).text }}
+        {{- if $cell.status }}{{ partial "status-chip.html" $cell.status }}
+        {{- else if and (eq (len $cell.claims) 1) (lt (len $first) 40) }}<span class="summary-claim">{{ $first | markdownify }}</span>
+        {{- else }}<span class="summary-claim">{{ len $cell.claims }} notes</span>{{ end }}
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}

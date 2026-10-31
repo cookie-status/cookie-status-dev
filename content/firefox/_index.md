@@ -1,11 +1,10 @@
 +++
 title = "Firefox"
-metatitle = "Firefox :: Current status"
+metatitle = "Firefox tracking protections"
 date = 2019-11-21T15:33:28+02:00
 weight = 25
-chapter = false
 logo = "firefox"
-pre = "<b><i class=\"fab fa-firefox\"></i> </b>"
+aliases = ["/firefox/current-status/", "/firefox/enhanced-tracking-protection/", "/firefox/useful-resources/"]
 +++
 ## Current status
 

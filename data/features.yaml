@@ -1,0 +1,41 @@
+# Rows of the comparison table, in display order. `id` is also the heading
+# anchor used on each browser's page (e.g. /safari/#third-party-cookies).
+- id: classification-of-known-trackers
+  name: Classification of "known trackers"
+  short: Known trackers
+  question: How does the browser decide which domains are trackers?
+
+- id: third-party-cookies
+  name: Cookies in 3rd party context
+  short: 3rd-party cookies
+  question: Can a site embedded on another site read and write its cookies?
+
+- id: first-party-cookies
+  name: Cookies in 1st party context
+  short: 1st-party cookies
+  question: Are the site's own cookies deleted or capped?
+
+- id: other-third-party-storage
+  name: Other browser storage in 3rd party context
+  short: 3rd-party storage
+  question: Can embedded content use localStorage, IndexedDB and similar storage?
+
+- id: other-first-party-storage
+  name: Other browser storage in 1st party context
+  short: 1st-party storage
+  question: Is the site's own non-cookie storage deleted or capped?
+
+- id: cname-cloaking
+  name: CNAME cloaking
+  short: CNAME cloaking
+  question: Does the browser see through a first-party subdomain that points to a third-party service?
+
+- id: referrer
+  name: Referrer
+  short: Referrer
+  question: How much of the previous page's URL is shared with other sites?
+
+- id: other
+  name: Other
+  short: Other
+  question: Other protections that affect tracking and measurement.

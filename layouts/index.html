@@ -1,31 +1,50 @@
-{{ partial "header.html" . }}
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i></a>
-</span>
+{{ define "main" }}
+{{- $browsers := where site.Data.browsers "matrix" true }}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Browser privacy reference</p>
+      <h1>How browsers handle cookies, storage and tracking</h1>
+      <p class="lede">Cookie Status compares the tracking protections that the major browsers apply <strong>by default</strong>. It covers standard browsing only, not private or incognito modes or settings the user has to change.</p>
+      <ul class="hero-stats">
+        <li><b>{{ len $browsers }}</b> browsers</li>
+        <li><b>{{ len site.Data.features }}</b> features compared</li>
+        <li>updated <b>{{ time.Format "2006-01-02" site.Data.site.updated }}</b></li>
+      </ul>
+    </div>
+    {{- /* A live query of the table data, rendered as terminal output. */}}
+    {{- $row := "third-party-cookies" }}
+    <figure class="terminal" aria-label="Third-party cookie status in each browser">
+      <div class="terminal-bar"><span></span><span></span><span></span><em>zsh</em></div>
+<pre><span class="p">$</span> cookiestatus get {{ $row }}
+{{ range $browsers }}{{ $cell := index (index site.Data.status .id) $row }}{{ printf "%-9s" (lower .name) }}<span class="k">{{ with index site.Data.statuses $cell.status }}{{ lower .label }}{{ end }}</span>
+{{ end }}
+<span class="p">$</span> curl -sI cookiestatus.com | grep -i set-cookie
+<span class="c"># no output: this site sets no cookies</span></pre>
+    </figure>
+  </div>
+</section>
 
-{{if .Site.Home.Content }} 
-{{.Site.Home.Content}}	
-{{else}}           
-	{{if eq .Site.Language.Lang "fr"}}
-		<h1>Personaliser la page d'accueil</h1>
-		<p>
-		  Le site fonctionne. Ne pas oublier de personaliser cette page avec votre propre contenu. 3 manières de faire :
-		</p>
-		<ul>
-			<li><b>1. </b> Créer un fichier _index.md dans le dossier <b>content</b> et le remplir de Markdown</li>
-			<li><b>2. </b> Créer un fichier index.html dans le dossier <b>static</b> et le remplir de code HTML</li>
-		  <li><b>3. </b> Configurer le serveur http pour rediriger automatiquement la homepage vers la page de votre choix dans le site</li>
-		</ul>
-	{{else}}
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 3 choices :
-		</p>
-		<ul>
-			<li><b>1. </b> Create an _index.md document in <b>content</b> folder and fill it with Markdown content</li>
-			<li><b>2. </b> Create an <b>index.html</b> file in the <b>static</b> folder and fill the file with HTML content</li>
-		  <li><b>3. </b> Configure your server to automatically redirect home page to one your documentation page</li>
-		</ul>
-	{{end}}
-{{ end }}  
-{{ partial "footer.html" . }}
+<section class="wrap section" id="current-status" aria-labelledby="current-status-title" data-pagefind-body>
+  <p class="eyebrow">Comparison</p>
+  <div class="section-head">
+    <h2 id="current-status-title">Current status</h2>
+    <p class="updated">
+      last_updated: <time datetime="{{ site.Data.site.updated }}">{{ time.Format "2006-01-02" site.Data.site.updated }}</time>{{ with site.Data.site.updateNote }} · {{ . }}{{ end }}
+    </p>
+  </div>
+  <dl class="legend">
+    {{- range $key, $s := site.Data.statuses }}
+    <div><dt>{{ partial "status-chip.html" $key }}</dt><dd>{{ $s.description }}</dd></div>
+    {{- end }}
+  </dl>
+  <div class="matrix-panel">
+    {{ partial "matrix.html" . }}
+    <p class="matrix-note">Claims marked <span class="new-tag">New</span> changed in the latest update. Follow <strong>Details →</strong> in any cell for the full explanation on that browser's page.</p>
+  </div>
+</section>
+
+<section class="wrap prose home-content" data-pagefind-body>
+  {{ .Content }}
+</section>
+{{ end }}

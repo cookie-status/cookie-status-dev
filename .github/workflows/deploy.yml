@@ -1,0 +1,66 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUGO_VERSION: 0.154.4
+  PAGEFIND_VERSION: 1.5.2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history, so "Page last changed" dates come from git
+
+      - name: Install Hugo
+        run: |
+          curl -sSLo hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i hugo.deb && rm hugo.deb
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The build fails if data/ is inconsistent (see layouts/partials/validate.html).
+      - name: Build
+        run: hugo --gc --minify
+
+      - name: Build search index
+        run: npx -y "pagefind@${PAGEFIND_VERSION}" --site public
+
+      - name: Check internal links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress --root-dir "${{ github.workspace }}/public" --exclude-path public/pagefind 'public/**/*.html'
+          fail: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

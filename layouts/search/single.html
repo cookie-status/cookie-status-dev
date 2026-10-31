@@ -1,0 +1,17 @@
+{{ define "main" }}
+<article class="page">
+  <header class="page-header">
+    <div class="wrap">
+      {{ partial "breadcrumbs.html" . }}
+      <h1>{{ .Title }}</h1>
+    </div>
+  </header>
+  <div class="wrap">
+  <div id="search" class="search"></div>
+  <noscript><p>Search needs JavaScript. You can also browse the <a href="{{ "/" | relURL }}">comparison table</a>.</p></noscript>
+  <p class="search-dev" hidden>The search index is only built for the published site. Run <code>npx pagefind --site public</code> after <code>hugo</code> to try it locally.</p>
+  <link rel="stylesheet" href="{{ "pagefind/pagefind-ui.css" | relURL }}">
+  <script src="{{ "pagefind/pagefind-ui.js" | relURL }}" onerror="document.querySelector('.search-dev').hidden=false"></script>
+  </div>
+</article>
+{{ end }}

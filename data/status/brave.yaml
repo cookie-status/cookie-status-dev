@@ -1,0 +1,48 @@
+# Each key is a row id from data/features.yaml.
+#   status:  optional, a key from data/statuses.yaml
+#   claims:  short statements shown in the comparison table (inline Markdown)
+#     new:   true if the claim changed in the latest update
+classification-of-known-trackers:
+  claims:
+    - text: "Multiple filter lists"
+
+third-party-cookies:
+  status: partitioned
+  claims:
+    - text: "Restrict access in subresource requests."
+    - text: "Partitioned access in frame."
+    - text: "Partitioned storage is cleared when no more first-party documents that use the partition are open, or when the browser is closed."
+
+first-party-cookies:
+  status: limited
+  claims:
+    - text: "For cookies set with `document.cookie`, expiration set to 7 days."
+    - text: "Otherwise maximum expiry set to 6 months."
+
+other-third-party-storage:
+  status: partitioned
+  claims:
+    - text: "Partitioned access in frame."
+    - text: "Partitioned storage is cleared when no more first-party documents that use the partition are open, or when the browser is closed."
+
+other-first-party-storage:
+  status: none
+  claims:
+    - text: "No restrictions."
+
+cname-cloaking:
+  status: blocked
+  claims:
+    - text: "Brave blocks any network requests where either the requested URL or that URL's CNAME record matches any rules in Brave's blocklists."
+
+referrer:
+  claims:
+    - text: "`strict-origin-when-cross-origin` or stricter referrer policy in subresource requests and cross-site navigational requests."
+      new: true
+    - text: "Same-site navigation preserves the referrer."
+
+other:
+  claims:
+    - text: "Remove known tracking parameters (`fbclid`, `gclid`, `msclkid`, `mc_eid`, and others) from URL query strings."
+    - text: "Randomize HTML canvas fingerprints by first-party domain."
+    - text: "Freeze Mac OS X version to 10_15_7 in the User Agent string."

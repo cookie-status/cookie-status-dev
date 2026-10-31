@@ -1,0 +1,41 @@
+baseURL = "https://www.cookiestatus.com/"
+languageCode = "en-us"
+title = "Cookie Status"
+enableGitInfo = true
+disableKinds = ["taxonomy", "term"]
+
+[module.hugoVersion]
+  min = "0.150.0"
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[params]
+  author = "Simo Ahava"
+  description = "How the major browsers handle cookies, storage, referrers and tracking in their default browsing mode: Safari ITP, Firefox ETP, Brave Shields, Edge tracking prevention and Chrome."
+  repoUrl = "https://github.com/cookie-status/cookie-status-dev"
+  issueUrl = "https://github.com/cookie-status/cookie-status-dev/issues/new?labels=content&title=%5BContent%20issue%5D%20"
+
+[[menus.main]]
+  name = "Overview"
+  pageRef = "/"
+  weight = 10
+[[menus.main]]
+  name = "Learn"
+  pageRef = "/introduction"
+  weight = 30
+[[menus.main]]
+  name = "Glossary"
+  pageRef = "/glossary"
+  weight = 40
+[[menus.main]]
+  name = "Search"
+  pageRef = "/search"
+  weight = 50
