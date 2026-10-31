@@ -19,6 +19,12 @@
       {{- if not (in $features .) }}{{ errorf "data/history.yaml: %q has unknown row %q" $title . }}{{ end }}
     {{- end }}
     {{- if not .summary }}{{ errorf "data/history.yaml: %q has no summary" $title }}{{ end }}
+    {{- with .state }}{{ if not (in (slice "trial" "announced" "reverted") .) }}{{ errorf "data/history.yaml: %q has unknown state %q (use trial, announced or reverted; omit for shipped)" $title . }}{{ end }}{{ end }}
+  {{- end }}
+  {{- range site.Data.features }}
+    {{- if not (site.GetPage (printf "/features/%s" .id)) }}
+      {{- errorf "data/features.yaml: no feature page for %q (expected content/features/%s.md)" .id .id }}
+    {{- end }}
   {{- end }}
   {{- range site.Data.browsers }}
     {{- if not (site.GetPage (printf "/%s" .id)) }}
@@ -60,6 +66,8 @@
         {{- with $cell.checked }}
           {{- if not (findRE `^\d{4}-\d{2}-\d{2}` (string .)) }}
             {{- errorf "data/status/%s.yaml: row %q has checked %q, expected YYYY-MM-DD" $id $key . }}
+          {{- else if lt (time (string .)) (now.AddDate -1 0 0) }}
+            {{- warnf "data/status/%s.yaml: row %q was last checked %s, more than 12 months ago" $id $key . }}
           {{- end }}
         {{- end }}
       {{- end }}

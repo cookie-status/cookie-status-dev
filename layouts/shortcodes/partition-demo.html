@@ -1,0 +1,28 @@
+{{- /* Interactive partitioning demo for /learn/partitioning/. The script is in assets/js/main.js. */ -}}
+<div class="pdemo" data-pdemo>
+  <noscript><p class="pdemo-noscript">This demo needs JavaScript. In short: Chrome shares third-party cookies across sites; Firefox and Brave partition them per site; Safari blocks them; Edge blocks them for known trackers and shares them otherwise.</p></noscript>
+  <div class="pdemo-controls" hidden>
+    <div class="pdemo-row" role="group" aria-label="Browser">
+      <span class="filter-label">browser:</span>
+      {{- range site.Data.browsers }}{{ if .matrix }}
+      <button type="button" class="toggle" data-browser="{{ .id }}" aria-pressed="{{ if eq .id "chrome" }}true{{ else }}false{{ end }}">{{ .name }}</button>
+      {{- end }}{{ end }}
+    </div>
+    <div class="pdemo-row" role="group" aria-label="Third party">
+      <span class="filter-label">third party:</span>
+      <button type="button" class="toggle" data-party="tracker" aria-pressed="true">ads.tracker.example · listed</button>
+      <button type="button" class="toggle" data-party="widget" aria-pressed="false">chat.widget.example · not listed</button>
+    </div>
+    <div class="pdemo-sites">
+      <button type="button" class="pdemo-site" data-site="news.example">visit <b>news.example</b></button>
+      <button type="button" class="pdemo-site" data-site="shop.example">visit <b>shop.example</b></button>
+      <button type="button" class="pdemo-site" data-site="blog.example">visit <b>blog.example</b></button>
+      <button type="button" class="pdemo-reset">reset</button>
+    </div>
+    <p class="pdemo-mode" aria-live="polite"></p>
+    <figure class="terminal pdemo-terminal">
+      <div class="terminal-bar"><span></span><span></span><span></span><em>third-party view</em></div>
+      <pre class="pdemo-log" aria-live="polite"></pre>
+    </figure>
+  </div>
+</div>

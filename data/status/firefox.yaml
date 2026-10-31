@@ -26,9 +26,14 @@ third-party-cookies:
     - title: Cookie Status test, 2026-10-31
     - title: privacytests.org (2026-10-22)
       url: https://privacytests.org/
+    - title: Firefox 141 release notes
+      url: https://www.firefox.com/en-US/firefox/141.0/releasenotes/
   claims:
     - text: "Access restricted for known trackers."
     - text: "Cookies are partitioned between the site and the third-party. Cookies are not shared across sites."
+    - text: "Supports the `Partitioned` attribute (CHIPS), although third-party cookies are partitioned anyway."
+      appliesTo: Firefox 141+
+      new: true
 
 first-party-cookies:
   status: limited

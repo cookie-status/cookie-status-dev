@@ -1,6 +1,5 @@
 {{ define "main" }}
 {{- $browsers := site.Data.browsers }}
-{{- $features := site.Data.features }}
 <article class="page">
   <header class="page-header">
     <div class="wrap">
@@ -30,25 +29,7 @@
       <h2 id="y{{ $y }}">{{ $y }}</h2>
       <ol class="timeline">
     {{- end }}
-        <li class="event{{ if not .browsers }} event-site{{ end }}" data-browsers="{{ delimit .browsers " " }}">
-          <time datetime="{{ .date }}">{{ .date }}</time>
-          <div class="event-body">
-            {{- with .browsers }}
-            <p class="event-browsers">
-              {{- range . }}{{ $b := index (where $browsers "id" .) 0 }}<a class="browser-tag" href="{{ printf "/%s/" . | relURL }}">{{ $b.name }}</a>{{ end }}
-            </p>
-            {{- end }}
-            <h3>{{ .title }}</h3>
-            <p>{{ .summary | markdownify }}</p>
-            {{- if or .rows .source }}
-            <p class="event-meta">
-              {{- with .rows }}affects: {{ range $i, $r := . }}{{ if $i }}, {{ end }}{{ $f := index (where $features "id" $r) 0 }}<a href="{{ printf "/#row-%s" $r | relURL }}">{{ lower $f.short }}</a>{{ end }}{{ end }}
-              {{- if and .rows .source }} · {{ end }}
-              {{- with .source }}source: <a href="{{ .url }}">{{ .title }}</a>{{ end }}
-            </p>
-            {{- end }}
-          </div>
-        </li>
+        {{- partial "history-event.html" . }}
     {{- end }}
     {{- if $year }}</ol></section>{{ end }}
     <p class="history-empty" hidden>No changes for this browser.</p>

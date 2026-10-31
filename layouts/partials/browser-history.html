@@ -1,0 +1,12 @@
+{{- /* This browser's entries from data/history.yaml, at the end of its page. */ -}}
+{{- $id := .Section }}
+{{- $events := slice }}
+{{- range site.Data.history }}{{ if in .browsers $id }}{{ $events = $events | append . }}{{ end }}{{ end }}
+{{- with $events }}
+<h2 id="history">History</h2>
+<ol class="timeline">
+  {{- range sort . "date" "desc" }}
+  {{- partial "history-event.html" . }}
+  {{- end }}
+</ol>
+{{- end }}

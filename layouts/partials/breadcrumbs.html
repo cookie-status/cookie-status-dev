@@ -1,4 +1,4 @@
-{{- /* The page's URL path as a terminal-style breadcrumb: ~/introduction/impact/ */ -}}
+{{- /* The page's URL path as a terminal-style breadcrumb: ~/learn/impact/ */ -}}
 <nav class="page-path" aria-label="Breadcrumb">
   <a href="{{ "/" | relURL }}">~</a><span class="sep">/</span>
   {{- with .Parent }}{{ if not .IsHome }}<a href="{{ .RelPermalink }}">{{ path.Base .RelPermalink }}</a><span class="sep">/</span>{{ end }}{{ end -}}

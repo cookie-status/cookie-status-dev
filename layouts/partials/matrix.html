@@ -46,7 +46,7 @@
       {{- range $feature := site.Data.features }}
       <tr id="row-{{ $feature.id }}">
         <th scope="row">
-          <span class="feature-name">{{ $feature.name }}</span>
+          <a class="feature-name" href="{{ printf "/features/%s/" $feature.id | relURL }}">{{ $feature.name }}</a>
           <span class="feature-question">{{ $feature.question }}</span>
         </th>
         {{- range $browser := $browsers }}

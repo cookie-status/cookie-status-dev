@@ -1,0 +1,24 @@
+{{- /* The site feed lists changes from data/history.yaml, newest first. */ -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.Title }}: changes to browser tracking protections</title>
+    <link>{{ "history/" | absURL }}</link>
+    <description>Changes to what browsers do by default about cookies, storage and tracking.</description>
+    <language>en</language>
+    <atom:link href="{{ with .OutputFormats.Get "rss" }}{{ .Permalink }}{{ end }}" rel="self" type="application/rss+xml" />
+    {{- range first 30 (sort site.Data.history "date" "desc") }}
+    {{- $id := partial "history-id.html" . }}
+    {{- $date := time (cond (eq (len .date) 7) (printf "%s-01" .date) .date) }}
+    <item>
+      <title>{{ .title }}{{ with .state }} ({{ . }}){{ end }}</title>
+      <link>{{ printf "history/#%s" $id | absURL }}</link>
+      <guid isPermaLink="false">{{ $id }}</guid>
+      <pubDate>{{ $date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{- $html := .summary | markdownify }}
+      {{- with .source }}{{ $html = printf "%s <a href=\"%s\">Source: %s</a>" $html .url .title }}{{ end }}
+      <description>{{ $html | transform.XMLEscape | safeHTML }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

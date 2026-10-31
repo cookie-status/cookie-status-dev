@@ -50,6 +50,19 @@ HTTP/2 200
   </div>
 </section>
 
+<section class="wrap section latest" aria-labelledby="latest-title">
+  <p class="eyebrow">History</p>
+  <div class="section-head">
+    <h2 id="latest-title">Latest changes</h2>
+    <p class="updated"><a href="{{ "/history/" | relURL }}">all changes →</a> · <a href="{{ "/index.xml" | relURL }}">rss</a></p>
+  </div>
+  <ol class="timeline">
+    {{- range first 5 (sort site.Data.history "date" "desc") }}
+    {{- partial "history-event.html" . }}
+    {{- end }}
+  </ol>
+</section>
+
 <section class="wrap prose home-content" data-pagefind-body>
   {{ .Content }}
 </section>

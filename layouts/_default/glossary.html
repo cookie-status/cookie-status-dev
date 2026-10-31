@@ -1,0 +1,26 @@
+{{ define "main" }}
+{{- $terms := site.Data.glossary }}
+<article class="page">
+  <header class="page-header">
+    <div class="wrap">
+      {{ partial "breadcrumbs.html" . }}
+      <h1>{{ .Title }}</h1>
+      {{ partial "page-meta.html" . }}
+    </div>
+  </header>
+  <div class="wrap" data-pagefind-body>
+    <div class="prose glossary-intro">{{ .Content }}</div>
+    <nav class="glossary-index" aria-label="Terms">
+      {{- range $terms }}<a href="#{{ .id }}">{{ .term }}</a>{{ end }}
+    </nav>
+    <dl class="glossary">
+      {{- range $terms }}
+      <div class="glossary-entry">
+        <dt id="{{ .id }}"><a class="anchor" href="#{{ .id }}">#</a>{{ .term }}</dt>
+        <dd class="prose">{{ $.RenderString (dict "display" "block") .definition }}</dd>
+      </div>
+      {{- end }}
+    </dl>
+  </div>
+</article>
+{{ end }}

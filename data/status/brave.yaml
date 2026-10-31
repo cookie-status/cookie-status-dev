@@ -98,5 +98,9 @@ other:
   checked: 2026-10-31
   sources:
     - title: Cookie Status test, 2026-10-31
+    - title: Debouncing (Brave privacy updates)
+      url: https://brave.com/privacy-updates/11-debouncing/
   claims:
     - text: "Remove known tracking parameters (`fbclid`, `gclid`, `msclkid`, `mc_eid`, and others) from URL query strings."
+    - text: "Skip known bounce-tracking domains in links and go straight to the destination (debouncing)."
+      new: true

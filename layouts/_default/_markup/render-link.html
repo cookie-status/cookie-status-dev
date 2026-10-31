@@ -1,0 +1,18 @@
+{{- /*
+  Links render as usual. Links to /glossary/#<id> also carry the term's
+  definition (from data/glossary.yaml), shown on hover and focus.
+*/ -}}
+{{- $dest := .Destination }}
+{{- $term := "" }}
+{{- if hasPrefix $dest "/glossary/#" }}
+  {{- $id := strings.TrimPrefix "/glossary/#" $dest }}
+  {{- $term = index (where site.Data.glossary "id" $id) 0 }}
+  {{- if not $term }}{{ errorf "%s: link to unknown glossary term %q" .Page.File.Path $id }}{{ end }}
+{{- end }}
+{{- if $term }}
+  {{- $def := index (split $term.definition "\n\n") 0 | markdownify | plainify | truncate 240 }}
+  {{- $tipId := printf "gloss-%s-%d" $term.id math.Counter }}
+<span class="gloss"><a href="{{ $dest | relURL }}" aria-describedby="{{ $tipId }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a><span class="gloss-tip" role="tooltip" id="{{ $tipId }}"><b>{{ $term.term }}</b> {{ $def }}</span></span>
+{{- else -}}
+<a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
+{{- end -}}

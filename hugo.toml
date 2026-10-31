@@ -28,12 +28,16 @@ disableKinds = ["taxonomy", "term"]
   pageRef = "/"
   weight = 10
 [[menus.main]]
+  name = "Features"
+  pageRef = "/features"
+  weight = 15
+[[menus.main]]
   name = "History"
   pageRef = "/history"
   weight = 20
 [[menus.main]]
   name = "Learn"
-  pageRef = "/introduction"
+  pageRef = "/learn"
   weight = 30
 [[menus.main]]
   name = "Glossary"
