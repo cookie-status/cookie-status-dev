@@ -35,3 +35,15 @@ hugo --gc --minify && npx pagefind --site public && npx serve public
 Pushing to `master` builds the site with GitHub Actions and deploys it to GitHub Pages (`.github/workflows/deploy.yml`). Pull requests are built and link-checked but not deployed. External links are checked weekly (`.github/workflows/links.yml`).
 
 The site sets no cookies, uses no browser storage and loads nothing from third parties. Please keep it that way.
+
+## Keeping it current
+
+A weekly workflow (`.github/workflows/watch.yml`) reads the WebKit blog, the Chrome for Developers blog, Chrome Status, Firefox and Edge release notes, and Brave's release notes for privacy-related changes from the past week. When something matches, it opens an issue labeled `watcher` with a checklist. Links already listed in earlier `watcher` issues are skipped.
+
+To try it locally:
+
+```sh
+node scripts/watch-changes.mjs --days 30 --out report.md
+```
+
+The keywords and the sources are at the top of `scripts/watch-changes.mjs`. Claims that haven't been checked for 12 months show a warning in the build summary.

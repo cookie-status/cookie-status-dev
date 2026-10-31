@@ -30,8 +30,10 @@ third-party-cookies:
       url: https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/
     - title: WebKit Features in Safari 26.2
       url: https://webkit.org/blog/17640/webkit-features-for-safari-26-2/
+    - title: Storage Access API (MDN)
+      url: https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API
   claims:
-    - text: "All access restricted, except with Storage Access API."
+    - text: "All access restricted, except with Storage Access API. Safari prompts the user for each embedded site, and grants expire after 30 days of browser use without interaction."
     - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context. First shipped in Safari 18.4, removed in 18.5, back in 26.2."
       appliesTo: Safari 26.2+
       new: true
@@ -40,9 +42,14 @@ third-party-cookies:
 
 first-party-cookies:
   status: limited
+  sources:
+    - title: Tracking Prevention in WebKit
+      url: https://webkit.org/tracking-prevention/
   claims:
     - text: "For cookies set with `document.cookie`, deletion happens after 7 days of browser use without user interaction on the site."
     - text: "For cookies set with `document.cookie`, expiration set to 24 hours on pages with URL decoration (query parameters or fragments) when referring domain is a known tracker."
+    - text: "If ITP classifies a domain as a tracker and the user hasn't interacted with it as a first party in 30 days of browser use, all its site data is deleted, including cookies set with `Set-Cookie`."
+      new: true
 
 other-third-party-storage:
   status: partitioned
@@ -56,6 +63,8 @@ other-third-party-storage:
     - text: "`IndexedDB` is partitioned and cleared when Safari quits."
       new: true
     - text: "`sessionStorage` is partitioned."
+    - text: "The HTTP cache for third-party content is partitioned by top-level site."
+      new: true
 
 other-first-party-storage:
   status: limited

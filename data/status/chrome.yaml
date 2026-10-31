@@ -19,10 +19,15 @@ third-party-cookies:
       url: https://privacysandbox.google.com/blog/privacy-sandbox-next-steps
     - title: Update on plans for Privacy Sandbox technologies (October 2025)
       url: https://privacysandbox.google.com/blog/update-on-plans-for-privacy-sandbox-technologies
+    - title: Storage Access API (MDN)
+      url: https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API
   claims:
     - text: "Third-party cookies are allowed. Google has dropped its plan to restrict them by default, and retired most other Privacy Sandbox technologies in October 2025."
       new: true
     - text: "Opt-in mechanism (CHIPS) for partitioning cookies in 3P context."
+    - text: "Supports the Storage Access API, which matters mostly where third-party cookies are blocked."
+      appliesTo: Chrome 119+
+      new: true
     - text: "Cookies restricted to a maximum lifetime of 400 days."
 
 first-party-cookies:

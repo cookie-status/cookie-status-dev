@@ -1,0 +1,44 @@
+# Weekly check of browser release notes and blogs for changes that may
+# affect the site. Opens one issue labeled "watcher" when something matches.
+# See scripts/watch-changes.mjs for the sources and keywords.
+name: Watch browser changes
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: How many days back to look
+        default: "8"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Links already listed in earlier watcher issues are skipped.
+      - name: Collect earlier reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue list --label watcher --state all --limit 30 --json body --jq '.[].body' > seen.txt || touch seen.txt
+
+      - name: Check sources
+        run: node scripts/watch-changes.mjs --days "${{ inputs.days || '8' }}" --seen seen.txt --out report.md
+
+      - name: Open issue
+        if: hashFiles('report.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create watcher --color 1f6fd1 --description "Possible browser changes found by the weekly watcher" --force
+          gh issue create --label watcher --title "Browser changes to review: $(date -u +%Y-%m-%d)" --body-file report.md

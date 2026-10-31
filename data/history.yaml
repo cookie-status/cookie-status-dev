@@ -155,6 +155,15 @@
     title: Ephemeral third-party site storage (Brave privacy updates)
     url: https://brave.com/privacy-updates/7-ephemeral-storage/
 
+- date: 2021-01-26
+  browsers: [firefox]
+  title: Firefox 85 partitions network state
+  summary: The HTTP cache and other network state are kept separate for each top-level site, so "supercookies" stored there can't track users across sites.
+  rows: [other-third-party-storage]
+  source:
+    title: Firefox 85 release notes
+    url: https://www.mozilla.org/en-US/firefox/85.0/releasenotes/
+
 - date: 2020-11-12
   browsers: [safari]
   title: Safari caps cookies from CNAME-cloaked subdomains

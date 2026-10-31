@@ -119,6 +119,8 @@ Edge supports an **opt-in** flag for cookies, `Partitioned;`. This is part of th
 
 {{< sources "third-party-cookies" >}}
 
+Edge supports the [Storage Access API](/glossary/#storage-access-api), which embedded content can use to ask for its cookies where they're blocked.
+
 ## First-party cookies
 
 Cookies have a maximum lifetime of **400 days**, whether they are set with `document.cookie` or the `Set-Cookie` HTTP response header. Other than that, Edge does not restrict first-party cookies.

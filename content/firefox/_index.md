@@ -66,6 +66,8 @@ With [Total Cookie Protection](https://blog.mozilla.org/en/products/firefox/fire
 
 Since [Firefox 141](https://www.firefox.com/en-US/firefox/141.0/releasenotes/), Firefox also supports the `Partitioned` cookie attribute (CHIPS). Third-party cookies are partitioned anyway, so this mainly means developers can use the same cookie settings in all browsers.
 
+Embedded content can ask for its unpartitioned cookies with the [Storage Access API](/glossary/#storage-access-api). Firefox only shows a prompt once an origin has asked for access on several sites, and it denies the request if the user hasn't used the embedded site as a first party in the last 30 days ([source](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API)).
+
 There are some edge cases where a partitioned third-party is granted unpartitioned access to its embedder. These involve pop-up windows and redirects, and you can read more about them [here](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning#storage_access_heuristics).
 
 ## First-party cookies
@@ -91,6 +93,10 @@ For classified domains, `localStorage` and `IndexedDB` are restricted.
 `sessionStorage` is not restricted.
 
 With Total Cookie Protection, all browser storage is **partitioned** in third-party context. See the example [above](#third-party-cookies) for more information.
+
+Since [Firefox 85](https://www.mozilla.org/en-US/firefox/85.0/releasenotes/), **network state** such as the HTTP cache is partitioned too, so trackers can't hide identifiers in cached files ("supercookies") and read them on other sites.
+
+{{< sources "other-third-party-storage" >}}
 
 ## Other first-party storage
 

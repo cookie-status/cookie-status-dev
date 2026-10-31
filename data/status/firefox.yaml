@@ -28,11 +28,15 @@ third-party-cookies:
       url: https://privacytests.org/
     - title: Firefox 141 release notes
       url: https://www.firefox.com/en-US/firefox/141.0/releasenotes/
+    - title: Storage Access API (MDN)
+      url: https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API
   claims:
     - text: "Access restricted for known trackers."
     - text: "Cookies are partitioned between the site and the third-party. Cookies are not shared across sites."
     - text: "Supports the `Partitioned` attribute (CHIPS), although third-party cookies are partitioned anyway."
       appliesTo: Firefox 141+
+      new: true
+    - text: "Embedded content can ask for unpartitioned cookies with the Storage Access API. Firefox only prompts once an origin has asked on several sites, and denies requests if the user hasn't used the site as a first party in the last 30 days."
       new: true
 
 first-party-cookies:
@@ -46,10 +50,15 @@ other-third-party-storage:
   sources:
     - title: privacytests.org (2026-10-22)
       url: https://privacytests.org/
+    - title: Firefox 85 release notes
+      url: https://www.mozilla.org/en-US/firefox/85.0/releasenotes/
   claims:
     - text: "`localStorage` and `IndexedDB` restricted for known trackers."
     - text: "`sessionStorage` is not restricted."
     - text: "Storage is partitioned between the site and the third-party. Storage is not shared across sites."
+    - text: "Network state, including the HTTP cache, is partitioned by top-level site."
+      appliesTo: Firefox 85+
+      new: true
 
 other-first-party-storage:
   status: limited
