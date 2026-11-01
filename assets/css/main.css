@@ -426,6 +426,17 @@ a.feature-name:hover { color: var(--accent-ink); text-decoration: underline; }
 .prose hr { border: 0; border-top: 1px dashed var(--line); margin: 2em 0; }
 .prose pre { background: var(--term-bg); color: var(--term-ink); border-radius: var(--radius); padding: 14px 16px; overflow-x: auto; font: 400 .82rem/1.6 var(--f-mono); }
 .prose pre code { background: none; border: 0; padding: 0; color: inherit; }
+.prose .highlight { margin: 1em 0; }
+.prose .highlight pre { margin: 0; }
+/* Chroma syntax tokens (markup.highlight.noClasses = false); the terminal background is dark in both themes */
+.chroma span { font: inherit; }
+.chroma .err { color: inherit; background: none; }
+.chroma .c, .chroma .c1, .chroma .cm, .chroma .cs, .chroma .cp { color: var(--term-dim); font-style: italic; }
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kr, .chroma .kc, .chroma .kt, .chroma .nt { color: var(--term-hl); }
+.chroma .na, .chroma .nb, .chroma .bp, .chroma .nf, .chroma .fm { color: #a9b3ff; }
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sb, .chroma .sc, .chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sr, .chroma .ss, .chroma .sx { color: #6fd9c9; }
+.chroma .m, .chroma .mi, .chroma .mf, .chroma .mh, .chroma .mo, .chroma .il { color: #f2bd62; }
+.chroma .o, .chroma .ow, .chroma .p { color: var(--term-ink); }
 
 .notice {
   margin: 1.4em 0; padding: 12px 16px; border-radius: var(--radius);

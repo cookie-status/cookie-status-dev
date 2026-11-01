@@ -13,6 +13,10 @@ disableKinds = ["taxonomy", "term"]
 [markup.goldmark.renderer]
   unsafe = true
 
+[markup.highlight]
+  noClasses = false
+  lineNos = false
+
 [markup.tableOfContents]
   startLevel = 2
   endLevel = 3
