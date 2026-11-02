@@ -6,10 +6,12 @@
 #     new:        true if the claim changed in the latest update
 #     appliesTo:  optional, versions or platforms the claim is limited to
 classification-of-known-trackers:
-  checked: 2026-10-31
+  checked: 2026-11-02
   sources:
     - title: Brave Shields
       url: https://brave.com/shields/
+    - title: Brave filter list catalog
+      url: https://github.com/brave/adblock-resources/blob/master/filter_lists/list_catalog.json
   claims:
     - text: "Filter lists: EasyList, EasyPrivacy, uBlock Origin lists and Brave's own lists."
 

@@ -26,9 +26,12 @@ Brave classifies tracking domains using input from multiple **lists**:
 * [uBlock Origin Unbreak](https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/unbreak.txt)
 * [uBlock Origin Filters](https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt)
 * [uBlock Origin Filters - Privacy](https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt)
+* [uBlock Origin Filters - Resource abuse](https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/resource-abuse.txt)
 * [Brave's own Unbreak list](https://raw.githubusercontent.com/brave/adblock-lists/master/brave-unbreak.txt)
-* [Brave's own cryptominer list](https://raw.githubusercontent.com/brave/adblock-lists/master/coin-miners.txt)
-* [Brave's fork of Disconnect.me](https://raw.githubusercontent.com/brave/adblock-lists/master/brave-disconnect.txt)
+* [Brave's own Specific list](https://raw.githubusercontent.com/brave/adblock-lists/master/brave-lists/brave-specific.txt)
+* [Brave's own Social list](https://raw.githubusercontent.com/brave/adblock-lists/master/brave-lists/brave-social.txt)
+
+These are the main lists. Brave's [list catalog](https://github.com/brave/adblock-resources/blob/master/filter_lists/list_catalog.json) has the full, current set.
 
 Brave matches each outgoing request from the web browser against these lists (using various methods for achieving [optimized performance](https://brave.com/improved-ad-blocker-performance/)), and if a match is made, the request is **blocked**.
 

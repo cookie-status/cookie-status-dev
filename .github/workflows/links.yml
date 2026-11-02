@@ -20,13 +20,25 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --max-retries 2 --accept 200,206,429 'content/**/*.md' 'data/**/*.yaml'
+          # External links only: deploy.yml checks internal links against the built site.
+          args: --no-progress --max-retries 2 --accept 200,206,429 --root-dir "${{ github.workspace }}" --scheme http --scheme https 'content/**/*.md' 'data/**/*.yaml'
           fail: false
 
-      - name: Open issue
+      # Reuse an open issue, so a broken link doesn't open a new issue every week.
+      - name: Find open issue
+        if: steps.lychee.outputs.exit_code != 0
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          number=$(gh issue list --state open --label content --search 'in:title "Broken links found"' --json number --jq '.[0].number // empty')
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update issue
         if: steps.lychee.outputs.exit_code != 0
         uses: peter-evans/create-issue-from-file@v5
         with:
+          issue-number: ${{ steps.existing.outputs.number }}
           title: Broken links found
           content-filepath: ./lychee/out.md
           labels: content
