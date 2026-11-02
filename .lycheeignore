@@ -1,0 +1,6 @@
+# Placeholder URLs used as examples in data/glossary.yaml
+^https?://([a-z0-9-]+\.)*domain\.com([/?#:]|$)
+^https?://([a-z0-9-]+\.)*domaincdn\.com([/?#:]|$)
+
+# Medium returns 403 to automated requests
+^https://medium\.com/nextdns/cname-cloaking-the-dangerous-disguise-of-third-party-trackers-195205dc522a
