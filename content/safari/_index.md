@@ -155,11 +155,11 @@ Web apps that the user has added to the **Home Screen** keep their own count of 
 
 ## CNAME cloaking
 
-If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
+If a subdomain has a CNAME alias to a cross-site origin, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration. The CNAME check doesn't apply when the subdomain's CNAME is the same as the CNAME of the site's own hostname ([source](https://webkit.org/tracking-prevention/)).
 
 Since [Safari 27.2](https://webkit.org/blog/18515/webkit-features-for-safari-27-2/), this cap no longer applies to cookies set by the response to a **top-level navigation**, the page the user is opening. Before 27.2, a site whose own hostname is a CNAME to another domain, as is common with hosting providers and CDNs, could have its cookies capped at 7 days by mistake.
 
-If a subdomain is set with A/AAAA records that resolve to an IP address where the **first half** of the address does **not** match the first half of the IP address for the website the user is currently browsing, then any cookies set with `Set-Cookie` HTTP response headers will be restricted to a maximum 7 day expiration.
+The same 7-day cap applies when a subdomain's A/AAAA records resolve to an IP address that WebKit considers a **different party** from the site's own IP address. That is the case if one address is IPv4 and the other IPv6, or if they share fewer than 16 leading bits (IPv4) or 64 leading bits (IPv6) ([source](https://webkit.org/blog/15697/private-browsing-2-0/)).
 
 {{% notice note %}}
 **Example:** A site on `https://domain.example` uses the subdomain `https://tracker.domain.example` to set cookies in order to avoid WebKit's restrictions on [script-writable first-party storage](#first-party-cookies). However, `https://tracker.domain.example/` has a CNAME alias to `https://domain.cloud.endpoint`, where the web server handling this logic resides. On desktop Safari (on Big Sur) and all major iOS and iPadOS browsers, any cookies set with HTTP responses from `https://tracker.domain.example` will now be restricted to an expiration of maximum 7 days.
