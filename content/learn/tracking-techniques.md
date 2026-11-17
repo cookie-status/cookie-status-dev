@@ -75,8 +75,8 @@ The same setup is used for legitimate reasons, such as running your own [server-
 
 **How browsers respond:**
 
-* **Brave** looks up the CNAME record of each request and blocks it if it points to a known tracker.
-* **Safari** limits cookies set by such subdomains to 7 days, both for CNAME records pointing to another site and for subdomains on an IP address that doesn't match the site's.
+* **Brave** looks up the CNAME record of cross-site requests and blocks them if it points to a known tracker. In the default Standard mode, it doesn't do this for requests to the site's own subdomains, such as `metrics.shop.example`.
+* **Safari** limits cookies set by such subdomains to 7 days, both for CNAME records pointing to another site and for subdomains on an IP address that WebKit treats as a different party.
 
 See [CNAME cloaking](/features/cname-cloaking/).
 

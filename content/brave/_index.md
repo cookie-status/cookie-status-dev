@@ -35,7 +35,7 @@ These are the main lists. Brave's [list catalog](https://github.com/brave/adbloc
 
 Brave matches each outgoing request from the web browser against these lists (using various methods for achieving [optimized performance](https://brave.com/improved-ad-blocker-performance/)), and if a match is made, the request is **blocked**.
 
-**Note!** If the resource that should be blocked is **same-site** to the site the user is browsing, the request will **not** be blocked. Thus if the user is browsing `www.domain.com` and the browser sends a request to `blocked-tracker.domain.com` (which **is** in Brave's filter lists), the request will not be blocked.
+**Note!** In the default **Standard** mode, if the resource that should be blocked is **same-site** to the site the user is browsing, the request is generally **not** blocked. Thus if the user is browsing `www.domain.com` and the browser sends a request to `blocked-tracker.domain.com` (which **is** in Brave's filter lists), the request will not be blocked.
 
 {{% notice note %}}
 
@@ -51,7 +51,7 @@ By blocking requests upstream, it means that if the request initiated a resource
 
 With Shields at their default **Standard** level, Brave **blocks** third-party requests that match its [filter lists](#classification-of-known-trackers). This covers ads, trackers and cryptominers, and also known fingerprinting services: Brave says it blocks requests to fingerprint.com's domains and other known fingerprinting services.
 
-Requests that are **same-site** with the page the user is browsing are not blocked (see the note [above](#classification-of-known-trackers)).
+Requests that are **same-site** with the page the user is browsing are generally not blocked (see the note [above](#classification-of-known-trackers)).
 
 Some scripts are not blocked outright but **replaced** with a stripped-down version that keeps the page working, for example so that a site calling a missing analytics function doesn't break.
 
@@ -109,13 +109,23 @@ Note that since Brave *blocks* resources found in their [classification lists](#
 
 ## CNAME cloaking
 
-Brave Shields blocks network requests to domains in Brave's blocklists. With version 1.17.73, Brave now also resolves the DNS of any given domain and identifies if there are [**CNAME records**](https://medium.com/nextdns/cname-cloaking-the-dangerous-disguise-of-third-party-trackers-195205dc522a) pointing to domains that are in the [blocklists](/brave/#classification-of-known-trackers), and blocks these as a result, too.
+Brave Shields blocks network requests to domains in Brave's blocklists. With version 1.17.73, Brave also resolves the [**CNAME record**](https://medium.com/nextdns/cname-cloaking-the-dangerous-disguise-of-third-party-trackers-195205dc522a) of a request and checks its target against the [filter lists](#classification-of-known-trackers).
+
+Since [Brave 1.30](https://github.com/brave/brave-browser/releases/tag/v1.30.86) (September 2021), the default **Standard** mode only does this for **cross-site** requests. A request to the same site as the page or frame that sends it is not uncloaked, so a first-party subdomain that is a CNAME to a tracker isn't blocked for that reason. Aggressive mode uncloaks these requests too ([Brave test page](https://test-cname.brave.dev/cname-uncloaking.html)).
 
 {{% notice note %}}
 
-**Example**: The web page sends a pixel request to `https://measure.example`. This domain is **not** in Brave's blocklist, so Brave would normally allow the network request to complete. However, `measure.example` is a CNAME record which actually points to `track.everything`, which **is** in Brave's blocklist. As the domain the CNAME points to is in Brave's blocklist, Brave blocks the initial request to `https://measure.example` as a consequence.
+**Example**: A page on another site sends a cross-site pixel request to `https://measure.example`. This domain is **not** in Brave's blocklist, so Brave would normally allow the request. However, `measure.example` is a CNAME alias of `track.everything`, which **is** in Brave's blocklist. Brave resolves the CNAME and blocks the request to `https://measure.example`.
 
 {{% /notice %}}
+
+{{% notice note %}}
+
+**Example**: A page on `www.shop.example` loads `https://metrics.shop.example/…`, where `metrics.shop.example` is a CNAME alias of the blocklisted `track.everything`. This is a same-site request, so in Standard mode Brave doesn't check the CNAME, and doesn't block the request for that reason. Other filter rules, such as URL patterns, can still block it.
+
+{{% /notice %}}
+
+{{< sources "cname-cloaking" >}}
 
 ## Fingerprinting
 

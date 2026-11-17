@@ -6,6 +6,15 @@
 #   state:     optional: trial, announced or reverted (omit for shipped changes)
 #   source:    {title, url}
 
+- date: 2021-09-28
+  browsers: [brave]
+  title: Brave 1.30 stops uncloaking first-party requests in Standard mode
+  summary: Standard mode generally allows first-party requests and no longer checks their CNAMEs against filter lists. Aggressive mode still uncloaks them.
+  rows: [cname-cloaking]
+  source:
+    title: Brave 1.30.86 release notes
+    url: https://github.com/brave/brave-browser/releases/tag/v1.30.86
+
 - date: 2026-10-26
   browsers: [safari]
   title: Safari 27.2 stops capping cookies on CNAME-hosted sites

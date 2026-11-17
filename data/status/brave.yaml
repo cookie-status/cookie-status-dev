@@ -69,9 +69,25 @@ other-first-party-storage:
     - text: "No restrictions."
 
 cname-cloaking:
-  status: blocked
+  status: limited
+  checked: 2026-11-16
+  sources:
+    - title: CNAME uncloaking test page (Brave QA)
+      url: https://test-cname.brave.dev/cname-uncloaking.html
+    - title: Brave 1.30.86 release notes
+      url: https://github.com/brave/brave-browser/releases/tag/v1.30.86
+    - title: brave-core PR 9784
+      url: https://github.com/brave/brave-core/pull/9784
+    - title: Blocking goals and policy (Brave wiki)
+      url: https://github.com/brave/brave-browser/wiki/Blocking-goals-and-policy
+    - title: Cookie Status test, Brave 1.99.56 on macOS 26.6.2 (2026-11-16)
   claims:
-    - text: "Brave blocks any network requests where either the requested URL or that URL's CNAME record matches any rules in Brave's blocklists."
+    - text: "Brave resolves the CNAME of cross-site requests and checks the CNAME target against its filter lists."
+      new: true
+    - text: "In Standard mode, same-site requests are not uncloaked, so a first-party subdomain that is a CNAME to a blocklisted domain isn't blocked for that reason."
+      new: true
+    - text: "Other filter rules, such as URL patterns, can still block same-site requests."
+      new: true
 
 fingerprinting:
   checked: 2026-10-31

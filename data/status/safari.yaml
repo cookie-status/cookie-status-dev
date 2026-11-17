@@ -78,14 +78,21 @@ other-first-party-storage:
 
 cname-cloaking:
   status: limited
-  checked: 2026-10-31
+  checked: 2026-11-16
   sources:
     - title: Tracking Prevention in WebKit
       url: https://webkit.org/tracking-prevention/
     - title: WebKit Features for Safari 27.2
       url: https://webkit.org/blog/18515/webkit-features-for-safari-27-2/
+    - title: Private Browsing 2.0 (WebKit blog)
+      url: https://webkit.org/blog/15697/private-browsing-2-0/
   claims:
-    - text: "Expiration of cookies set with `Set-Cookie` HTTP response headers is 7 days at most, if the response originates from a subdomain that has a CNAME alias to a cross-site origin, or if the subdomain is configured with A/AAAA records where the first half of the IP address does not match the first half of the IP address of the website the user is currently browsing."
+    - text: "Expiration of cookies set with `Set-Cookie` HTTP response headers is 7 days at most if the response comes from a subdomain detected as using third-party CNAME or IP address cloaking."
+      new: true
+    - text: "The CNAME check doesn't apply when the subdomain's CNAME is the same as the CNAME of the site's own hostname."
+      new: true
+    - text: "WebKit's IP address heuristic treats two addresses as different parties if one is IPv4 and the other IPv6, or if they share fewer than 16 leading bits (IPv4) or 64 (IPv6)."
+      new: true
     - text: "Cookies set by the response to a top-level navigation are not capped, even if the site's own hostname is a CNAME to another domain, such as a hosting provider."
       appliesTo: Safari 27.2+
       new: true
